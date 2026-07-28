@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 - OpenCode clarification and test triage
+
+- Added `/grill-me` as an OpenCode-native Markdown Custom Command.
+- Added `test-failure-triage` for Python, UART／TTY, PCAP, DUT, environment, and timing failure analysis.
+- Refocused `swqa-automation` on Python, raw Console evidence, packet capture, and traceable Verdicts without making Web UI the default.
+- Adapted selected concepts from `mattpocock/skills` and `obra/superpowers` without installing their upstream Skills or plugins.
+- Explicitly excluded OpenSpec-tw, SpecTest, and the full Superpowers methodology from repository dependencies.
+
 ## 0.1.1 - OpenCode lean review baseline
 
 - Added `lean-code-review` as an OpenCode-native, on-demand Skill.
