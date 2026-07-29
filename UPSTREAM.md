@@ -31,18 +31,46 @@ The always-on principles are kept in the Essential Core `AGENTS.md` template rat
 
 The Ponytail npm/OpenCode plugin, lifecycle hooks, `lite/full/ultra` modes, state files, benchmark suite, and cross-agent adapters are intentionally not imported.
 
+### `mattpocock/skills`
+
+- License: MIT
+- Concepts adapted into the OpenCode-native `/grill-me` command:
+  - investigate repository facts before asking the user;
+  - ask one decision question at a time;
+  - provide a recommended answer with each question;
+  - do not begin implementation until shared understanding is confirmed.
+
+The upstream `grill-me`, `grilling`, `grill-with-docs`, domain-modeling Skills, `CONTEXT.md`, and ADR workflow are not installed or copied. The command is independently rewritten for OpenCode and small SWQA projects.
+
+### `obra/superpowers`
+
+- License: MIT
+- Concepts selectively adapted into `test-failure-triage`:
+  - investigate Root Cause before proposing a fix;
+  - reproduce consistently and gather evidence across component boundaries;
+  - test one explicit hypothesis with the smallest useful experiment;
+  - fix the source and verify with fresh evidence.
+
+The Superpowers plugin, bootstrap context injection, mandatory skill invocation, worktrees, subagent workflows, automatic task framework, and mandatory TDD process are intentionally not imported.
+
 ## Initial selection
 
 Concepts retained or rewritten:
 
 - file toolkit;
 - Git hosting workflow;
-- reusable workflow skills;
+- reusable OpenCode Skills;
+- OpenCode Markdown Custom Commands;
 - browser automation as an optional capability;
-- OpenCode-native lean code review.
+- Python／UART／PCAP-oriented SWQA workflow;
+- test failure triage;
+- lean code review.
 
-Concepts intentionally not imported in the initial baseline:
+Concepts intentionally not imported in the baseline:
 
+- OpenSpec-tw or another specification CLI;
+- SpecTest and Playwright-centered test-spec workflows;
+- Superpowers plugin and full development methodology;
 - OpenCode Zen-specific model setup;
 - unofficial NotebookLM browser automation;
 - Google Apps Script;
@@ -52,4 +80,4 @@ Concepts intentionally not imported in the initial baseline:
 - Firebase;
 - non-OpenCode plugin and hook frameworks.
 
-These may be reconsidered later as separate packs when a concrete OpenCode project needs them.
+Users may install external tools separately after deploying Essential Core and selected Extension Packs. They are not dependencies of this repository.
