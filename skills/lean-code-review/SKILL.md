@@ -12,6 +12,8 @@ license: MIT
 
 這不是一般 Correctness Review，也不取代既有測試、Security Review 或 SWQA Test Plan。
 
+若目前尚未確認實際測試失敗的 Root Cause，不在本 Skill 中根據 Diff 推測原因；改使用 `test-failure-triage`。本 Skill 只審查已存在的程式碼變更是否不必要地複雜。
+
 ## 預設範圍
 
 1. 確認目前位於 Git Repository。
@@ -43,7 +45,7 @@ license: MIT
 - `dependency`：新增套件不必要，現有能力已足夠。
 - `yagni`：為尚未存在的需求加入抽象、彈性或設定。
 - `shrink`：相同邏輯可用更直接、較少的程式碼表達。
-- `root-cause`：應修正共用根因，而不是只補單一 Caller。
+- `root-cause`：在 Root Cause 已由證據確認後，指出目前 Diff 只修 Caller 症狀而未修共用來源。
 
 ## 輸出格式
 
