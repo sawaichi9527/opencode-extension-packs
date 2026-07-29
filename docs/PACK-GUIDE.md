@@ -32,5 +32,7 @@ commands/<command-name>.md
 2. frontmatter 至少包含清楚的 `description`。
 3. Command 應使用 OpenCode 原生 Markdown 格式，不依賴其他 Agent 的 Plugin 或 Hook。
 4. 使用 `$ARGUMENTS` 接收使用者輸入時，必須說明沒有參數時的行為。
-5. 互動式 Command 不應在未確認前自行修改程式碼或執行高風險操作。
-6. README 必須分別說明全域 `~/.config/opencode/commands/` 與專案 `.opencode/commands/` 的安裝位置。
+5. 只做分析、訪談或規劃的 Command 應指定 `agent: plan`；需要寫入時才使用具備修改權限的 Agent。
+6. 互動式 Command 不應在未確認前自行修改程式碼或執行高風險操作。
+7. 若本 Session 已讀取且來源未變更，應沿用現有結果，避免重複載入相同文件與 Git 狀態。
+8. README 必須分別說明全域 `~/.config/opencode/commands/` 與專案 `.opencode/commands/` 的安裝位置。
