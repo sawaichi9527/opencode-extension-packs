@@ -14,7 +14,7 @@
 | Skill | 用途 | 狀態 |
 |---|---|---|
 | `swqa-automation` | Python、UART／TTY、PCAP、API、CLI、Device 等 SWQA 自動化結構與規則 | Draft |
-| `test-failure-triage` | 分層分析 Python、UART、封包、DUT、環境與 Timing 造成的測試失敗 | Draft |
+| `test-failure-triage` | 分層分析 Python、UART、封包、環境、Timing 與 DUT 造成的測試失敗 | Draft |
 | `forgejo-integration` | 本地 Git + Forgejo + 可選 Forgejo MCP | Draft |
 | `github-integration` | 本地 Git + GitHub CLI/API 基本協作 | Draft |
 | `file-toolkit` | 文件、影音與 Python 工具能力檢查 | Draft |
@@ -25,7 +25,7 @@
 
 | Command | 用途 |
 |---|---|
-| `/grill-me` | 一次一題釐清需求、術語、範圍、Acceptance Criteria 與驗證證據，確認共同理解前不實作 |
+| `/grill-me` | 使用 Plan Agent 一次一題釐清需求、術語、範圍、Acceptance Criteria 與驗證證據，確認共同理解前不實作 |
 
 本版刻意不包含 OpenSpec-tw、SpecTest、Superpowers Plugin、NotebookLM、Google Apps Script、Supabase、Groq、Netlify 等工具。使用者部署 Core 與 Extension 後，可依個別專案需求自行安裝其他外部工具。
 
@@ -91,7 +91,7 @@ cp ./commands/grill-me.md ~/.config/opencode/commands/grill-me.md
 /grill-me <想釐清的功能或計畫>
 ```
 
-`/grill-me` 只做訪談與共同理解摘要，不會自行建立程式碼、`CONTEXT.md`、ADR 或其他規格框架。
+`/grill-me` 固定使用 OpenCode Plan Agent，只做訪談與共同理解摘要，不會自行建立程式碼、`CONTEXT.md`、ADR 或其他規格框架。若本 Session 已讀取且檔案未變更，會沿用既有專案資訊，避免重複載入相同 Context。
 
 ## `test-failure-triage` 的定位
 
@@ -102,11 +102,13 @@ Requirement / Expected Result
 → Python Harness / Fixture
 → UART Transport / Parser
 → Packet Capture / Protocol
-→ DUT / Firmware
 → Environment / Timing
+→ DUT / Firmware
 ```
 
-它要求保留完整 Traceback、原始 UART TX／RX、PCAP／PCAPNG、關鍵 Frame 與測試報告，再以單一假設和最小實驗確認 Root Cause。預設先調查與報告，不直接修改測試期待值或增加 Retry／Timeout 來隱藏失敗。
+它要求保存完整 Traceback、原始 UART TX／RX、PCAP／PCAPNG、關鍵 Frame 與測試報告，再以單一假設和最小實驗確認 Root Cause。完整原始檔保存為 Artifact，分析時優先讀取相關時間範圍、Filter、Frame 與錯誤區段，不把大型 Log 或整份 PCAP 全部塞入對話。
+
+預設先調查與報告，不直接修改測試期待值，也不以增加 Retry／Timeout、Skip 或刪除 Assertion 隱藏失敗。只有其他可控制層級已有合理證據時，才把問題歸類為 DUT／Firmware。
 
 ## `lean-code-review` 的定位
 
@@ -118,7 +120,7 @@ Review current diff for unnecessary complexity
 哪些新增程式碼可以刪除或改用既有功能
 ```
 
-預設只讀取目前 Git diff、提出建議，不直接套用修改，也不取代 Correctness、Security 或 SWQA 測試驗證。
+預設只讀取目前 Git diff、提出建議，不直接套用修改，也不取代 Correctness、Security 或 SWQA 測試驗證。若實際測試失敗的 Root Cause 尚未確認，先使用 `test-failure-triage`，不從 Diff 猜測原因。
 
 ## 與 Essential Core 的關係
 
