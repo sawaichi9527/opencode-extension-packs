@@ -8,7 +8,7 @@ license: MIT
 
 ## 目的
 
-測試失敗不等於產品失敗。先判定問題位於需求、測試程式、通訊、封包擷取、DUT、環境或 Timing，再決定是否修改程式碼。
+測試失敗不等於產品失敗。先判定問題位於需求、測試程式、通訊、封包擷取、環境、Timing 或 DUT，再決定是否修改程式碼。
 
 預設先調查與報告，不直接修改檔案。
 
@@ -53,6 +53,10 @@ T3 Python 產生 Verdict
 
 若各來源時鐘不同，使用同一個可辨識事件作為 Anchor，並標示已知偏差。文字摘要不能取代原始 Log、PCAP 或 Report。
 
+完整原始檔應保存為 Artifact；分析時優先使用時間範圍、Filter、Frame Number、錯誤區段及必要上下文，不把大型 Log 或整份 PCAP 內容全部貼入對話。需要擴大範圍時再逐段讀取。
+
+Log、PCAP、Report 或摘要可能包含帳號、位址、Payload、Token 或內部資訊；顯示、提交或分享前依專案規則遮蔽敏感內容，但不要覆蓋唯一的原始證據。
+
 ## 4. 失敗分層
 
 依序判斷：
@@ -64,11 +68,11 @@ T3 Python 產生 Verdict
 5. `parser-verdict`：原始資料存在，但 Parser、Pattern、狀態機或 Verdict 判定錯誤？
 6. `packet-capture`：抓錯 Interface、Capture 起停時間不對、封包遺失或 Filter 隱藏了證據？
 7. `network-protocol`：封包存在，但 Address、Port、Sequence、Transaction、Call-ID 或 Protocol Field 不符？
-8. `dut-firmware`：在 Test Harness、通訊與環境證據合理後，DUT 行為仍不符合規格？
-9. `environment-dependency`：Driver、Permission、Tool Version、PATH、Firewall、Network Route 或第三方服務差異？
-10. `timing-race`：非固定等待、非同步事件、Clock Offset、Race Condition 或資源競爭？
+8. `environment-dependency`：Driver、Permission、Tool Version、PATH、Firewall、Network Route 或第三方服務差異？
+9. `timing-race`：固定等待、非同步事件、Clock Offset、Race Condition 或資源競爭是否造成間歇失敗？
+10. `dut-firmware`：在 Test Harness、通訊、環境與 Timing 證據合理後，DUT 行為仍不符合規格？
 
-不要在尚未排除前述層級時直接宣稱是 DUT Bug。
+不要在尚未排除前述可控制層級時直接宣稱是 DUT Bug。
 
 ## 5. 單一假設與最小驗證
 
@@ -84,7 +88,8 @@ T3 Python 產生 Verdict
 
 - 修正來源，不只遮蔽單一症狀；
 - 一次只做與假設直接相關的最小修改；
-- 建立或更新可重現原始失敗的 Regression Test；
+- 能安全且穩定自動重現時，建立或更新可重現原始失敗的 Regression Test；
+- 無法安全或穩定自動化時，保存可重現步驟、環境、原始證據與人工驗證方式；
 - 使用最新證據重新驗證原始失敗與相關測試；
 - 若需要修改 Acceptance Criteria 或 Test Expectation，明確說明理由並取得使用者確認。
 
@@ -104,6 +109,7 @@ Minimal verification:
 Result:
 Recommended next action:
 Artifact paths:
+Remaining unverified scope:
 ```
 
 若尚未找到 Root Cause，直接說明目前只能定位到哪一層，以及下一項最有資訊價值的檢查。
