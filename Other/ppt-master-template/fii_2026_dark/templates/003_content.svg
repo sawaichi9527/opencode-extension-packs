@@ -1,0 +1,251 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1280" height="720" viewBox="0 0 1280 720" data-pptx-master="master_01" data-pptx-master-name="slideMaster1" data-pptx-layout="layout_02" data-pptx-layout-name="标题和内容" data-pptx-show-master-shapes="true" data-pptx-show-inherited-shapes="true"><defs><marker id="s-003-marrow1" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="2.5" markerHeight="2.5" orient="auto" markerUnits="strokeWidth"><path d="M 0 0 L 10 5 L 0 10 z" fill="#808080" /></marker><marker id="s-003-marrow2" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="2.5" markerHeight="2.5" orient="auto" markerUnits="strokeWidth"><path d="M 0 0 L 10 5 L 0 10 z" fill="#808080" /></marker></defs><image href="../images/image1.jpg" x="0" y="0" width="1280" height="720" preserveAspectRatio="none" id="master-master_01-1-1" data-pptx-layer="master" data-pptx-editable="false" />
+<image href="../images/image1.jpg" x="0" y="0" width="1280" height="720" preserveAspectRatio="none" id="layout-layout_02-1-1" data-pptx-layer="layout" data-pptx-editable="false" />
+<text x="1183.13" y="709.47" text-anchor="start" xml:space="preserve" font-family="&quot;黑体&quot;, sans-serif" font-size="16" fill="#FFFFFF" id="layout-layout_02-5-1" data-pptx-layer="layout" data-pptx-editable="false" data-pptx-native-ref="r34"><tspan fill="#FFFFFF" font-family="&quot;黑体&quot;, sans-serif" font-size="16">‹#›</tspan><tspan fill="#FFFFFF" font-family="&quot;黑体&quot;, sans-serif" font-size="16">/N</tspan></text>
+<image href="../images/image1.jpg" x="0" y="0" width="1280" height="720" preserveAspectRatio="none" id="slide-3-node-2" />
+<g id="s-003-shape-31" data-name="標題 1" data-pptx-native-ref="r6" data-pptx-bounds="101.82 32.59 168.21 84.42">
+<path d="M 101.82 32.59 L 270.03 32.59 L 270.03 117.01 L 101.82 117.01 Z" stroke="none" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r5" />
+<g data-pptx-native-ref="r114">
+<path d="M 101.82 32.59 L 270.03 32.59 L 270.03 117.01 L 101.82 117.01 Z" stroke="none" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r119" />
+<text x="106.74" y="94" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Heavy&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="48" fill="#D10034" font-weight="bold"><tspan fill="#D10034" font-family="&quot;思源黑体 CN Heavy&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="48" font-weight="bold">说明页</tspan></text>
+</g>
+<g id="s-003-shape-32" data-name="標題 1" data-pptx-native-ref="r1" data-pptx-bounds="101.82 136.46 768.66 84.42">
+<path d="M 101.82 136.46 L 870.48 136.46 L 870.48 220.88 L 101.82 220.88 Z" stroke="none" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r0" />
+<g data-pptx-native-ref="r114">
+<path d="M 101.82 136.46 L 870.48 136.46 L 870.48 220.88 L 101.82 220.88 Z" stroke="none" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r121" />
+<text x="106.74" y="222.86" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Heavy&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="96" fill="#FFFFFF" font-weight="bold"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="96" font-weight="bold">封面标题</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="96" font-weight="bold">-</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="96" font-weight="bold">字号</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="96" font-weight="bold">72</tspan></text>
+</g>
+<g id="s-003-shape-33" data-name="標題 1" data-pptx-native-ref="r61" data-pptx-bounds="270.86 32.59 427.08 84.42">
+<path d="M 270.86 32.59 L 697.94 32.59 L 697.94 117.01 L 270.86 117.01 Z" stroke="none" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r60" />
+<g data-pptx-native-ref="r114">
+<path d="M 270.86 32.59 L 697.94 32.59 L 697.94 117.01 L 270.86 117.01 Z" stroke="none" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r130" />
+<text x="275.77" y="94" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Heavy&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="48" fill="#FFFFFF" font-weight="bold"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="48" font-weight="bold">主标题</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="48" font-weight="bold">-</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="48" font-weight="bold">字号</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="48" font-weight="bold">30-36</tspan></text>
+</g>
+<g id="s-003-shape-34" data-name="组合 33" data-pptx-native-ref="r15" data-pptx-bounds="1092.18 275.14 151.8 357.51">
+<g id="s-003-shape-41" data-name="矩形 40" data-pptx-native-ref="r19" data-pptx-bounds="1101.53 325.65 133.09 307">
+<path d="M 1101.53 325.65 L 1234.63 325.65 L 1234.63 632.65 L 1101.53 632.65 Z" fill="#FFFFFF" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r18" />
+<g data-pptx-native-ref="r114">
+<path d="M 1101.53 325.65 L 1234.63 325.65 L 1234.63 632.65 L 1101.53 632.65 Z" fill="#FFFFFF" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r116" />
+</g>
+<g id="s-003-shape-42" data-name="文本框 41" data-pptx-native-ref="r33" data-pptx-bounds="1166.72 555.64 63.05 67.86">
+<path d="M 1166.72 555.64 L 1229.76 555.64 L 1229.76 623.5 L 1166.72 623.5 Z" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r32" />
+<g data-pptx-native-ref="r114">
+<path d="M 1166.72 555.64 L 1229.76 555.64 L 1229.76 623.5 L 1166.72 623.5 Z" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r125" />
+<text x="1176.32" y="574.04" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, Arial, sans-serif" font-size="16" fill="#000000"><tspan fill="#000000" font-family="&quot;思源黑体 CN Normal&quot;, Arial, sans-serif" font-size="16">R:209  </tspan></text>
+<text x="1176.32" y="593.24" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, Arial, sans-serif" font-size="16" fill="#000000"><tspan fill="#000000" font-family="&quot;思源黑体 CN Normal&quot;, Arial, sans-serif" font-size="16">G:0  </tspan></text>
+<text x="1176.32" y="612.44" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, Arial, sans-serif" font-size="16" fill="#000000"><tspan fill="#000000" font-family="&quot;思源黑体 CN Normal&quot;, Arial, sans-serif" font-size="16">B:52</tspan></text>
+</g>
+<g id="s-003-shape-43" data-name="组合 42" transform="rotate(90 1169.71 450.93)" data-pptx-native-ref="r10" data-pptx-bounds="1064.82 403.71 209.76 94.44">
+<g id="s-003-shape-46" data-name="矩形 45" data-pptx-native-ref="r12" data-pptx-bounds="1064.82 403.71 43.43 42.68">
+<path d="M 1064.82 403.71 L 1108.25 403.71 L 1108.25 446.39 L 1064.82 446.39 Z" fill="#D10034" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r11" />
+<g data-pptx-native-ref="r114">
+<path d="M 1064.82 403.71 L 1108.25 403.71 L 1108.25 446.39 L 1064.82 446.39 Z" fill="#D10034" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r115" />
+</g>
+<g id="s-003-shape-47" data-name="矩形 46" data-pptx-native-ref="r21" data-pptx-bounds="1108.25 403.71 33.33 42.68">
+<path d="M 1108.25 403.71 L 1141.58 403.71 L 1141.58 446.39 L 1108.25 446.39 Z" fill="#D10034" fill-opacity="0.8" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r20" />
+<g data-pptx-native-ref="r114">
+<path d="M 1108.25 403.71 L 1141.58 403.71 L 1141.58 446.39 L 1108.25 446.39 Z" fill="#D10034" fill-opacity="0.8" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r115" />
+</g>
+<g id="s-003-shape-48" data-name="矩形 47" data-pptx-native-ref="r29" data-pptx-bounds="1141.58 403.71 33.33 42.68">
+<path d="M 1141.58 403.71 L 1174.92 403.71 L 1174.92 446.39 L 1141.58 446.39 Z" fill="#D10034" fill-opacity="0.6" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r28" />
+<g data-pptx-native-ref="r114">
+<path d="M 1141.58 403.71 L 1174.92 403.71 L 1174.92 446.39 L 1141.58 446.39 Z" fill="#D10034" fill-opacity="0.6" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r115" />
+</g>
+<g id="s-003-shape-70" data-name="矩形 69" data-pptx-native-ref="r36" data-pptx-bounds="1174.92 403.71 33.33 42.68">
+<path d="M 1174.92 403.71 L 1208.25 403.71 L 1208.25 446.39 L 1174.92 446.39 Z" fill="#D10034" fill-opacity="0.4" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r35" />
+<g data-pptx-native-ref="r114">
+<path d="M 1174.92 403.71 L 1208.25 403.71 L 1208.25 446.39 L 1174.92 446.39 Z" fill="#D10034" fill-opacity="0.4" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r115" />
+</g>
+<g id="s-003-shape-71" data-name="矩形 70" data-pptx-native-ref="r40" data-pptx-bounds="1208.09 403.71 33.33 42.68">
+<path d="M 1208.09 403.71 L 1241.42 403.71 L 1241.42 446.39 L 1208.09 446.39 Z" fill="#D10034" fill-opacity="0.2" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r39" />
+<g data-pptx-native-ref="r114">
+<path d="M 1208.09 403.71 L 1241.42 403.71 L 1241.42 446.39 L 1208.09 446.39 Z" fill="#D10034" fill-opacity="0.2" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r115" />
+</g>
+<g id="s-003-shape-72" data-name="矩形 71" data-pptx-native-ref="r44" data-pptx-bounds="1241.25 403.71 33.33 42.68">
+<path d="M 1241.25 403.71 L 1274.59 403.71 L 1274.59 446.39 L 1241.25 446.39 Z" fill="#D10034" fill-opacity="0.1" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r43" />
+<g data-pptx-native-ref="r114">
+<path d="M 1241.25 403.71 L 1274.59 403.71 L 1274.59 446.39 L 1241.25 446.39 Z" fill="#D10034" fill-opacity="0.1" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r115" />
+</g>
+<g id="s-003-shape-73" data-name="矩形 72" data-pptx-native-ref="r14" data-pptx-bounds="1064.82 455.47 43.43 42.68">
+<path d="M 1064.82 455.47 L 1108.25 455.47 L 1108.25 498.15 L 1064.82 498.15 Z" fill="#002F75" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r13" />
+<g data-pptx-native-ref="r114">
+<path d="M 1064.82 455.47 L 1108.25 455.47 L 1108.25 498.15 L 1064.82 498.15 Z" fill="#002F75" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r115" />
+</g>
+<g id="s-003-shape-74" data-name="矩形 73" data-pptx-native-ref="r23" data-pptx-bounds="1108.25 455.47 33.33 42.68">
+<path d="M 1108.25 455.47 L 1141.58 455.47 L 1141.58 498.15 L 1108.25 498.15 Z" fill="#002F75" fill-opacity="0.8" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r22" />
+<g data-pptx-native-ref="r114">
+<path d="M 1108.25 455.47 L 1141.58 455.47 L 1141.58 498.15 L 1108.25 498.15 Z" fill="#002F75" fill-opacity="0.8" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r115" />
+</g>
+<g id="s-003-shape-75" data-name="矩形 74" data-pptx-native-ref="r31" data-pptx-bounds="1141.58 455.47 33.33 42.68">
+<path d="M 1141.58 455.47 L 1174.92 455.47 L 1174.92 498.15 L 1141.58 498.15 Z" fill="#002F75" fill-opacity="0.6" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r30" />
+<g data-pptx-native-ref="r114">
+<path d="M 1141.58 455.47 L 1174.92 455.47 L 1174.92 498.15 L 1141.58 498.15 Z" fill="#002F75" fill-opacity="0.6" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r115" />
+</g>
+<g id="s-003-shape-76" data-name="矩形 75" data-pptx-native-ref="r38" data-pptx-bounds="1174.92 455.47 33.33 42.68">
+<path d="M 1174.92 455.47 L 1208.25 455.47 L 1208.25 498.15 L 1174.92 498.15 Z" fill="#002F75" fill-opacity="0.4" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r37" />
+<g data-pptx-native-ref="r114">
+<path d="M 1174.92 455.47 L 1208.25 455.47 L 1208.25 498.15 L 1174.92 498.15 Z" fill="#002F75" fill-opacity="0.4" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r115" />
+</g>
+<g id="s-003-shape-77" data-name="矩形 76" data-pptx-native-ref="r42" data-pptx-bounds="1208.09 455.47 33.33 42.68">
+<path d="M 1208.09 455.47 L 1241.42 455.47 L 1241.42 498.15 L 1208.09 498.15 Z" fill="#002F75" fill-opacity="0.2" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r41" />
+<g data-pptx-native-ref="r114">
+<path d="M 1208.09 455.47 L 1241.42 455.47 L 1241.42 498.15 L 1208.09 498.15 Z" fill="#002F75" fill-opacity="0.2" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r115" />
+</g>
+<g id="s-003-shape-78" data-name="矩形 77" data-pptx-native-ref="r46" data-pptx-bounds="1241.25 455.47 33.33 42.68">
+<path d="M 1241.25 455.47 L 1274.59 455.47 L 1274.59 498.15 L 1241.25 498.15 Z" fill="#002F75" fill-opacity="0.1" stroke="none" stroke-width="1" visibility="hidden" pointer-events="none" data-pptx-native-ref="r45" />
+<g data-pptx-native-ref="r114">
+<path d="M 1241.25 455.47 L 1274.59 455.47 L 1274.59 498.15 L 1241.25 498.15 Z" fill="#002F75" fill-opacity="0.1" stroke="none" stroke-width="1" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r115" />
+</g>
+</g>
+<g id="s-003-shape-44" data-name="文本框 43" data-pptx-native-ref="r25" data-pptx-bounds="1114.01 555.64 60.79 67.86">
+<path d="M 1114.01 555.64 L 1174.79 555.64 L 1174.79 623.5 L 1114.01 623.5 Z" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r24" />
+<g data-pptx-native-ref="r114">
+<path d="M 1114.01 555.64 L 1174.79 555.64 L 1174.79 623.5 L 1114.01 623.5 Z" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r120" />
+<text x="1123.61" y="574.04" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, Arial, sans-serif" font-size="16" fill="#000000"><tspan fill="#000000" font-family="&quot;思源黑体 CN Normal&quot;, Arial, sans-serif" font-size="16">R:0  </tspan></text>
+<text x="1123.61" y="593.24" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, Arial, sans-serif" font-size="16" fill="#000000"><tspan fill="#000000" font-family="&quot;思源黑体 CN Normal&quot;, Arial, sans-serif" font-size="16">G:47  </tspan></text>
+<text x="1123.61" y="612.44" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, Arial, sans-serif" font-size="16" fill="#000000"><tspan fill="#000000" font-family="&quot;思源黑体 CN Normal&quot;, Arial, sans-serif" font-size="16">B:117</tspan></text>
+</g>
+<g id="s-003-shape-45" data-name="標題 1" data-pptx-native-ref="r17" data-pptx-bounds="1092.18 275.14 151.8 38.99">
+<path d="M 1092.18 275.14 L 1243.98 275.14 L 1243.98 314.13 L 1092.18 314.13 Z" stroke="none" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r16" />
+<g data-pptx-native-ref="r114">
+<path d="M 1092.18 275.14 L 1243.98 275.14 L 1243.98 314.13 L 1092.18 314.13 Z" stroke="none" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r117" />
+<text x="1168.14" y="298.07" text-anchor="middle" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="21.33" fill="#FFFFFF"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="21.33">Fii</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="21.33"> </tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="21.33">企业标准色</tspan></text>
+<text x="1168.14" y="317.27" text-anchor="middle" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="21.33" fill="#FFFFFF"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, &quot;微软雅黑&quot;, sans-serif" font-size="21.33">色卡</tspan></text>
+</g>
+</g>
+<g id="s-003-shape-38" data-name="组合 37" data-pptx-native-ref="r2" data-pptx-bounds="101.82 316.61 406 75.46">
+<g id="s-003-shape-39" data-name="文本框 38" data-pptx-native-ref="r4" data-pptx-bounds="101.82 317.75 406 74.32">
+<path d="M 101.82 317.75 L 507.82 317.75 L 507.82 392.07 L 101.82 392.07 Z" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r3" />
+<g data-pptx-native-ref="r114">
+<path d="M 101.82 317.75 L 507.82 317.75 L 507.82 392.07 L 101.82 392.07 Z" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r140" />
+<text x="111.42" y="349.75" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" fill="#FFFFFF" font-weight="bold"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">副标题</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">-</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">字号</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">18-24</tspan></text>
+<text x="111.42" y="379.08" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33" fill="#FFFFFF"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">正文内容</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">-</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">字号</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">12-18</tspan></text>
+</g>
+<g id="s-003-shape-40" data-name="直接连接符 39" data-pptx-native-ref="r27" data-pptx-bounds="113.14 316.61 179.68 0">
+<path d="M 113.14 316.61 L 292.82 316.61" stroke-width="2" stroke="#D00034" fill="#5B9BD5" visibility="hidden" pointer-events="none" data-pptx-native-ref="r26" />
+<g data-pptx-native-ref="r114">
+<path d="M 113.14 316.61 L 292.82 316.61" stroke-width="2" stroke="#D00034" fill="#5B9BD5" data-pptx-native-ref="r113" />
+</g>
+</g>
+</g>
+<g id="s-003-shape-49" data-name="组合 48" data-pptx-native-ref="r7" data-pptx-bounds="101.82 437.36 536.02 172.14">
+<g id="s-003-shape-50" data-name="文本框 49" data-pptx-native-ref="r63" data-pptx-bounds="297.69 438.5 298.89 74.32">
+<path d="M 297.69 438.5 L 596.58 438.5 L 596.58 512.82 L 297.69 512.82 Z" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r62" />
+<g data-pptx-native-ref="r114">
+<path d="M 297.69 438.5 L 596.58 438.5 L 596.58 512.82 L 297.69 512.82 Z" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r137" />
+<text x="307.29" y="470.5" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" fill="#808080" font-weight="bold"><tspan fill="#808080" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">副标题</tspan><tspan fill="#808080" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">-</tspan><tspan fill="#808080" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">字号</tspan><tspan fill="#808080" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">18-24</tspan></text>
+<text x="307.29" y="499.83" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33" fill="#808080"><tspan fill="#808080" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">正文内容信息</tspan><tspan fill="#808080" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">-</tspan><tspan fill="#808080" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">字号</tspan><tspan fill="#808080" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">12-18</tspan></text>
+</g>
+<g id="s-003-shape-51" data-name="直接连接符 50" data-pptx-native-ref="r71" data-pptx-bounds="309.01 437.36 179.68 0">
+<path d="M 309.01 437.36 L 488.69 437.36" stroke-width="2" stroke="#D00034" fill="#5B9BD5" visibility="hidden" pointer-events="none" data-pptx-native-ref="r70" />
+<g data-pptx-native-ref="r114">
+<path d="M 309.01 437.36 L 488.69 437.36" stroke-width="2" stroke="#D00034" fill="#5B9BD5" data-pptx-native-ref="r113" />
+</g>
+</g>
+<g id="s-003-shape-52" data-name="文本框 51" data-pptx-native-ref="r67" data-pptx-bounds="299.54 535.18 338.3 74.32">
+<path d="M 299.54 535.18 L 637.84 535.18 L 637.84 609.5 L 299.54 609.5 Z" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r66" />
+<g data-pptx-native-ref="r114">
+<path d="M 299.54 535.18 L 637.84 535.18 L 637.84 609.5 L 299.54 609.5 Z" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r138" />
+<text x="309.14" y="567.18" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" fill="#808080" font-weight="bold"><tspan fill="#808080" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">副标题</tspan><tspan fill="#808080" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">-</tspan><tspan fill="#808080" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">字号</tspan><tspan fill="#808080" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">18-24</tspan></text>
+<text x="309.14" y="596.51" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33" fill="#808080"><tspan fill="#808080" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">正文内容信息</tspan><tspan fill="#808080" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">-</tspan><tspan fill="#808080" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">字号</tspan><tspan fill="#808080" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">12-18</tspan></text>
+</g>
+<g id="s-003-shape-53" data-name="直接连接符 52" data-pptx-native-ref="r65" data-pptx-bounds="297.69 545.92 0 61.4">
+<path d="M 297.69 545.92 L 297.69 607.32" stroke-width="2" stroke="#D00034" fill="#5B9BD5" visibility="hidden" pointer-events="none" data-pptx-native-ref="r64" />
+<g data-pptx-native-ref="r114">
+<path d="M 297.69 545.92 L 297.69 607.32" stroke-width="2" stroke="#D00034" fill="#5B9BD5" data-pptx-native-ref="r113" />
+</g>
+</g>
+<g id="s-003-shape-54" data-name="文本框 53" data-pptx-native-ref="r9" data-pptx-bounds="101.82 486.14 115.76 90.47">
+<path d="M 101.82 486.14 L 217.58 486.14 L 217.58 576.62 L 101.82 576.62 Z" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r8" />
+<g data-pptx-native-ref="r114">
+<path d="M 101.82 486.14 L 217.58 486.14 L 217.58 576.62 L 101.82 576.62 Z" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r123" />
+<text x="111.42" y="509.08" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33" fill="#FFFFFF"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">信息强调</tspan></text>
+<text x="111.42" y="534.68" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33" fill="#FFFFFF"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">装饰</tspan></text>
+<text x="111.42" y="560.28" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33" fill="#FFFFFF"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">1.5</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">磅</tspan></text>
+</g>
+<g id="s-003-shape-55" data-name="直接箭头连接符 54" transform="translate(257.12 470.48) scale(1 -1) translate(-257.12 -470.48)" data-pptx-native-ref="r53" data-pptx-bounds="216.54 442.78 81.15 55.41">
+<path d="M 216.54 442.78 L 297.69 498.19" stroke-width="2" stroke="#808080" marker-end="url(#s-003-marrow1)" fill="#5B9BD5" visibility="hidden" pointer-events="none" data-pptx-native-ref="r52" />
+<g data-pptx-native-ref="r114">
+<path d="M 216.54 442.78 L 297.69 498.19" stroke-width="2" stroke="#808080" marker-end="url(#s-003-marrow1)" fill="none" data-pptx-native-ref="r113" />
+</g>
+</g>
+<g id="s-003-shape-56" data-name="直接箭头连接符 55" data-pptx-native-ref="r55" data-pptx-bounds="216.54 543.74 70.18 60.64">
+<path d="M 216.54 543.74 L 286.72 604.38" stroke-width="2" stroke="#808080" marker-end="url(#s-003-marrow2)" fill="#5B9BD5" visibility="hidden" pointer-events="none" data-pptx-native-ref="r54" />
+<g data-pptx-native-ref="r114">
+<path d="M 216.54 543.74 L 286.72 604.38" stroke-width="2" stroke="#808080" marker-end="url(#s-003-marrow2)" fill="none" data-pptx-native-ref="r113" />
+</g>
+</g>
+</g>
+<g id="s-003-shape-57" data-name="组合 56" data-pptx-native-ref="r79" data-pptx-bounds="445.2 316.78 571.51 103.24">
+<g id="s-003-shape-58" data-name="文本框 57" data-pptx-native-ref="r78" data-pptx-bounds="445.2 316.78 492.03 74.32">
+<path d="M 445.2 316.78 L 937.24 316.78 L 937.24 391.09 L 445.2 391.09 Z" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r77" />
+<g data-pptx-native-ref="r114">
+<path d="M 445.2 316.78 L 937.24 316.78 L 937.24 391.09 L 445.2 391.09 Z" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r118" />
+<text x="454.8" y="348.78" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" fill="#C00000" font-weight="bold"><tspan fill="#C00000" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">字体：</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">标题</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">-</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">思源黑体 </tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="32" font-weight="bold">CN Heavy</tspan></text>
+<text x="454.8" y="378.11" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33" fill="#FFFFFF"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">                    正文</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">-</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">思源黑体 </tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">CN Normal</tspan></text>
+</g>
+<g id="s-003-shape-59" data-name="直接连接符 58" data-pptx-native-ref="r87" data-pptx-bounds="456.5 362.13 69.02 0">
+<path d="M 456.5 362.13 L 525.53 362.13" stroke-width="2" stroke="#D00034" fill="#5B9BD5" visibility="hidden" pointer-events="none" data-pptx-native-ref="r86" />
+<g data-pptx-native-ref="r114">
+<path d="M 456.5 362.13 L 525.53 362.13" stroke-width="2" stroke="#D00034" fill="#5B9BD5" data-pptx-native-ref="r113" />
+</g>
+</g>
+<g id="s-003-shape-60" data-name="文本框 59" data-pptx-native-ref="r89" data-pptx-bounds="535.02 384.47 481.69 35.54">
+<path d="M 535.02 384.47 L 1016.71 384.47 L 1016.71 420.02 L 535.02 420.02 Z" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r88" />
+<g data-pptx-native-ref="r114">
+<path d="M 535.02 384.47 L 1016.71 384.47 L 1016.71 420.02 L 535.02 420.02 Z" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r126" />
+<text x="544.62" y="407.41" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33" fill="#C00000"><tspan fill="#C00000" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">*</tspan><tspan fill="#C00000" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="21.33">对外使用注意字体版权，对外统一使用思源黑体</tspan></text>
+</g>
+</g><g id="slot-layout_02-2" data-pptx-placeholder="title" data-pptx-bounds="88 49.69 984.62 74.92"><text x="97.6" y="95.29" text-anchor="start" xml:space="preserve" font-family="&quot;微软雅黑&quot;, sans-serif" font-size="48" fill="#FFFFFF" font-weight="bold" data-pptx-carrier="true" data-pptx-native-ref="r112" />
+</g><g id="slot-layout_02-3" data-pptx-placeholder="object" data-pptx-bounds="88 191.67 984.62 474.22" data-pptx-idx="1" data-pptx-binding="proxy"><text x="97.6" y="214.6" text-anchor="start" xml:space="preserve" font-family="&quot;微软雅黑&quot;, sans-serif" font-size="21.33" fill="#FFFFFF"><tspan fill="#FFFFFF" font-family="&quot;微软雅黑&quot;, sans-serif" font-size="21.33">正文内容</tspan><tspan fill="#FFFFFF" font-family="&quot;微软雅黑&quot;, sans-serif" font-size="21.33">-</tspan><tspan fill="#FFFFFF" font-family="&quot;微软雅黑&quot;, sans-serif" font-size="21.33">字号</tspan><tspan fill="#FFFFFF" font-family="&quot;微软雅黑&quot;, sans-serif" font-size="21.33">12-18</tspan></text>
+
+</g></svg>

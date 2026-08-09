@@ -99,6 +99,17 @@
       "description": "Team-maintained FII deck workspace that can be passed to PPT Master as an exact template root without re-importing it."
     },
     {
+      "id": "ppt-master-template-dark",
+      "name": "FII 2026 Dark PPT Master Template",
+      "tier": "optional",
+      "kind": "template",
+      "category": "Other",
+      "sourcePath": "Other/ppt-master-template/fii_2026_dark",
+      "parentPack": "ppt-master",
+      "audience": ["documents", "presentations", "fii"],
+      "description": "Team-maintained dark FII deck workspace materialized from the company-provided PPTX template."
+    },
+    {
       "id": "playwright-mcp",
       "name": "Playwright MCP",
       "tier": "optional",
