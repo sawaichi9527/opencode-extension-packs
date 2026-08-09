@@ -30,6 +30,41 @@ PPT Master can consume an exact workspace root as an explicit template input. It
 
 Do not move only `templates/` or only `images/`; the relative SVG asset references must remain valid.
 
+## Library Installation Path
+
+The Extension Packs copy is the team source. It is not automatically scanned by PPT Master. To make this template appear in PPT Master's library selector, install the complete child workspace at:
+
+```text
+<ppt-master-skill>/templates/decks/fii_2026_bright/
+```
+
+For the current global Windows installation, `<ppt-master-skill>` is:
+
+```text
+C:\Users\<user>\.config\opencode\skills\ppt-master
+```
+
+The resulting installed path is:
+
+```text
+C:\Users\<user>\.config\opencode\skills\ppt-master\templates\decks\fii_2026_bright
+```
+
+Copy the child workspace as a whole, change directory to the PPT Master Skill root, then validate and register it:
+
+```bash
+cd <ppt-master-skill>
+python3 scripts/svg_quality_checker.py \
+  "templates/decks/fii_2026_bright/templates" \
+  --template-mode
+python3 scripts/register_template.py \
+  fii_2026_bright --kind deck
+```
+
+On Windows, run the same commands with `python` when `python3` is unavailable. Registration updates `templates/decks/decks_index.json`; only then will the workspace be available through PPT Master's library discovery and selector.
+
+Do not overwrite an existing installed workspace without reviewing the diff. The `fii_2026_bright` directory in this repository and the installed library directory should remain independent copies with the same workspace contract.
+
 ## Template Identity
 
 - `deck_id`: `fii_2026_bright`
@@ -47,8 +82,9 @@ The design specification contains the complete color, typography, placeholder, p
 Run the validator from the installed PPT Master Skill directory before using a changed copy:
 
 ```bash
-python3 skills/ppt-master/scripts/svg_quality_checker.py \
-  "<path-to-fii_2026_bright>/templates" \
+cd <ppt-master-skill>
+python3 scripts/svg_quality_checker.py \
+  "templates/decks/fii_2026_bright/templates" \
   --template-mode
 ```
 

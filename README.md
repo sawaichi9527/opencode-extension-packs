@@ -70,7 +70,7 @@ The current PPT Master template is:
 
 - `Other/ppt-master-template/fii_2026_bright/`
 - `fii_2026_bright` FII 2026 Bright deck workspace
-- Use the exact workspace root directly with PPT Master; no template re-import is required.
+- Use the exact workspace root directly with PPT Master, or copy it to PPT Master's `templates/decks/fii_2026_bright/` library path and register it for selector discovery.
 
 See [FII 2026 Bright PPT Master Template](Other/ppt-master-template/fii_2026_bright/README.md) for the workspace contract and validation command.
 
