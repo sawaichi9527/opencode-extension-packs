@@ -27,7 +27,7 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 
 - repository 版本與 schema 版本
 - Default Pack 清單
-- Pack ID、tier、kind 與來源路徑
+- Pack ID、tier、kind、audience 與來源路徑
 - 外部 plugin 的來源 repository、固定版本與相容性文件
 
 新增或修改 Pack 時，必須同步更新 `VERSION`、manifest、CHANGELOG 與相關安裝文件。
@@ -170,8 +170,8 @@ Essential Core
 
 Extension Packs
 ├── Default: grill-me
-├── Recommended: Lean Review / SWQA / Failure Triage
-├── Optional: Forgejo / GitHub / File / Browser
+├── Recommended: Lean Review / SWQA / Failure Triage / File Toolkit / Browser Automation
+├── Optional: Forgejo / GitHub
 └── Optional: Token Usage / Observability
 ```
 

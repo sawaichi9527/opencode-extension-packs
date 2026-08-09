@@ -4,6 +4,7 @@
 
 - Added the first versioned Extension Packs baseline.
 - Added `manifest/packs.json` with Default, Recommended, and Optional tiers.
+- Promoted `file-toolkit` and `browser-automation` to Recommended packs with audience metadata.
 - Added the Optional Token Usage / Observability pack for upstream TokenScope installation guidance.
 - Documented that external plugins are installed from their original repositories or npm packages and are not vendored here.
 
