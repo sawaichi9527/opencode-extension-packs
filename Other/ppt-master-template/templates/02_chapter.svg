@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1280" height="720" viewBox="0 0 1280 720" data-pptx-master="master_main" data-pptx-master-name="FII Master" data-pptx-layout="chapter" data-pptx-layout-name="章節頁">
+  <image id="master-bg" href="../images/image1.jpg" x="0" y="0" width="1280" height="720" preserveAspectRatio="none" data-pptx-layer="master" data-pptx-editable="false" />
+  <image id="logo-fii" href="../images/image2.png" x="0" y="41" width="109" height="61" preserveAspectRatio="none" data-pptx-layer="master" data-pptx-editable="false" />
+  <rect id="chapter-bar" x="0" y="250" width="1280" height="220" fill="#002F75" opacity="0.85" data-pptx-layer="layout" data-pptx-editable="false" />
+  <g id="chapter-num" data-pptx-placeholder="body" data-pptx-bounds="160 280 960 60">
+    <text id="chapter-num-carrier" data-pptx-carrier="true" x="640" y="325" text-anchor="middle" xml:space="preserve" font-family="Arial,&quot;Microsoft YaHei&quot;,sans-serif" font-size="36" fill="#FFFFFF" opacity="0.6">{{CHAPTER_NUM}}</text>
+  </g>
+  <g id="chapter-title" data-pptx-placeholder="title" data-pptx-bounds="160 340 960 80">
+    <text id="chapter-title-carrier" data-pptx-carrier="true" x="640" y="400" text-anchor="middle" xml:space="preserve" font-family="&quot;Microsoft YaHei&quot;,sans-serif" font-size="48" fill="#FFFFFF" font-weight="bold">{{CHAPTER_TITLE}}</text>
+  </g>
+</svg>

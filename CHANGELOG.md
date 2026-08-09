@@ -6,6 +6,7 @@
 - Added `manifest/packs.json` with Default, Recommended, and Optional tiers.
 - Promoted `file-toolkit` and `browser-automation` to Recommended packs with audience metadata.
 - Added Optional PPT Master and Playwright MCP integrations with official-source installation and compatibility guidance.
+- Added the public team-maintained `Other/ppt-master-template` FII 2026 Bright workspace for direct PPT Master reuse.
 - Added the Optional Token Usage / Observability pack for upstream TokenScope installation guidance.
 - Documented that external plugins are installed from their original repositories or npm packages and are not vendored here.
 
