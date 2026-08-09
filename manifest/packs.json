@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/sawaichi9527/opencode-extension-packs",
+  "version": "0.0.1",
+  "defaultPacks": ["grill-me"],
+  "packs": [
+    {
+      "id": "grill-me",
+      "name": "Requirements Interview",
+      "tier": "default",
+      "kind": "command",
+      "sourcePath": "commands/grill-me.md",
+      "description": "Clarify scope, terminology, acceptance criteria, and evidence before implementation."
+    },
+    {
+      "id": "lean-code-review",
+      "name": "Lean Code Review",
+      "tier": "recommended",
+      "kind": "skill",
+      "sourcePath": "skills/lean-code-review",
+      "audience": ["general-development"],
+      "description": "Review current diffs for unnecessary complexity and duplication."
+    },
+    {
+      "id": "swqa-automation",
+      "name": "SWQA Automation",
+      "tier": "recommended",
+      "kind": "skill",
+      "sourcePath": "skills/swqa-automation",
+      "audience": ["swqa", "device", "api"],
+      "description": "Structure Python, UART/TTY, PCAP, API, CLI, and device automation."
+    },
+    {
+      "id": "test-failure-triage",
+      "name": "Test Failure Triage",
+      "tier": "recommended",
+      "kind": "skill",
+      "sourcePath": "skills/test-failure-triage",
+      "audience": ["swqa", "device", "protocol"],
+      "description": "Investigate evidence-driven Python, UART, PCAP, timing, environment, and DUT failures."
+    },
+    {
+      "id": "file-toolkit",
+      "name": "File Toolkit",
+      "tier": "recommended",
+      "kind": "skill",
+      "sourcePath": "skills/file-toolkit",
+      "audience": ["documents", "media", "python"],
+      "description": "Check document, media, and Python file-tool capabilities before task-specific installation."
+    },
+    {
+      "id": "browser-automation",
+      "name": "Browser Automation",
+      "tier": "recommended",
+      "kind": "skill",
+      "sourcePath": "skills/browser-automation",
+      "audience": ["web", "swqa"],
+      "description": "Apply safe browser automation starting rules for Web UI testing and controlled workflows."
+    },
+    {
+      "id": "forgejo-integration",
+      "name": "Forgejo Integration",
+      "tier": "optional",
+      "kind": "skill",
+      "sourcePath": "skills/forgejo-integration",
+      "audience": ["forgejo"],
+      "description": "Use local Git with optional Forgejo collaboration and MCP."
+    },
+    {
+      "id": "github-integration",
+      "name": "GitHub Integration",
+      "tier": "optional",
+      "kind": "skill",
+      "sourcePath": "skills/github-integration",
+      "audience": ["github"],
+      "description": "Use local Git with GitHub collaboration guidance."
+    },
+    {
+      "id": "ppt-master",
+      "name": "PPT Master",
+      "tier": "optional",
+      "kind": "external-skill",
+      "sourceRepo": "https://github.com/hugohe3/ppt-master",
+      "release": "v4.5.0",
+      "audience": ["documents", "presentations", "python"],
+      "documentation": "packs/ppt-master/README.md",
+      "compatibility": "packs/ppt-master/compatibility.md",
+      "description": "Install the upstream presentation workflow Skill and its Python dependencies from the official source."
+    },
+    {
+      "id": "playwright-mcp",
+      "name": "Playwright MCP",
+      "tier": "optional",
+      "kind": "external-mcp",
+      "sourceRepo": "https://github.com/microsoft/playwright-mcp",
+      "package": "@playwright/mcp@0.0.79",
+      "mcpServer": "playwright",
+      "audience": ["web", "swqa"],
+      "documentation": "packs/playwright-mcp/README.md",
+      "compatibility": "packs/playwright-mcp/compatibility.md",
+      "description": "Add the upstream Playwright MCP server to OpenCode for controlled browser automation."
+    },
+    {
+      "id": "token-usage",
+      "name": "Token Usage / Observability",
+      "tier": "optional",
+      "kind": "external-plugin",
+      "sourceRepo": "https://github.com/ramtinJ95/opencode-tokenscope",
+      "plugin": "@ramtinj95/opencode-tokenscope@1.8.1",
+      "command": "tokenscope",
+      "audience": ["observability", "cost-analysis"],
+      "documentation": "packs/token-usage/README.md",
+      "compatibility": "packs/token-usage/compatibility.md",
+      "description": "Install the upstream TokenScope plugin and its /tokenscope command from the official source."
+    }
+  ]
+}
