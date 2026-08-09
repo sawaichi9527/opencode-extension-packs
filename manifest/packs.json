@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/sawaichi9527/opencode-extension-packs",
+  "version": "0.0.1",
+  "defaultPacks": ["grill-me"],
+  "packs": [
+    {
+      "id": "grill-me",
+      "name": "Requirements Interview",
+      "tier": "default",
+      "kind": "command",
+      "sourcePath": "commands/grill-me.md",
+      "description": "Clarify scope, terminology, acceptance criteria, and evidence before implementation."
+    },
+    {
+      "id": "lean-code-review",
+      "name": "Lean Code Review",
+      "tier": "recommended",
+      "kind": "skill",
+      "sourcePath": "skills/lean-code-review",
+      "description": "Review current diffs for unnecessary complexity and duplication."
+    },
+    {
+      "id": "swqa-automation",
+      "name": "SWQA Automation",
+      "tier": "recommended",
+      "kind": "skill",
+      "sourcePath": "skills/swqa-automation",
+      "description": "Structure Python, UART/TTY, PCAP, API, CLI, and device automation."
+    },
+    {
+      "id": "test-failure-triage",
+      "name": "Test Failure Triage",
+      "tier": "recommended",
+      "kind": "skill",
+      "sourcePath": "skills/test-failure-triage",
+      "description": "Investigate evidence-driven Python, UART, PCAP, timing, environment, and DUT failures."
+    },
+    {
+      "id": "forgejo-integration",
+      "name": "Forgejo Integration",
+      "tier": "optional",
+      "kind": "skill",
+      "sourcePath": "skills/forgejo-integration",
+      "description": "Use local Git with optional Forgejo collaboration and MCP."
+    },
+    {
+      "id": "github-integration",
+      "name": "GitHub Integration",
+      "tier": "optional",
+      "kind": "skill",
+      "sourcePath": "skills/github-integration",
+      "description": "Use local Git with GitHub collaboration guidance."
+    },
+    {
+      "id": "file-toolkit",
+      "name": "File Toolkit",
+      "tier": "optional",
+      "kind": "skill",
+      "sourcePath": "skills/file-toolkit",
+      "description": "Check document, media, and Python file-tool capabilities."
+    },
+    {
+      "id": "browser-automation",
+      "name": "Browser Automation",
+      "tier": "optional",
+      "kind": "skill",
+      "sourcePath": "skills/browser-automation",
+      "description": "Apply safe browser automation starting rules."
+    },
+    {
+      "id": "token-usage",
+      "name": "Token Usage / Observability",
+      "tier": "optional",
+      "kind": "external-plugin",
+      "sourceRepo": "https://github.com/ramtinJ95/opencode-tokenscope",
+      "plugin": "@ramtinj95/opencode-tokenscope@1.8.1",
+      "command": "tokenscope",
+      "documentation": "packs/token-usage/README.md",
+      "compatibility": "packs/token-usage/compatibility.md",
+      "description": "Install the upstream TokenScope plugin and its /tokenscope command from the official source."
+    }
+  ]
+}

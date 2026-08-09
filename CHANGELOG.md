@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.1 - Versioned baseline
+
+- Added the first versioned Extension Packs baseline.
+- Added `manifest/packs.json` with Default, Recommended, and Optional tiers.
+- Added the Optional Token Usage / Observability pack for upstream TokenScope installation guidance.
+- Documented that external plugins are installed from their original repositories or npm packages and are not vendored here.
+
 ## 0.2.0 - OpenCode clarification and test triage
 
 - Added `/grill-me` as an OpenCode-native Markdown Custom Command using the Plan Agent.
