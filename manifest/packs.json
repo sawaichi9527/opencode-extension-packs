@@ -76,6 +76,31 @@
       "description": "Use local Git with GitHub collaboration guidance."
     },
     {
+      "id": "ppt-master",
+      "name": "PPT Master",
+      "tier": "optional",
+      "kind": "external-skill",
+      "sourceRepo": "https://github.com/hugohe3/ppt-master",
+      "release": "v4.5.0",
+      "audience": ["documents", "presentations", "python"],
+      "documentation": "packs/ppt-master/README.md",
+      "compatibility": "packs/ppt-master/compatibility.md",
+      "description": "Install the upstream presentation workflow Skill and its Python dependencies from the official source."
+    },
+    {
+      "id": "playwright-mcp",
+      "name": "Playwright MCP",
+      "tier": "optional",
+      "kind": "external-mcp",
+      "sourceRepo": "https://github.com/microsoft/playwright-mcp",
+      "package": "@playwright/mcp@0.0.79",
+      "mcpServer": "playwright",
+      "audience": ["web", "swqa"],
+      "documentation": "packs/playwright-mcp/README.md",
+      "compatibility": "packs/playwright-mcp/compatibility.md",
+      "description": "Add the upstream Playwright MCP server to OpenCode for controlled browser automation."
+    },
+    {
       "id": "token-usage",
       "name": "Token Usage / Observability",
       "tier": "optional",
