@@ -68,11 +68,11 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 The repository also contains team-maintained template assets under `Other/`.
 The current PPT Master template is:
 
-- `Other/ppt-master-template/fii-2026-bright/`
+- `Other/ppt-master-template/fii_2026_bright/`
 - `fii_2026_bright` FII 2026 Bright deck workspace
 - Use the exact workspace root directly with PPT Master; no template re-import is required.
 
-See [FII 2026 Bright PPT Master Template](Other/ppt-master-template/fii-2026-bright/README.md) for the workspace contract and validation command.
+See [FII 2026 Bright PPT Master Template](Other/ppt-master-template/fii_2026_bright/README.md) for the workspace contract and validation command.
 
 ## 安裝單一 Skill
 

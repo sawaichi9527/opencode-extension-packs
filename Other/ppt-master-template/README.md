@@ -6,7 +6,7 @@ This directory is the team-maintained PPT Master template collection. Each templ
 
 | Template | Workspace |
 |---|---|
-| FII 2026 Bright | [`fii-2026-bright/`](./fii-2026-bright/) |
+| FII 2026 Bright | [`fii_2026_bright/`](./fii_2026_bright/) |
 
 Each child directory is an exact PPT Master workspace containing its own `templates/` and `images/` roots. Pass the child directory, not this collection directory, to PPT Master.
 

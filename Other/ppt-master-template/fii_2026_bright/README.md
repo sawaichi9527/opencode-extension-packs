@@ -7,7 +7,7 @@ Team-provided PPT Master `deck` workspace for FII-branded internal reports, cust
 This directory is a complete explicit PPT Master workspace:
 
 ```text
-fii-2026-bright/
+fii_2026_bright/
 ├── templates/
 │   ├── design_spec.md
 │   └── *.svg
@@ -23,7 +23,7 @@ After cloning or downloading `opencode-extension-packs`, give PPT Master the exa
 
 ```text
 Use this exact PPT Master template workspace:
-<path-to-opencode-extension-packs>/Other/ppt-master-template/fii-2026-bright
+<path-to-opencode-extension-packs>/Other/ppt-master-template/fii_2026_bright
 ```
 
 PPT Master can consume an exact workspace root as an explicit template input. It does not need to run the template-import workflow again. The workspace can also be copied into a project-local `templates/` and `images/` pair when the project must retain a local copy.
@@ -48,7 +48,7 @@ Run the validator from the installed PPT Master Skill directory before using a c
 
 ```bash
 python3 skills/ppt-master/scripts/svg_quality_checker.py \
-  "<path-to-fii-2026-bright>/templates" \
+  "<path-to-fii_2026_bright>/templates" \
   --template-mode
 ```
 
