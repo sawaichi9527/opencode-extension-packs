@@ -7,7 +7,7 @@
 
 內容以 OpenCode 原生 `SKILL.md` 與 Markdown Custom Commands 為主，不要求 Claude Code/Codex Plugin、跨 Agent Hook 或模式狀態管理。外部 plugin 只提供來源、版本、相容性與安裝指導，不將第三方原始碼 fork 或 vendored 進本 Repository。
 
-> 狀態：v0.0.1 第一個版本化 Extension Packs 基準。
+> 狀態：v0.2.1，包含 hybrid-workflow 與三種 Builder backend profile。
 
 ## 分層安裝
 
@@ -49,6 +49,26 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 | Command | 用途 |
 |---|---|
 | `/grill-me` | 使用 Plan Agent 一次一題釐清需求、術語、範圍、Acceptance Criteria 與驗證證據，確認共同理解前不實作 |
+| `/other-working-flow` | 查看 `hybrid-workflow` 可用 backend，並在使用者確認後選擇是否委派 Builder |
+
+## hybrid-workflow
+
+`hybrid-workflow` 是 `other` 分類下的可選 workflow，不會取代 OpenCode 內建的 `Plan`、`Build` 或原生模型指派。
+
+可同時安裝下列 backend：
+
+| Agent ID | 用途 |
+|---|---|
+| `workflow_local_builder` | 泛用本地 AI；導入時選擇本地 provider/model |
+| `workflow_local_builder_aeon` | team 28500 預配 DGX Spark/aeon 本地 AI |
+| `workflow_local_builder_<backend>` | 使用其他本地 AI backend 執行單一 Builder 任務 |
+| `workflow_cloud_cheap_builder` | 導入時選擇低成本雲端 provider/model |
+
+安裝後預設仍使用 OpenCode 原生模型指派。只有在 Plan 完成拆解或 Build 即將開始前，workflow 才會在每次請求詢問是否委派；拒絕時由目前的 Plan/Build agent 繼續執行。
+
+一般使用者優先推薦 `workflow_local_builder`，因為它不假設本地硬體。team 28500 可使用已預先配對 `DGX Spark/aeon` 的 `workflow_local_builder_aeon`。`workflow_cloud_cheap_builder` 則在導入時從本機已配置的雲端模型中詢問使用者選擇。
+
+完整規則請參閱 [hybrid-workflow](packs/other/hybrid-workflow/README.md)。
 
 ## Token Usage / Observability Pack
 
@@ -126,6 +146,23 @@ cp ./commands/grill-me.md ~/.config/opencode/command/grill-me.md
 ```
 
 `/grill-me` 固定使用 OpenCode Plan Agent，只做訪談與共同理解摘要，不會自行建立程式碼、`CONTEXT.md`、ADR 或其他規格框架。若本 Session 已讀取且檔案未變更，會沿用既有專案資訊，避免重複載入相同 Context。
+
+## 安裝 `/other-working-flow`
+
+OpenCode Custom Command 不使用 `npx skills add`。將 `commands/other-working-flow.md` 複製到全域 Command 目錄：
+
+```powershell
+New-Item -ItemType Directory -Force "$HOME\.config\opencode\command" | Out-Null
+Copy-Item ".\commands\other-working-flow.md" "$HOME\.config\opencode\command\other-working-flow.md" -Force
+```
+
+若只希望某個專案使用，複製到：
+
+```text
+<project>/.opencode/command/other-working-flow.md
+```
+
+重新啟動 OpenCode 後執行 `/other-working-flow`。全域安裝會讓所有專案都能使用，專案安裝則只在該專案提供 workflow 選擇。
 
 ## `test-failure-triage` 的定位
 

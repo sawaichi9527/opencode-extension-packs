@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repository": "https://github.com/sawaichi9527/opencode-extension-packs",
-  "version": "0.0.1",
+  "version": "0.2.1",
   "defaultPacks": ["grill-me"],
   "packs": [
     {
@@ -56,6 +56,42 @@
       "sourcePath": "skills/browser-automation",
       "audience": ["web", "swqa"],
       "description": "Apply safe browser automation starting rules for Web UI testing and controlled workflows."
+    },
+    {
+      "id": "hybrid-workflow",
+      "name": "hybrid-workflow",
+      "tier": "recommended",
+      "kind": "workflow",
+      "category": "other",
+      "subcategory": "workflow",
+      "sourcePath": "skills/hybrid-workflow",
+      "documentation": "packs/other/hybrid-workflow/README.md",
+      "compatibility": "packs/other/hybrid-workflow/compatibility.md",
+      "audience": ["general-development", "model-routing"],
+      "backends": [
+        "workflow_local_builder",
+        "workflow_local_builder_aeon",
+        "workflow_cloud_cheap_builder"
+      ],
+      "profiles": [
+        {
+          "id": "workflow_local_builder",
+          "audience": ["general-development"],
+          "modelSelection": "prompt"
+        },
+        {
+          "id": "workflow_local_builder_aeon",
+          "audience": ["team-28500"],
+          "model": "DGX Spark/aeon",
+          "preconfigured": true
+        },
+        {
+          "id": "workflow_cloud_cheap_builder",
+          "audience": ["general-development"],
+          "modelSelection": "prompt"
+        }
+      ],
+      "description": "Offer confirmed local or low-cost cloud Builder delegation while preserving OpenCode native Plan and Build routing."
     },
     {
       "id": "forgejo-integration",

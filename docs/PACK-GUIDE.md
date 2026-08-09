@@ -36,3 +36,15 @@ commands/<command-name>.md
 6. 互動式 Command 不應在未確認前自行修改程式碼或執行高風險操作。
 7. 若本 Session 已讀取且來源未變更，應沿用現有結果，避免重複載入相同文件與 Git 狀態。
 8. README 必須分別說明全域 `~/.config/opencode/commands/` 與專案 `.opencode/commands/` 的安裝位置。
+
+## Workflow Pack
+
+Workflow Pack 放在 `other/<workflow-name>/` 類別下，並遵守：
+
+1. 在 manifest 使用 `category: "other"`、`subcategory` 與 `kind: "workflow"`。
+2. 說明是否會改變 OpenCode 原生模型指派；預設不得在未確認時改變。
+3. 可用 backend 必須有穩定、與內建 Agent 不混淆的 Agent ID，例如 `workflow_local_builder_aeon`。
+4. backend 可同時安裝，不得預設成互斥方案，除非文件明確說明。
+5. 未安裝 workflow 時必須完全回到 OpenCode 原生模型指派邏輯。
+6. 若 workflow 會在 Plan 或 Build 邊界詢問，必須定義詢問時機、拒絕行為與每次請求的詢問次數。
+7. Agent template 不得包含 provider secret、內部 URL 或特定使用者的完整設定。
