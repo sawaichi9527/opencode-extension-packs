@@ -93,7 +93,7 @@
       "tier": "optional",
       "kind": "template",
       "category": "Other",
-      "sourcePath": "Other/ppt-master-template",
+      "sourcePath": "Other/ppt-master-template/fii-2026-bright",
       "parentPack": "ppt-master",
       "audience": ["documents", "presentations", "fii"],
       "description": "Team-maintained FII deck workspace that can be passed to PPT Master as an exact template root without re-importing it."
