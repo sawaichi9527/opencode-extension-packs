@@ -70,6 +70,17 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 
 完整規則請參閱 [hybrid-workflow](packs/other/hybrid-workflow/README.md)。
 
+## FII 2026 ppt-master 版模
+
+`ppt-master` Pack 隨附團隊自有的 FII 2026 Deck 版模，安裝 PPT Master Skill 後可直接導入：
+
+| Deck | 主題 | 用途 |
+|---|---|---|
+| `fii_2026_bright` | FII 2026 亮色版 | 企業內部報告、客戶簡報、專案提案、年度總結 |
+| `fii_2026_dark` | FII 2026 暗色版 | 企業內部報告、客戶提案、專案匯報、教學說明 |
+
+導入指令與索引合併說明見 [packs/ppt-master/decks/](packs/ppt-master/decks/README.md)。
+
 ## Token Usage / Observability Pack
 
 `token-usage` 是 **Optional** Pack，不會默認安裝，也不會列為兩個獨立元件。它包含：
