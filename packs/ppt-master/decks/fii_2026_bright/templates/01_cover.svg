@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1280" height="720" viewBox="0 0 1280 720" data-pptx-master="master_main" data-pptx-master-name="FII Master" data-pptx-layout="cover" data-pptx-layout-name="封面">
+  <image id="master-bg" href="../images/image1.jpg" x="0" y="0" width="1280" height="720" preserveAspectRatio="none" data-pptx-layer="master" data-pptx-editable="false" />
+  <image id="logo-fii" href="../images/image2.png" x="0" y="41" width="109" height="61" preserveAspectRatio="none" data-pptx-layer="master" data-pptx-editable="false" />
+  <image id="bg-cover" href="../images/image4.jpg" x="0" y="0" width="1280" height="720" preserveAspectRatio="none" data-pptx-layer="layout" data-pptx-editable="false" />
+  <g id="cover-title" data-pptx-placeholder="title" data-pptx-bounds="160 156 960 250">
+    <text id="cover-title-carrier" data-pptx-carrier="true" x="640" y="380" text-anchor="middle" xml:space="preserve" font-family="&quot;Microsoft YaHei&quot;,sans-serif" font-size="96" fill="#FFFFFF" font-weight="bold">{{TITLE}}</text>
+  </g>
+  <g id="cover-subtitle" data-pptx-placeholder="subtitle" data-pptx-bounds="160 440 960 50">
+    <text id="cover-subtitle-carrier" data-pptx-carrier="true" x="640" y="475" text-anchor="middle" xml:space="preserve" font-family="&quot;Microsoft YaHei&quot;,Arial,sans-serif" font-size="24" fill="#FFFFFF">{{SUBTITLE}}</text>
+  </g>
+  <g id="cover-date" data-pptx-placeholder="date" data-pptx-bounds="160 490 960 40">
+    <text id="cover-date-carrier" data-pptx-carrier="true" x="640" y="520" text-anchor="middle" xml:space="preserve" font-family="&quot;Microsoft YaHei&quot;,Arial,sans-serif" font-size="24" fill="#FFFFFF">{{DATE}}</text>
+  </g>
+  <g id="cover-author" data-pptx-placeholder="footer" data-pptx-bounds="160 530 960 40">
+    <text id="cover-author-carrier" data-pptx-carrier="true" x="640" y="560" text-anchor="middle" xml:space="preserve" font-family="&quot;Microsoft YaHei&quot;,Arial,sans-serif" font-size="24" fill="#FFFFFF">{{AUTHOR}}</text>
+  </g>
+</svg>

@@ -17,7 +17,8 @@ The team must validate the selected PPT Master release on the supported Windows,
 3. Confirm the upstream attribution/integrity check can run successfully.
 4. Install and verify `requirements.txt` from the selected upstream installation path.
 5. Run a small non-sensitive PPTX smoke test or inspect the upstream deterministic example workflow.
-6. Do not store provider API keys or `.env` secrets in the Extension Packs repository.
+6. If using the bundled FII 2026 decks, copy `packs/ppt-master/decks/*` into the installed Skill's `templates/decks/` and confirm both `fii_2026_bright` and `fii_2026_dark` appear in the merged `decks_index.json`.
+7. Do not store provider API keys or `.env` secrets in the Extension Packs repository.
 
 ## Boundaries
 

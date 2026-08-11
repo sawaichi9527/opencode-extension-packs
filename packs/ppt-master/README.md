@@ -13,6 +13,14 @@ PPT Master is an upstream presentation workflow Skill, not source code maintaine
 
 This repository does not fork or vendor PPT Master. Install the Skill and its dependencies from the official source after selecting this Pack.
 
+## FII 2026 Deck Templates
+
+This Pack bundles team-owned FII 2026 deck templates (`fii_2026_bright` and
+`fii_2026_dark`) under [decks/](decks/). After installing the PPT Master Skill,
+copy these decks into the installed Skill's `templates/decks/` directory so every
+team member uses the same brand templates. See [decks/README.md](decks/README.md)
+for the copy commands and index merge notes.
+
 ## Installation
 
 The upstream documentation supports the Skills CLI path:

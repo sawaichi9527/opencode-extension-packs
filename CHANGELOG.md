@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2 - FII 2026 ppt-master decks
+
+- Bundled team-owned FII 2026 deck templates (`fii_2026_bright` and `fii_2026_dark`) under `packs/ppt-master/decks/`.
+- Documented how to copy the decks into an installed PPT Master Skill and merge the deck index.
+- Added deck index and deck README consistent with the PPT Master deck workspace contract.
+
 ## 0.2.1 - hybrid-workflow naming
 
 - Renamed the Skill from `other-hybrid-workflow` to `hybrid-workflow`.

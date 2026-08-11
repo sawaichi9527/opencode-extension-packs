@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1280" height="720" viewBox="0 0 1280 720" data-pptx-master="master_main" data-pptx-master-name="FII Master" data-pptx-layout="ending" data-pptx-layout-name="結尾">
+  <defs>
+    <radialGradient id="ending-grad" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#2E75B6" />
+      <stop offset="1" stop-color="#2E75B6" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <image id="master-bg" href="../images/image1.jpg" x="0" y="0" width="1280" height="720" preserveAspectRatio="none" data-pptx-layer="master" data-pptx-editable="false" />
+  <image id="logo-fii" href="../images/image2.png" x="0" y="41" width="109" height="61" preserveAspectRatio="none" data-pptx-layer="master" data-pptx-editable="false" />
+  <image id="bg-ending" href="../images/image3.jpg" x="0" y="0" width="1280" height="720" preserveAspectRatio="none" data-pptx-layer="layout" data-pptx-editable="false" />
+  <path id="ending-ellipse" d="M 279 347 A 353 192 0 0 1 632 155 A 353 192 0 0 1 984 347 A 353 192 0 0 1 632 539 A 353 192 0 0 1 279 347 Z" fill="url(#ending-grad)" stroke="none" data-pptx-layer="layout" data-pptx-editable="false" />
+  <g id="ending-thanks" data-pptx-placeholder="title" data-pptx-bounds="396 268 493 152">
+    <text id="ending-thanks-carrier" data-pptx-carrier="true" x="640" y="380" text-anchor="middle" xml:space="preserve" font-family="&quot;Microsoft YaHei&quot;,sans-serif" font-size="117.33" fill="#FFFFFF">{{THANK_YOU}}</text>
+  </g>
+  <g id="ending-contact" data-pptx-placeholder="body" data-pptx-bounds="396 420 493 80">
+    <text id="ending-contact-carrier" data-pptx-carrier="true" x="640" y="470" text-anchor="middle" xml:space="preserve" font-family="&quot;Microsoft YaHei&quot;,Arial,sans-serif" font-size="24" fill="#FFFFFF" opacity="0.8">{{CONTACT_INFO}}</text>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+{
+  "fii_2026_bright": {
+    "summary": "FII 品牌簡報模板，適用於企業內部報告、客戶簡報與專案提案",
+    "canvas_format": "ppt169",
+    "page_count": 5,
+    "primary_color": "#002F75"
+  },
+  "fii_2026_dark": {
+    "summary": "FII 品牌暗色簡報模板，適用於企業內部報告、客戶提案、專案匯報與教學說明",
+    "canvas_format": "ppt169",
+    "page_count": 5,
+    "primary_color": "#002F75"
+  }
+}
