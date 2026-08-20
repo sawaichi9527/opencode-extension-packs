@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repository": "https://github.com/sawaichi9527/opencode-extension-packs",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "defaultPacks": ["grill-me"],
   "packs": [
     {
@@ -135,6 +135,19 @@
       "documentation": "packs/playwright-mcp/README.md",
       "compatibility": "packs/playwright-mcp/compatibility.md",
       "description": "Add the upstream Playwright MCP server to OpenCode for controlled browser automation."
+    },
+    {
+      "id": "codebase-memory-mcp",
+      "name": "Codebase Memory MCP",
+      "tier": "optional",
+      "kind": "external-mcp",
+      "sourceRepo": "https://github.com/DeusData/codebase-memory-mcp",
+      "package": "codebase-memory-mcp",
+      "mcpServer": "codebase-memory-mcp",
+      "audience": ["code-analysis", "architecture"],
+      "documentation": "packs/codebase-memory-mcp/README.md",
+      "compatibility": "packs/codebase-memory-mcp/compatibility.md",
+      "description": "Add the upstream Codebase Memory MCP server to OpenCode for code intelligence and knowledge graph analysis."
     },
     {
       "id": "token-usage",
