@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1280" height="720" viewBox="0 0 1280 720" data-pptx-master="master_01" data-pptx-master-name="slideMaster1" data-pptx-layout="layout_01" data-pptx-layout-name="标题幻灯片" data-pptx-show-master-shapes="true" data-pptx-show-inherited-shapes="true"><image href="../images/image1.jpg" x="0" y="0" width="1280" height="720" preserveAspectRatio="none" id="master-master_01-1-1" data-pptx-layer="master" data-pptx-editable="false" />
+<image href="../images/image1.jpg" x="0" y="0" width="1280" height="720" preserveAspectRatio="none" id="layout-layout_01-1-1" data-pptx-layer="layout" data-pptx-editable="false" />
+<image href="../images/image3.jpg" x="0" y="0" width="1280" height="720" preserveAspectRatio="none" id="slide-1-node-1" />
+<g id="s-001-shape-4" data-name="文本框 3" data-pptx-native-ref="r81" data-pptx-bounds="420.87 283 399.73 384.27">
+<path d="M 447.87 184.26 L 996.65 184.26 L 996.65 426.6 L 447.87 426.6 Z" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r80" />
+<g data-pptx-native-ref="r114">
+<path d="M 447.87 184.26 L 996.65 184.26 L 996.65 426.6 L 447.87 426.6 Z" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r133" />
+<text x="457.47" y="270.66" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="96" fill="#FFFFFF" font-weight="bold"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="96" font-weight="bold">封面标题</tspan></text>
+<text x="457.47" y="385.86" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="96" fill="#FFFFFF" font-weight="bold"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Heavy&quot;, sans-serif" font-size="96" font-weight="bold">文字</tspan></text>
+</g>
+<g id="s-001-shape-6" data-name="文本框 5" data-pptx-native-ref="r83" data-pptx-bounds="150.92 32.59 427.08 84.42">
+<path d="M 447.87 474.59 L 946.15 474.59 L 946.15 513.37 L 447.87 513.37 Z" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r82" />
+<g data-pptx-native-ref="r114">
+<path d="M 447.87 474.59 L 946.15 474.59 L 946.15 513.37 L 447.87 513.37 Z" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r127" />
+<text x="457.47" y="499.79" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="24" fill="#FFFFFF"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="24">姓名</tspan></text>
+</g>
+<g id="s-001-shape-8" data-name="文本框 7" data-pptx-native-ref="r85" data-pptx-bounds="206.21 306.41 406 74.32">
+<path d="M 447.87 516.6 L 946.15 516.6 L 946.15 555.37 L 447.87 555.37 Z" fill="none" visibility="hidden" pointer-events="none" data-pptx-native-ref="r84" />
+<g data-pptx-native-ref="r114">
+<path d="M 447.87 516.6 L 946.15 516.6 L 946.15 555.37 L 447.87 555.37 Z" fill="none" data-pptx-native-ref="r113" />
+</g>
+<metadata data-pptx-native-ref="r131" />
+<text x="457.47" y="541.8" text-anchor="start" xml:space="preserve" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="24" fill="#FFFFFF"><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="24">202X</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="24">年</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="24">XX</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="24">月</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="24">XX</tspan><tspan fill="#FFFFFF" font-family="&quot;思源黑体 CN Normal&quot;, sans-serif" font-size="24">日</tspan></text>
+</g>
+<g id="slot-layout_01-2" data-pptx-placeholder="title" data-pptx-bounds="61.23 46.15 960 68.5"><text x="70.83" y="93.05" text-anchor="start" xml:space="preserve" font-family="&quot;微软雅黑&quot;, sans-serif" font-size="48" fill="#000000" data-pptx-carrier="true" data-pptx-native-ref="r96" />
+</g><g id="slot-layout_01-3" data-pptx-placeholder="subtitle" data-pptx-bounds="61.23 194.47 586.77 173.83" data-pptx-idx="1"><text x="70.83" y="217.41" text-anchor="start" xml:space="preserve" font-family="&quot;微软雅黑&quot;, sans-serif" font-size="21.33" fill="#000000" data-pptx-carrier="true" data-pptx-native-ref="r95" />
+</g></svg>
