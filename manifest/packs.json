@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repository": "https://github.com/sawaichi9527/opencode-extension-packs",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "defaultPacks": ["grill-me"],
   "packs": [
     {
@@ -110,6 +110,16 @@
       "sourcePath": "skills/github-integration",
       "audience": ["github"],
       "description": "Use local Git with GitHub collaboration guidance."
+    },
+    {
+      "id": "pwsh7",
+      "name": "PowerShell 7.4.6 (UTF-8) for Windows",
+      "tier": "recommended",
+      "kind": "tooling",
+      "sourcePath": "packs/pwsh7",
+      "documentation": "packs/pwsh7/README.md",
+      "audience": ["windows", "environment"],
+      "description": "Deploy PowerShell 7.4.6 with the pwsh-utf8-wrapper.exe shell for UTF-8-safe opencode on Windows 10/11."
     },
     {
       "id": "ppt-master",

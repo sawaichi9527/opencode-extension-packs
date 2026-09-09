@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.4 - pwsh7 pack registration
+
+- Registered the self-hosted `pwsh7` pack in `manifest/packs.json` (Prebuilt `pwsh7/pwsh-utf8-wrapper.exe` + PowerShell 7.4.6 deployment guidance for Windows UTF-8 shells).
+- Wired `pwsh7` Kind to `tooling` and pointed documentation to `packs/pwsh7/README.md`.
+- Bumped manifest version to 0.2.4.
+
+## 0.2.3 - codebase-memory-mcp pack registration
+
+- Registered the upstream `codebase-memory-mcp` external MCP pack via the `external-mcp` kind.
+- Pointed documentation and compatibility to `packs/codebase-memory-mcp/README.md` and `compatibility.md`.
+- Bumped manifest version to 0.2.3.
+
 ## 0.2.2 - FII 2026 ppt-master decks
 
 - Bundled team-owned FII 2026 deck templates (`fii_2026_bright` and `fii_2026_dark`) under `packs/ppt-master/decks/`.
