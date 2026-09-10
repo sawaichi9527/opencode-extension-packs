@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1280" height="720" viewBox="0 0 1280 720" data-pptx-master="master_main" data-pptx-master-name="FII Master" data-pptx-layout="content_standard" data-pptx-layout-name="標準內容">
+  <image id="master-bg" href="../images/image1.jpg" x="0" y="0" width="1280" height="720" preserveAspectRatio="none" data-pptx-layer="master" data-pptx-editable="false" />
+  <image id="logo-fii" href="../images/image2.png" x="0" y="41" width="109" height="61" preserveAspectRatio="none" data-pptx-layer="master" data-pptx-editable="false" />
+  <rect id="title-underline" x="88" y="160" width="1104" height="4" fill="#002F75" data-pptx-layer="layout" data-pptx-editable="false" />
+  <g id="content-page-title" data-pptx-placeholder="title" data-pptx-bounds="88 51 986 95">
+    <text id="content-page-title-carrier" data-pptx-carrier="true" x="88" y="130" text-anchor="start" xml:space="preserve" font-family="&quot;Microsoft YaHei&quot;,sans-serif" font-size="48" fill="#002F75" font-weight="bold">{{PAGE_TITLE}}</text>
+  </g>
+  <g id="content-body" data-pptx-placeholder="body" data-pptx-bounds="88 180 1104 500">
+    <text id="content-body-carrier" data-pptx-carrier="true" x="88" y="215" text-anchor="start" xml:space="preserve" font-family="&quot;Microsoft YaHei&quot;,Arial,sans-serif" font-size="21.33" fill="#000000">{{CONTENT_AREA}}</text>
+  </g>
+  <g id="content-page-num" data-pptx-placeholder="footer" data-pptx-bounds="1188 691 92 29">
+    <text id="content-page-num-carrier" data-pptx-carrier="true" x="1280" y="710" text-anchor="end" xml:space="preserve" font-family="Arial,sans-serif" font-size="16" fill="#FFFFFF">{{PAGE_NUM}}</text>
+  </g>
+</svg>

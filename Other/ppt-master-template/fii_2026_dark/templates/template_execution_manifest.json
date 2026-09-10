@@ -1,0 +1,74 @@
+{
+  "schema": "ppt-master.template-execution-manifest.v1",
+  "replication_mode": "mirror",
+  "template_root": ".",
+  "template_count": 5,
+  "text_slots_schema": "ppt-master.template-text-slots.v2-min",
+  "execution_policy": "This manifest and its text_slots_path records are derived tool metadata, not page-authoring inputs. Retain the complete project Design Spec and lock once per valid uncompacted execution context; use page-context only for on-demand diagnostics or telemetry. Read the selected complete prototype once per valid context and again only after a known change or context invalidation. Choose semantic replacements and edit only existing visible text values; structured export validates text/tspan topology and attributes against the prototype.",
+  "source_import": {
+    "warning_count": 6,
+    "by_code": {
+      "stroke-omitted": 6
+    },
+    "samples": {
+      "stroke-omitted": "Unsupported DrawingML miter limit: '400000'"
+    }
+  },
+  "templates": [
+    {
+      "prototype": "001_cover.svg",
+      "page_type": "cover",
+      "viewBox": "0 0 1280 720",
+      "master": "master_01",
+      "layout": "layout_01",
+      "layout_name": "标题幻灯片",
+      "text_slot_count": 6,
+      "editable_text_slot_count": 6,
+      "text_slots_path": "template_execution/001_cover.text-slots.json"
+    },
+    {
+      "prototype": "002_content.svg",
+      "page_type": "content",
+      "viewBox": "0 0 1280 720",
+      "master": "master_01",
+      "layout": "layout_02",
+      "layout_name": "标题和内容",
+      "text_slot_count": 14,
+      "editable_text_slot_count": 13,
+      "text_slots_path": "template_execution/002_content.text-slots.json"
+    },
+    {
+      "prototype": "003_content.svg",
+      "page_type": "content",
+      "viewBox": "0 0 1280 720",
+      "master": "master_01",
+      "layout": "layout_02",
+      "layout_name": "标题和内容",
+      "text_slot_count": 26,
+      "editable_text_slot_count": 25,
+      "text_slots_path": "template_execution/003_content.text-slots.json"
+    },
+    {
+      "prototype": "004_content.svg",
+      "page_type": "content",
+      "viewBox": "0 0 1280 720",
+      "master": "master_01",
+      "layout": "layout_02",
+      "layout_name": "标题和内容",
+      "text_slot_count": 8,
+      "editable_text_slot_count": 7,
+      "text_slots_path": "template_execution/004_content.text-slots.json"
+    },
+    {
+      "prototype": "005_ending.svg",
+      "page_type": "ending",
+      "viewBox": "0 0 1280 720",
+      "master": "master_01",
+      "layout": "layout_03",
+      "layout_name": "自定义版式",
+      "text_slot_count": 1,
+      "editable_text_slot_count": 0,
+      "text_slots_path": "template_execution/005_ending.text-slots.json"
+    }
+  ]
+}
