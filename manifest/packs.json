@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repository": "https://github.com/sawaichi9527/opencode-extension-packs",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "defaultPacks": ["grill-me"],
   "packs": [
     {
@@ -132,6 +132,18 @@
       "documentation": "packs/ppt-master/README.md",
       "compatibility": "packs/ppt-master/compatibility.md",
       "description": "Install the upstream presentation workflow Skill and its Python dependencies from the official source."
+    },
+    {
+      "id": "archify",
+      "name": "Archify",
+      "tier": "optional",
+      "kind": "external-skill",
+      "sourceRepo": "https://github.com/tt-a1i/archify",
+      "release": "v2.16.0",
+      "audience": ["architecture", "documents", "presentations"],
+      "documentation": "packs/archify/README.md",
+      "compatibility": "packs/archify/compatibility.md",
+      "description": "Install the upstream architecture diagram Skill and its Node.js dependencies from the official source."
     },
     {
       "id": "playwright-mcp",

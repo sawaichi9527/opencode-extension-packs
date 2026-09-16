@@ -7,7 +7,7 @@
 
 內容以 OpenCode 原生 `SKILL.md` 與 Markdown Custom Commands 為主，不要求 Claude Code/Codex Plugin、跨 Agent Hook 或模式狀態管理。外部 plugin 只提供來源、版本、相容性與安裝指導，不將第三方原始碼 fork 或 vendored 進本 Repository。
 
-> 狀態：v0.2.4，包含 hybrid-workflow 三種 Builder backend profile、FII 2026 ppt-master deck 版模與 Optional 外部 plugin 固定版本。
+> 狀態：v0.2.5，包含 hybrid-workflow 三種 Builder backend profile、FII 2026 ppt-master deck 版模、archify 外部 Skill 與 Optional 外部 plugin 固定版本。
 
 ## 分層安裝
 
@@ -225,7 +225,7 @@ Extension Packs
 ├── Default: grill-me
 ├── Recommended: Lean Review / SWQA / Failure Triage / File Toolkit / Browser Automation / hybrid-workflow / pwsh7
 ├── Optional: Forgejo / GitHub
-└── Optional: PPT Master（含 FII 2026 deck） / Playwright MCP / Codebase Memory MCP / Token Usage
+└── Optional: PPT Master（含 FII 2026 deck） / Archify / Playwright MCP / Codebase Memory MCP / Token Usage
 ```
 
 ## 授權與來源

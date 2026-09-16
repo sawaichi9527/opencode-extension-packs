@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.5 - archify external skill pack registration
+
+- Registered the upstream `archify` external skill pack in `manifest/packs.json` with the `external-skill` kind and `optional` tier.
+- Pointed documentation and compatibility to `packs/archify/README.md` and `packs/archify/compatibility.md`.
+- Pinned `archify` to release `v2.16.0` from the official `tt-a1i/archify` source.
+- Updated the README status marker and the Optional Pack summary to `v0.2.5`.
+- Bumped manifest version to 0.2.5.
+
 ## 0.2.4 - pwsh7 pack registration and External release pin refresh
 
 - Registered the self-hosted `pwsh7` pack in `manifest/packs.json` (Prebuilt `pwsh7/pwsh-utf8-wrapper.exe` + PowerShell 7.4.6 deployment guidance for Windows UTF-8 shells).
