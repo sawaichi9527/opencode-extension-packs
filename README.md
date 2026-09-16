@@ -7,7 +7,7 @@
 
 內容以 OpenCode 原生 `SKILL.md` 與 Markdown Custom Commands 為主，不要求 Claude Code/Codex Plugin、跨 Agent Hook 或模式狀態管理。外部 plugin 只提供來源、版本、相容性與安裝指導，不將第三方原始碼 fork 或 vendored 進本 Repository。
 
-> 狀態：v0.2.1，包含 hybrid-workflow 與三種 Builder backend profile。
+> 狀態：v0.2.4，包含 hybrid-workflow 三種 Builder backend profile、FII 2026 ppt-master deck 版模與 Optional 外部 plugin 固定版本。
 
 ## 分層安裝
 
@@ -31,6 +31,11 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 - 外部 plugin 的來源 repository、固定版本與相容性文件
 
 新增或修改 Pack 時，必須同步更新 `VERSION`、manifest、CHANGELOG 與相關安裝文件。
+
+先前已安裝的使用者再次執行 Core 的 `/teamwork-update-check` 時，會以本 manifest（`main` 分支的
+raw 網址）作為比對來源，與本機 `~/.config/opencode/teamwork-install-state.json` 記錄的
+skill / plugin 固定版本比較。若有版本更新，會列出「目前版本 → 最新版本」與相容性摘要，
+詢問使用者確認後才升級；不會在未確認時自動改寫 `opencode.jsonc` 或安裝套件。
 
 ## Skills
 
@@ -218,9 +223,9 @@ Essential Core
 
 Extension Packs
 ├── Default: grill-me
-├── Recommended: Lean Review / SWQA / Failure Triage / File Toolkit / Browser Automation
+├── Recommended: Lean Review / SWQA / Failure Triage / File Toolkit / Browser Automation / hybrid-workflow / pwsh7
 ├── Optional: Forgejo / GitHub
-└── Optional: Token Usage / Observability
+└── Optional: PPT Master（含 FII 2026 deck） / Playwright MCP / Codebase Memory MCP / Token Usage
 ```
 
 ## 授權與來源

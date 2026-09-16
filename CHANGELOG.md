@@ -1,9 +1,13 @@
 # Changelog
 
-## 0.2.4 - pwsh7 pack registration
+## 0.2.4 - pwsh7 pack registration and External release pin refresh
 
 - Registered the self-hosted `pwsh7` pack in `manifest/packs.json` (Prebuilt `pwsh7/pwsh-utf8-wrapper.exe` + PowerShell 7.4.6 deployment guidance for Windows UTF-8 shells).
 - Wired `pwsh7` Kind to `tooling` and pointed documentation to `packs/pwsh7/README.md`.
+- Updated the `ppt-master` pin from `v4.5.0` to `v6.4.0`.
+- Updated the `playwright-mcp` package pin from `@playwright/mcp@0.0.79` to `@playwright/mcp@0.0.81`.
+- Pinned `codebase-memory-mcp` to `codebase-memory-mcp@0.11.0` and aligned the pack documentation.
+- Updated the README status marker and the Optional Pack summary to `v0.2.4`.
 - Bumped manifest version to 0.2.4.
 
 ## 0.2.3 - codebase-memory-mcp pack registration

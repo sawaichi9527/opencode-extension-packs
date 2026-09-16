@@ -7,8 +7,8 @@ Playwright MCP is an upstream MCP server for controlled browser automation. It i
 ## Official Source
 
 - Repository: <https://github.com/microsoft/playwright-mcp>
-- Release: `v0.0.79`
-- npm package: `@playwright/mcp@0.0.79`
+- Release: `v0.0.81`
+- npm package: `@playwright/mcp@0.0.81`
 - License: Apache-2.0
 
 ## OpenCode Installation
@@ -23,7 +23,7 @@ Add the server to the existing `mcp` object in `opencode.jsonc` without replacin
       "command": [
         "npx",
         "-y",
-        "@playwright/mcp@0.0.79"
+        "@playwright/mcp@0.0.81"
       ],
       "enabled": true
     }
