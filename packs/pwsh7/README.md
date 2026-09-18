@@ -12,7 +12,7 @@ Alternative to built-in Windows PowerShell 5.1, which lacks UTF-8 support and mo
   - SHA256: `44D6870B9FBC5376A7E541E4B2268AC97A9C7ABE438B91F5B3102452413A3713`
   - MD5: `A618D8B18F4B09AA5A317E4CA96B8133`
 - **Release**: https://github.com/sawaichi9527/opencode-extension-packs/releases/tag/pwsh7-v7.4.6
-  - Assets: `pwsh7-7.4.6-win-x64.zip` + `.sha256` + `.md5` + `.txt` + **`pwsh-utf8-wrapper.exe`** (prebuilt, 4,608 bytes, SHA256 `FF5E34E917196322399F082889CA06CB35ECBC44601C751DA831FBD5D04014E4`)
+  - Assets: `pwsh7-7.4.6-win-x64.zip` + `.sha256` + `.md5` + `.txt` + **`pwsh-utf8-wrapper.exe`** (prebuilt, 5,120 bytes, SHA256 `906AA017CDE4F36DB2BC5D3C38C976E76035E0E40703DB30D81F4F5F7F9FB8F0`)
 
 ## Why
 
@@ -80,6 +80,7 @@ Write-Host '測試中文 UTF-8：測試通過'; $PSVersionTable.PSVersion; [Cons
 
 ## Notes
 
+- `pwsh-utf8-wrapper.exe` in this release is the quote-preserving rebuild (5,120 bytes, SHA256 `906AA0...`); the old 4,608-byte assets from 2026-08-24 dropped embedded double quotes and were replaced in `pwsh7-v7.4.6`.
 - `pwsh7` coexists side-by-side with 5.1 (`powershell.exe` vs `pwsh.exe`, separate `PSModulePath`/`PROFILE`).
 - Optional per-profile UTF-8 hardening: create `%USERPROFILE%\Documents\PowerShell\Microsoft.PowerShell_profile.ps1` containing `[Console]::OutputEncoding = [System.Text.Encoding]::UTF8`.
 - Global agent spec lives at `%USERPROFILE%\.config\opencode\AGENTS.md`: mandates pwsh7 for all PowerShell operations on Windows 10/11 opencode hosts.

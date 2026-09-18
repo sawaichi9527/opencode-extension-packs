@@ -1,7 +1,36 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 class Program {
+    // Windows 命令列引號規則（CommandLineToArgvW 反向）：將單一 argv 元素重新 quote，
+    // 讓子程序再解析後能取得完全相同的 argv。雙引號、空白、反斜線全保真。
+    static string QuoteForCommandLine(string arg) {
+        if (arg.Length == 0) return "\"\"";
+        bool needQuote = false;
+        foreach (char c in arg) {
+            if (c == ' ' || c == '\t' || c == '"') { needQuote = true; break; }
+        }
+        if (!needQuote) return arg;
+        var sb = new StringBuilder();
+        sb.Append('"');
+        int backslashes = 0;
+        foreach (char c in arg) {
+            if (c == '\\') { backslashes++; continue; }
+            if (c == '"') {
+                sb.Append('\\', backslashes * 2 + 1);
+                sb.Append('"');
+                backslashes = 0;
+                continue;
+            }
+            sb.Append('\\', backslashes);
+            backslashes = 0;
+            sb.Append(c);
+        }
+        if (backslashes > 0) sb.Append('\\', backslashes * 2);
+        sb.Append('"');
+        return sb.ToString();
+    }
     static int Main(string[] args) {
         Console.OutputEncoding = Encoding.UTF8;
         Console.InputEncoding = Encoding.UTF8;
@@ -26,7 +55,9 @@ class Program {
             // 最後退回：系統 PATH 上的 pwsh
             exe = "pwsh";
         }
-        string arguments = string.Join(" ", args);
+        var parts = new List<string>();
+        foreach (string a in args) parts.Add(QuoteForCommandLine(a));
+        string arguments = string.Join(" ", parts);
         ProcessStartInfo psi = new ProcessStartInfo(exe, arguments);
         psi.UseShellExecute = false;
         var p = Process.Start(psi);

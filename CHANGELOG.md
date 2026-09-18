@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.6 - pwsh-utf8-wrapper quote-preserving fix
+
+- Fixed a quote-preservation bug in `pwsh7/pwsh-utf8-wrapper.cs`: the old string-based rebuild dropped embedded double quotes, corrupting arguments passed to `pwsh` by `opencode` (e.g. `-Command "..."`).
+- Rebuilt `pwsh-utf8-wrapper.exe` from the fixed source; release asset is now 5,120 bytes with SHA256 `906AA017CDE4F36DB2BC5D3C38C976E76035E0E40703DB30D81F4F5F7F9FB8F0`.
+- Replaced the two deprecated 4,608-byte wrapper assets (`pwsh-utf8-wrapper.exe` and `pwsh-utf8-wrapper-v2.exe`) in the `pwsh7-v7.4.6` release with the single fixed prebuilt exe.
+- Updated `packs/pwsh7/README.md` with the new asset hash and resolution note.
+- Updated the README status marker and the Optional Pack summary to `v0.2.6`.
+- Bumped manifest version to 0.2.6.
+
 ## 0.2.5 - archify external skill pack registration
 
 - Registered the upstream `archify` external skill pack in `manifest/packs.json` with the `external-skill` kind and `optional` tier.
