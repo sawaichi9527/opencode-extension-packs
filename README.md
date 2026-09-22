@@ -117,7 +117,7 @@ cp ./commands/grill-me.md ~/.config/opencode/commands/grill-me.md
 
 只希望某個專案使用時，複製到 `<project>/.opencode/commands/grill-me.md`。重新啟動 OpenCode 後執行 `/grill-me <想釐清的功能或計畫>`。
 
-`/grill-me` 固定使用 OpenCode Plan Agent，只做訪談與共同理解摘要，不會自行建立程式碼、`CONTEXT.md`、ADR 或其他規格框架。若本 Session 已讀取且檔案未變更，會沿用既有專案資訊，避免重複載入相同 Context。
+`/grill-me` 固定使用 OpenCode Plan Agent，只做訪談與共同理解摘要，不會自行建立程式碼、`CONTEXT.md`、ADR、plan 檔或其他規格框架。若本 Session 已讀取且檔案未變更，會沿用既有專案資訊，避免重複載入相同 Context。遇到無法靠討論回答、需要先看到東西才能決定的問題時，會停止追問並建議先做最小原型或實驗確認後再回來。
 
 ### 安裝外部整合
 

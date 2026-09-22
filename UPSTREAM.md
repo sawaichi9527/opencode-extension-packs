@@ -38,6 +38,8 @@ The Ponytail npm/OpenCode plugin, lifecycle hooks, `lite/full/ultra` modes, stat
   - investigate repository facts before asking the user;
   - ask one decision question at a time;
   - provide a recommended answer with each question;
+  - stop grilling when a question can only be settled by seeing something (ungrillable) and verify with a small prototype first;
+  - the user owns scope and is expected to push back; the interview ends when nothing is left silently assumed, not after a fixed number of questions;
   - do not begin implementation until shared understanding is confirmed.
 
 The upstream `grill-me`, `grilling`, `grill-with-docs`, domain-modeling Skills, `CONTEXT.md`, and ADR workflow are not installed or copied. The command is independently rewritten for OpenCode and small SWQA projects.
