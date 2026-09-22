@@ -2,8 +2,8 @@
 
 ## Upstream Contract
 
-- Release: `v0.0.81`
-- Package: `@playwright/mcp@0.0.81`
+- Release: `v0.0.82`
+- Package: `@playwright/mcp@0.0.82`
 - Runtime requirement: Node.js 18 or newer
 - Client: OpenCode local MCP configuration
 - Upstream server: `microsoft/playwright-mcp`
@@ -11,8 +11,8 @@
 ## Installation Checks
 
 1. Confirm Node.js 18 or newer and npm/npx are available.
-2. Confirm the active `opencode.jsonc` contains a `playwright` entry under `mcp`.
-3. Confirm the package version is pinned to `0.0.81`.
+2. Confirm the active `opencode.jsonc` contains a `playwright` entry under `mcp.servers`.
+3. Confirm the package version is pinned to `0.0.82`.
 4. Restart OpenCode completely.
 5. Verify the server starts and the browser tools are visible.
 6. Use a non-sensitive test page before attempting a real workflow.

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repository": "https://github.com/sawaichi9527/opencode-extension-packs",
-  "version": "0.2.6",
+  "version": "2.0.12",
   "defaultPacks": ["grill-me"],
   "packs": [
     {
@@ -127,7 +127,7 @@
       "tier": "optional",
       "kind": "external-skill",
       "sourceRepo": "https://github.com/hugohe3/ppt-master",
-      "release": "v6.4.0",
+      "release": "v6.6.0",
       "audience": ["documents", "presentations", "python"],
       "documentation": "packs/ppt-master/README.md",
       "compatibility": "packs/ppt-master/compatibility.md",
@@ -151,7 +151,7 @@
       "tier": "optional",
       "kind": "external-mcp",
       "sourceRepo": "https://github.com/microsoft/playwright-mcp",
-      "package": "@playwright/mcp@0.0.81",
+      "package": "@playwright/mcp@0.0.82",
       "mcpServer": "playwright",
       "audience": ["web", "swqa"],
       "documentation": "packs/playwright-mcp/README.md",
@@ -170,19 +170,6 @@
       "documentation": "packs/codebase-memory-mcp/README.md",
       "compatibility": "packs/codebase-memory-mcp/compatibility.md",
       "description": "Add the upstream Codebase Memory MCP server to OpenCode for code intelligence and knowledge graph analysis."
-    },
-    {
-      "id": "token-usage",
-      "name": "Token Usage / Observability",
-      "tier": "optional",
-      "kind": "external-plugin",
-      "sourceRepo": "https://github.com/ramtinJ95/opencode-tokenscope",
-      "plugin": "@ramtinj95/opencode-tokenscope@1.8.1",
-      "command": "tokenscope",
-      "audience": ["observability", "cost-analysis"],
-      "documentation": "packs/token-usage/README.md",
-      "compatibility": "packs/token-usage/compatibility.md",
-      "description": "Install the upstream TokenScope plugin and its /tokenscope command from the official source."
     }
   ]
 }

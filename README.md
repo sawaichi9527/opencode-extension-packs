@@ -7,7 +7,7 @@
 
 內容以 OpenCode 原生 `SKILL.md` 與 Markdown Custom Commands 為主，不要求 Claude Code/Codex Plugin、跨 Agent Hook 或模式狀態管理。外部 plugin 只提供來源、版本、相容性與安裝指導，不將第三方原始碼 fork 或 vendored 進本 Repository。
 
-> 狀態：v0.2.6，包含 hybrid-workflow 三種 Builder backend profile、FII 2026 ppt-master deck 版模、archify 外部 Skill 與 Optional 外部 plugin 固定版本。
+> 狀態：v2.0.12，僅支援 OpenCode v2.x.x（v1 相容已移除）。包含 hybrid-workflow 三種 Builder backend profile、FII 2026 ppt-master deck 版模、archify 外部 Skill 與 Optional 外部 MCP 固定版本。版號採「該次檢討時基於驗證的 OpenCode 版本」方案，與 `opencode-essential-core` 一致。
 
 ## 分層安裝
 
@@ -86,19 +86,6 @@ skill / plugin 固定版本比較。若有版本更新，會列出「目前版�
 
 導入指令與索引合併說明見 [packs/ppt-master/decks/](packs/ppt-master/decks/README.md)。
 
-## Token Usage / Observability Pack
-
-`token-usage` 是 **Optional** Pack，不會默認安裝，也不會列為兩個獨立元件。它包含：
-
-- `@ramtinj95/opencode-tokenscope@1.8.1` plugin
-- `/tokenscope` command
-
-安裝時從 upstream repository 與 npm 官方來源取得內容；本 Repository 只保留 manifest、安裝指導與相容性文件：
-
-- [Token Usage 安裝指導](packs/token-usage/README.md)
-- [TokenScope 相容性與排錯](packs/token-usage/compatibility.md)
-- [Pack manifest](manifest/packs.json)
-
 ## 安裝單一 Skill
 
 建議直接指定子目錄，避免 Repository 根目錄影響 Skill 搜尋：
@@ -138,21 +125,21 @@ OpenCode Custom Command 不使用 `npx skills add`。將 `commands/grill-me.md` 
 ### Windows PowerShell
 
 ```powershell
-New-Item -ItemType Directory -Force "$HOME\.config\opencode\command" | Out-Null
-Copy-Item ".\commands\grill-me.md" "$HOME\.config\opencode\command\grill-me.md" -Force
+New-Item -ItemType Directory -Force "$HOME\.config\opencode\commands" | Out-Null
+Copy-Item ".\commands\grill-me.md" "$HOME\.config\opencode\commands\grill-me.md" -Force
 ```
 
 ### WSL / Ubuntu / macOS
 
 ```bash
-mkdir -p ~/.config/opencode/command
-cp ./commands/grill-me.md ~/.config/opencode/command/grill-me.md
+mkdir -p ~/.config/opencode/commands
+cp ./commands/grill-me.md ~/.config/opencode/commands/grill-me.md
 ```
 
 若只希望某個專案使用，複製到：
 
 ```text
-<project>/.opencode/command/grill-me.md
+<project>/.opencode/commands/grill-me.md
 ```
 
 重新啟動 OpenCode 後執行：
@@ -168,14 +155,14 @@ cp ./commands/grill-me.md ~/.config/opencode/command/grill-me.md
 OpenCode Custom Command 不使用 `npx skills add`。將 `commands/other-working-flow.md` 複製到全域 Command 目錄：
 
 ```powershell
-New-Item -ItemType Directory -Force "$HOME\.config\opencode\command" | Out-Null
-Copy-Item ".\commands\other-working-flow.md" "$HOME\.config\opencode\command\other-working-flow.md" -Force
+New-Item -ItemType Directory -Force "$HOME\.config\opencode\commands" | Out-Null
+Copy-Item ".\commands\other-working-flow.md" "$HOME\.config\opencode\commands\other-working-flow.md" -Force
 ```
 
 若只希望某個專案使用，複製到：
 
 ```text
-<project>/.opencode/command/other-working-flow.md
+<project>/.opencode/commands/other-working-flow.md
 ```
 
 重新啟動 OpenCode 後執行 `/other-working-flow`。全域安裝會讓所有專案都能使用，專案安裝則只在該專案提供 workflow 選擇。
@@ -225,7 +212,7 @@ Extension Packs
 ├── Default: grill-me
 ├── Recommended: Lean Review / SWQA / Failure Triage / File Toolkit / Browser Automation / hybrid-workflow / pwsh7
 ├── Optional: Forgejo / GitHub
-└── Optional: PPT Master（含 FII 2026 deck） / Archify / Playwright MCP / Codebase Memory MCP / Token Usage
+└── Optional: PPT Master（含 FII 2026 deck） / Archify / Playwright MCP / Codebase Memory MCP
 ```
 
 ## 授權與來源

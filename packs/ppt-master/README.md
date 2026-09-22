@@ -7,7 +7,7 @@ PPT Master is an upstream presentation workflow Skill, not source code maintaine
 ## Official Source
 
 - Repository: <https://github.com/hugohe3/ppt-master>
-- Release: `v6.4.0`
+- Release: `v6.6.0`
 - License: MIT
 - Upstream documentation: <https://github.com/hugohe3/ppt-master#quick-start>
 

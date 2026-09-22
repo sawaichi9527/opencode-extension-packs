@@ -13,10 +13,11 @@ Alternative to built-in Windows PowerShell 5.1, which lacks UTF-8 support and mo
   - MD5: `A618D8B18F4B09AA5A317E4CA96B8133`
 - **Release**: https://github.com/sawaichi9527/opencode-extension-packs/releases/tag/pwsh7-v7.4.6
   - Assets: `pwsh7-7.4.6-win-x64.zip` + `.sha256` + `.md5` + `.txt` + **`pwsh-utf8-wrapper.exe`** (prebuilt, 5,120 bytes, SHA256 `906AA017CDE4F36DB2BC5D3C38C976E76035E0E40703DB30D81F4F5F7F9FB8F0`)
+- **Upstream latest check (2026-09-22)**: upstream is now at `v7.6.6`; this pack intentionally stays on `7.4.6` — the packaged zip, published hashes, and `pwsh-utf8-wrapper.exe` are all bound to the 7.4.6 release. Upgrading requires re-packaging the assets and re-running the wrapper validation first.
 
 ## Why
 
-Windows 10 (and 11) `powershell.exe` = 5.1 (.NET Framework 4.5, frozen since 2016, Big5 default on zh-TW locales). `opencode`'s `bash` tool and `llama.cpp` multilingual output require UTF-8. `pwsh7` (7.4.6, .NET 8.0 LTS) provides `??` / `?.` / ternary / `ForEach-Object -Parallel` and UTF-8 `Console.OutputEncoding`.
+Windows 10 (and 11) `powershell.exe` = 5.1 (.NET Framework 4.5, frozen since 2016, Big5 default on zh-TW locales). `opencode`'s `shell` tool and `llama.cpp` multilingual output require UTF-8. `pwsh7` (7.4.6, .NET 8.0 LTS) provides `??` / `?.` / ternary / `ForEach-Object -Parallel` and UTF-8 `Console.OutputEncoding`.
 
 Windows 11 still ships only 5.1 built-in — this pack applies to both Windows 10 and 11.
 

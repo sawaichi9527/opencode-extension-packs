@@ -17,10 +17,10 @@
 ## Installation Checks
 
 1. Confirm Node.js 18 or newer and npm/npx are available.
-2. Confirm the active `opencode.jsonc` contains a `codebase-memory-mcp` entry under `mcp`.
+2. Confirm the active `opencode.jsonc` contains a `codebase-memory-mcp` entry under `mcp.servers`.
 3. Confirm the package version matches the upstream release.
 4. Restart OpenCode completely.
-5. Verify the server starts and the 15 tools are visible via `/mcp`.
+5. Verify the server starts and the 15 tools are visible via `/mcps`.
 6. For UI variant, confirm `localhost:9749` is accessible.
 
 ## Security Boundaries
@@ -38,7 +38,7 @@ Check Node.js version, the exact package name/version, `npx` versus `npx.cmd`, a
 
 ### UI not accessible
 
-Ensure `CBM_VARIANT=ui` is set in the environment configuration. The UI variant requires the environment variable to be present at startup.
+The graph UI ships with the default runtime set; no environment variable is required. If `CBM_VARIANT=ui` is still set from an older guide, remove it and restart OpenCode.
 
 ### Indexing is slow
 

@@ -1,14 +1,15 @@
 # handoff.md — OpenCode Extension Packs
 
-> 供接手 Session 閱讀的現況摘要。更新時間：2026-09-18
+> 供接手 Session 閱讀的現況摘要。更新時間：2026-09-22
 
 ## 目前狀態
 
 | 項目 | 值 |
 |---|---|
-| 版本 | `0.2.6`（`VERSION`） |
-| HEAD | `8d0717d` — fix(pwsh7): quote-preserving pwsh-utf8-wrapper rebuild (0.2.6) |
-| 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main` = `8d0717d` |
+| 版本 | `2.0.12`（`VERSION` / `manifest/packs.json`；版號 = 該次檢討時所基於驗證的 OpenCode 版本，與 essential-core 同方案） |
+| HEAD | `main`（2.0.12 v2 檢討 commit；push 後以 `git log -1` 為準） |
+| 相容性 | **僅支援 OpenCode v2.x.x**——v1 慣例（agent `permission` map、`bash`/`task` action、單數 `command/`、`mcp` 直掛 server 名、`enabled` 欄位）已全部移除 |
+| 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`；推送順序固定 origin → forgejo |
 | working tree | clean，無未提交變更 |
 
 ## 專案定位
@@ -19,36 +20,40 @@
 
 ## 目錄結構
 
-- `manifest/packs.json` — 套件清單，schemaVersion 1，version 0.2.6
+- `manifest/packs.json` — 套件清單，schemaVersion 1，version 2.0.12
 - `skills/` — OpenCode 原生 Skill：
   `swqa-automation`、`test-failure-triage`、`forgejo-integration`、`github-integration`、`file-toolkit`、`browser-automation`、`lean-code-review`、`hybrid-workflow`
 - `commands/` — Custom Commands：`grill-me.md`（default）、`other-working-flow.md`
 - `packs/` — Pack 文件與流程：
-  `other/hybrid-workflow`、`ppt-master/decks`（FII 2026 版模）、`pwsh7`、`archify`、`playwright-mcp`、`codebase-memory-mcp`、`token-usage`
+  `other/hybrid-workflow`、`ppt-master/decks`（FII 2026 版模）、`pwsh7`、`archify`、`playwright-mcp`、`codebase-memory-mcp`
 - `docs/PACK-GUIDE.md` — Skill / Command / Workflow 撰寫最低要求（新增 Pack 時需遵守）
 - `UPSTREAM.md` — 上游來源與刪減原則（lazy-packs、andrej-karpathy-skills、ponytail、mattpocock/skills、obra/superpowers）
 
-## 最近變更（0.2.4 → 0.2.6）
+## 最近變更（0.2.6 → 2.0.12）
 
-1. **0.2.6（9/18）**：修正 `pwsh7/pwsh-utf8-wrapper.cs` 引號保真問題；重建 5,120-byte `pwsh-utf8-wrapper.exe`（SHA256 `906AA0...`），取代 release 中兩個 deprecated 4,608-byte assets。同步 README、manifest、`packs/pwsh7/README.md`。
-2. **0.2.5（9/16）**：註冊 `archify` external-skill pack，pin `tt-a1i/archify@v2.16.0`。
-3. **0.2.4（9/16）**：註冊 `pwsh7` tooling pack；刷新外部 pin：`ppt-master@v6.4.0`、`playwright-mcp@0.0.81`、`codebase-memory-mcp@0.11.0`。
+1. **2.0.12（9/22）**：改為僅支援 OpenCode v2——移除 `token-usage` pack（上游 TokenScope 僅驗證 v1.17.18、安裝指南用單數 `command/`，不適用 v2 視窗版）；README 安裝路徑單數 `command/` → `commands/`（6 處，符合 PACK-GUIDE 規則 8）；3 個 hybrid-workflow agent 模板改 v2 `permissions` 清單制（`task`→`subagent`、`bash`→`shell`）；playwright-mcp／codebase-memory-mcp 安裝指南改 v2 `mcp.servers` 格式、移除 `enabled`、`/mcp`→`/mcps`；外部 pin 刷新：ppt-master v6.6.0、@playwright/mcp 0.0.82（archify v2.16.0、codebase-memory-mcp 0.11.0 檢視時已最新）；pwsh7 維持 7.4.6（zip／hash／wrapper 綁定，上游 7.6.6 記為待升級）。版號方案改為「版號 = 該次檢討時基於驗證的 OpenCode 版本」（本次 2.0.12）。
+2. **0.2.6（9/18）**：修正 `pwsh7/pwsh-utf8-wrapper.cs` 引號保真問題；重建 5,120-byte `pwsh-utf8-wrapper.exe`（SHA256 `906AA0...`），取代 release 中兩個 deprecated 4,608-byte assets。同步 README、manifest、`packs/pwsh7/README.md`。
+3. **0.2.5（9/16）**：註冊 `archify` external-skill pack，pin `tt-a1i/archify@v2.16.0`。
+4. **0.2.4（9/16）**：註冊 `pwsh7` tooling pack；刷新外部 pin：`ppt-master@v6.4.0`、`playwright-mcp@0.0.81`、`codebase-memory-mcp@0.11.0`。
 
 ## 目前 Pin（外部來源）
 
-- `ppt-master` → `hugohe3/ppt-master@v6.4.0`
+- `ppt-master` → `hugohe3/ppt-master@v6.6.0`
 - `archify` → `tt-a1i/archify@v2.16.0`
-- `playwright-mcp` → microsoft/playwright-mcp，`@playwright/mcp@0.0.81`
+- `playwright-mcp` → microsoft/playwright-mcp，`@playwright/mcp@0.0.82`
 - `codebase-memory-mcp` → DeusData/codebase-memory-mcp，`codebase-memory-mcp@0.11.0`
-- `token-usage` → ramtinJ95/opencode-tokenscope，`@ramtinj95/opencode-tokenscope@1.8.1`
+- `pwsh7` → PowerShell 7.4.6（packaged release 綁定；上游最新 7.6.6，升級前需重建 zip／hash／wrapper 驗證）
+- （已移除）`token-usage` → 原 `ramtinJ95/opencode-tokenscope@1.8.1`，2.0.12 移除（僅適用 OpenCode v1）
 
 ## 發布與驗證
 
 - `release/pwsh7-v7.4.6` 已更新：單一 fix 版 `pwsh-utf8-wrapper.exe`（5,120 bytes，SHA256 `906AA017CDE4F36DB2BC5D3C38C976E76035E0E40703DB30D81F4F5F7F9FB8F0`，見 `packs/pwsh7/README.md`）。
 - 變更流程慣例：改動時同步更新 `VERSION`、`manifest/packs.json`、`CHANGELOG.md`、相關 README / Pack 文件。
+- 憑證：GitHub 與 Forgejo token 存於本機 `~/.git-credentials`（600），不入 repo、不寫入任何追蹤檔案。
 
 ## 待辦 / 注意事項
 
 - 無已知未完成項目；推送到開源 GitHub 前先跑 secret scan（`docs/PACK-GUIDE.md` 規則 6）。
 - 若新增外部整合，同時更新 manifest pin 與對應 `packs/<id>/compatibility.md`。
 - `/teamwork-update-check`（Essential Core）以本 repo `main` 的 manifest raw 網址作為更新比對來源。
+- v2 agent frontmatter 的 permission 寫法以官方 Permissions／Agents 文件為準（`permissions` 清單制）；`opencode.ai/config.json` schema 目前仍顯示 v1 `permission` map，屬 schema 滯後，勿以 schema 為依據。

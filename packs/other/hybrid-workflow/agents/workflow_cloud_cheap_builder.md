@@ -3,12 +3,22 @@ description: workflow_cloud_cheap_builder low-cost cloud builder; use only after
 mode: all
 model: PROVIDER/LOW_COST_MODEL
 temperature: 0.2
-permission:
-  task: deny
-  webfetch: deny
-  websearch: deny
-  bash: ask
-  edit: allow
+permissions:
+  - action: subagent
+    resource: "*"
+    effect: deny
+  - action: webfetch
+    resource: "*"
+    effect: deny
+  - action: websearch
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: ask
+  - action: edit
+    resource: "*"
+    effect: allow
 ---
 
 You are a low-cost cloud execution builder for the OpenCode `hybrid-workflow` Skill.

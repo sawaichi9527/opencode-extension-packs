@@ -2,7 +2,7 @@
 
 ## Upstream Contract
 
-- Release: `v6.4.0`
+- Release: `v6.6.0`
 - Repository: `hugohe3/ppt-master`
 - Runtime: Python 3.10 or newer according to upstream Quick Start
 - Installation may require `pip install -r requirements.txt`

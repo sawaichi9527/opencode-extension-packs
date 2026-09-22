@@ -3,12 +3,22 @@ description: workflow_local_builder_aeon team 28500 local builder preset; use wi
 mode: all
 model: DGX Spark/aeon
 temperature: 0.2
-permission:
-  task: deny
-  webfetch: deny
-  websearch: deny
-  bash: ask
-  edit: allow
+permissions:
+  - action: subagent
+    resource: "*"
+    effect: deny
+  - action: webfetch
+    resource: "*"
+    effect: deny
+  - action: websearch
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: ask
+  - action: edit
+    resource: "*"
+    effect: allow
 ---
 
 You are a team 28500 local execution builder for the OpenCode `hybrid-workflow` Skill.

@@ -3,12 +3,22 @@ description: workflow_local_builder generic local builder; select a configured l
 mode: all
 model: PROVIDER/LOCAL_MODEL
 temperature: 0.2
-permission:
-  task: deny
-  webfetch: deny
-  websearch: deny
-  bash: ask
-  edit: allow
+permissions:
+  - action: subagent
+    resource: "*"
+    effect: deny
+  - action: webfetch
+    resource: "*"
+    effect: deny
+  - action: websearch
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: ask
+  - action: edit
+    resource: "*"
+    effect: allow
 ---
 
 You are a local execution builder for the OpenCode `hybrid-workflow` Skill.

@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.0.12 - OpenCode v2-only realignment and token-usage removal
+
+- Adopted the Essential Core versioning scheme: the version now equals the OpenCode release this pack was validated against (2.0.12); a plain OpenCode release does not bump this pack by itself.
+- Removed the `token-usage` pack and deleted `packs/token-usage/`: upstream TokenScope targets OpenCode v1 (its accuracy contracts were verified against OpenCode v1.17.18) and its install guide uses the legacy singular `command/` directory, so it does not fit the OpenCode v2.x.x windowed release. The historical `0.0.1` changelog entry is kept as-is.
+- Fixed README command install paths from the legacy singular `command/` directories to `commands/` (all six occurrences), matching `docs/PACK-GUIDE.md` rule 8.
+- Converted the three hybrid-workflow agent templates from the v1 `permission` map (`task`, `bash`) to the v2 `permissions` rule list with `action`/`resource`/`effect` (`subagent`, `shell`), per the v2 Permissions and Agents documentation.
+- Rewrote the `playwright-mcp` and `codebase-memory-mcp` install guides to the v2 `mcp.servers` configuration shape; removed `enabled` fields (v2 connects automatically and uses `disabled` instead) and changed `/mcp` to `/mcps`.
+- Corrected `codebase-memory-mcp` docs against the current upstream README: 162 languages, `trace_call_path` tool name, graph UI bundled by default (`CBM_VARIANT=ui` is obsolete upstream).
+- Refreshed external pins: `ppt-master` `v6.4.0` → `v6.6.0`, `@playwright/mcp` `0.0.81` → `0.0.82`. `archify` (`v2.16.0`) and `codebase-memory-mcp` (`0.11.0`) were already current at review time.
+- Kept `pwsh7` on PowerShell 7.4.6: the packaged zip, published hashes, and wrapper exe are bound to that release; upstream latest (7.6.6) is recorded in `packs/pwsh7/README.md` as a pending upgrade requiring asset re-packaging.
+- Replaced the v1 tool name `bash` with `shell` in `packs/pwsh7/README.md` prose.
+- Updated `handoff.md` status (HEAD, three-way sync state) and bumped `VERSION` plus manifest version to 2.0.12.
+
 ## 0.2.6 - pwsh-utf8-wrapper quote-preserving fix
 
 - Fixed a quote-preservation bug in `pwsh7/pwsh-utf8-wrapper.cs`: the old string-based rebuild dropped embedded double quotes, corrupting arguments passed to `pwsh` by `opencode` (e.g. `-Command "..."`).
