@@ -58,6 +58,15 @@
       "description": "Apply safe browser automation starting rules for Web UI testing and controlled workflows."
     },
     {
+      "id": "local-llm-dispatch-policy",
+      "name": "Local LLM Dispatch Policy",
+      "tier": "recommended",
+      "kind": "skill",
+      "sourcePath": "skills/local-llm-dispatch-policy",
+      "audience": ["general-development", "local-compute"],
+      "description": "Dispatch and escalation rules for local LLM providers (slow prefill, slow TTFT, no concurrency): one request one decision, linear dispatch, 3-strike handoff, cloud takeover."
+    },
+    {
       "id": "forgejo-integration",
       "name": "Forgejo Integration",
       "tier": "optional",

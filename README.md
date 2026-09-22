@@ -47,6 +47,7 @@ skill / plugin 固定版本比較。若有版本更新，會列出「目前版�
 | `github-integration` | 本地 Git + GitHub CLI/API 基本協作 | Draft |
 | `file-toolkit` | 文件、影音與 Python 工具能力檢查 | Draft |
 | `browser-automation` | 瀏覽器自動化的安全起始規則 | Draft |
+| `local-llm-dispatch-policy` | 本地算力調用與升級原則（Orchestrator ＋ heavy-Builder、線性 dispatch、3-strike、雲端接手） | Draft |
 | `lean-code-review` | 審查目前 Git diff 的過度設計與不必要複雜度 | Draft |
 
 ## OpenCode Commands
@@ -57,22 +58,78 @@ skill / plugin 固定版本比較。若有版本更新，會列出「目前版�
 
 ## 多 Agent 委派（OpenCode v2 原生）
 
-OpenCode v2 已內建多 Agent 分派框架：可自訂 `primary`／`subagent` agent（`.opencode/agents/*.md` 或 `~/.config/opencode/agents/`），由 primary 依 `description` 自動呼叫或由使用者 `@` 指名，並以 `permission.task` 控制可呼叫對象；Command 也可用 `agent`／`subtask` 直接觸發 subagent。
+OpenCode v2 已內建多 Agent 分派框架：可自訂 `primary`／`subagent` agent（`.opencode/agents/*.md` 或 `~/.config/opencode/agents/`），由 primary 依 `description` 自動呼叫或由使用者 `@` 指名，並以 `permissions` 的 `subagent` 規則控制可呼叫對象；Command 也可用 `agent`／`subtask` 直接觸發 subagent。
 
 原 `hybrid-workflow` Pack 與 `/other-working-flow` command 已於 2026-09-22 移除（OpenCode v2 原生已涵蓋，見 CHANGELOG），改以原生機制達成「預設原生、確認後才委派」。若要保留「委派前詢問」的行為，在 `opencode.jsonc` 設定：
 
-```json
+```jsonc
 {
-  "permission": {
-    "task": {
-      "*": "allow",
-      "builder-*": "ask"
-    }
-  }
+  "$schema": "https://opencode.ai/config.json",
+  "permissions": [
+    { "action": "subagent", "resource": "*", "effect": "allow" },
+    { "action": "subagent", "resource": "heavy-builder", "effect": "ask" }
+  ]
 }
 ```
 
-將 `"ask"` 改為 `"deny"` 即可完全停用自動委派（使用者仍可透過 `@` 指名）。
+v2 使用 `permissions` 規則清單與 `subagent` action（v1 的 `permission` map 與 `task` 已移除）；規則依序、後者覆蓋前者，因此 `heavy-builder` 需確認、其餘維持允許。將 `"ask"` 改為 `"deny"` 即可完全停用自動委派（使用者仍可透過 `@` 指名）。
+
+## 本地 LLM 調用原則（`local-llm-dispatch-policy`）
+
+`local-llm-dispatch-policy` Skill 規範本地算力模型（prefill 慢、TTFT 慢、不具併發能力）的調用與升級原則，只涵蓋三種情境，且不重造 OpenCode v2 原生多 Agent 框架：
+
+| 角色 | 說明 |
+|---|---|
+| Orchestrator | 負責拆解、派遣與升級判斷；算力位置可為**本地**（light-weight LLM provider（fast））或**雲端模型** |
+| heavy-Builder | **本地** heavy-duty LLM provider（slow）；只做「理解→實做→驗證」 |
+
+- **情境 a**：本地單一模型、單一任務，不派遣 subagent。
+- **情境 b**：Orchestrator 線性派遣（一次一個子任務）給 heavy-Builder；3-strike 後重拆一次，再失敗則升級。
+- **c1／c2**：依 Orchestrator 的算力位置升級——本地時暫停並建議切換雲端（同意後於本次任務目標內沿用該雲端模型），雲端時直接接手。
+
+heavy-Builder 需為 OpenCode v2 原生 subagent（`mode: subagent`），範例：
+
+```md
+---
+description: heavy-Builder：本地重型執行者。只做「理解→實做→驗證」，同一子任務最多嘗試 3 次，失敗即回報，不再次派遣。
+mode: subagent
+model: <heavy-provider>/<heavy-model>
+steps: 15
+permissions:
+  - action: subagent
+    resource: "*"
+    effect: deny
+  - action: edit
+    resource: "*"
+    effect: allow
+  - action: shell
+    resource: "*"
+    effect: ask
+---
+
+你只處理被派遣的單一子任務，不擴大範圍、不重新規劃、不再派遣其他 subagent。
+
+流程：
+1. 理解需求與驗收條件。
+2. 以最小變更實作。
+3. 執行可重現的驗證，保留原始輸出（指令、輸出、exit code）。
+
+嘗試上限：同一子任務最多嘗試 3 次；每次失敗都記錄失敗原因與目前證據。
+
+回傳格式（成功）：結論、變更內容、驗證指令與原始輸出、殘留風險。
+回傳格式（3-strike 失敗）：失敗、已嘗試內容與原因、目前證據。
+```
+
+安裝（與其他 Skill 相同）：
+
+```powershell
+$env:DISABLE_TELEMETRY = "1"
+npx skills add `
+  https://github.com/sawaichi9527/opencode-extension-packs/tree/main/skills/local-llm-dispatch-policy `
+  -g -a opencode --copy -y
+```
+
+或手動複製到 `~/.config/opencode/skills/`（僅專案使用則放 `<project>/.opencode/skills/`）。
 
 ## 外部整合（External Packs）
 
@@ -208,7 +265,7 @@ Essential Core
 
 Extension Packs
 ├── Default: grill-me
-├── Recommended: Lean Review / SWQA / Failure Triage / File Toolkit / Browser Automation / pwsh7
+├── Recommended: Lean Review / SWQA / Failure Triage / File Toolkit / Browser Automation / Local LLM Dispatch / pwsh7
 ├── Optional: Forgejo / GitHub
 └── Optional: PPT Master（含 FII 2026 deck） / Archify / Playwright MCP / Codebase Memory MCP
 ```
