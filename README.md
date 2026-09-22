@@ -75,6 +75,22 @@ skill / plugin 固定版本比較。若有版本更新，會列出「目前版�
 
 完整規則請參閱 [hybrid-workflow](packs/other/hybrid-workflow/README.md)。
 
+## 外部整合（External Packs）
+
+外部外掛不 fork、不 vendored 進本 Repository，只記錄來源、固定版本與安裝指導；安裝前依各 Pack 的 compatibility 文件驗證：
+
+| Pack | 類型 | 來源 | Pin | 文件 |
+|---|---|---|---|---|
+| PPT Master | external-skill | [hugohe3/ppt-master](https://github.com/hugohe3/ppt-master) | `v6.6.0` | [packs/ppt-master/](packs/ppt-master/README.md) |
+| Archify | external-skill | [tt-a1i/archify](https://github.com/tt-a1i/archify) | `v2.16.0` | [packs/archify/](packs/archify/README.md) |
+| Playwright MCP | external-mcp | [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) | `@playwright/mcp@0.0.82` | [packs/playwright-mcp/](packs/playwright-mcp/README.md) |
+| Codebase Memory MCP | external-mcp | [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | `codebase-memory-mcp@0.11.0` | [packs/codebase-memory-mcp/](packs/codebase-memory-mcp/README.md) |
+| pwsh7 | tooling（自託管） | [PowerShell/PowerShell](https://github.com/PowerShell/PowerShell) + 本 repo release | `7.4.6` | [packs/pwsh7/](packs/pwsh7/README.md) |
+
+- 兩個 external-mcp 依 v2 `mcp.servers` 格式設定，安裝後以 `/mcps` 驗證（詳見各 Pack 文件）。
+- `browser-automation` Skill 與 Playwright MCP 是配對組合：MCP 提供瀏覽器能力，Skill 提供安全規則（登入、提交、刪除、發布前必須確認）。
+- Pin 與 `manifest/packs.json` 同步更新；升級流程見各 Pack 的 Update Policy。
+
 ## FII 2026 ppt-master 版模
 
 `ppt-master` Pack 隨附團隊自有的 FII 2026 Deck 版模，安裝 PPT Master Skill 後可直接導入：
