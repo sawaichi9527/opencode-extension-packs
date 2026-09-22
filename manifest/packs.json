@@ -60,7 +60,7 @@
     {
       "id": "local-llm-dispatch-policy",
       "name": "Local LLM Dispatch Policy",
-      "tier": "recommended",
+      "tier": "optional",
       "kind": "skill",
       "sourcePath": "skills/local-llm-dispatch-policy",
       "audience": ["general-development", "local-compute"],
@@ -87,7 +87,7 @@
     {
       "id": "pwsh7",
       "name": "PowerShell 7.4.6 (UTF-8) for Windows",
-      "tier": "recommended",
+      "tier": "optional",
       "kind": "tooling",
       "sourcePath": "packs/pwsh7",
       "documentation": "packs/pwsh7/README.md",

@@ -4,7 +4,7 @@
 
 內容以 OpenCode v2 原生 `SKILL.md` 與 Markdown Custom Commands 為主，不要求 Claude Code／Codex Plugin、跨 Agent Hook 或模式狀態管理。外部外掛只記錄來源、固定版本與安裝指導，不 fork、不 vendored 進本 Repository。
 
-> 狀態：`v2.0.12`，**僅支援 OpenCode v2.x.x**（v1 相容已移除）。共 14 個 Pack：Default 1、Recommended 7、Optional 6。版號採「該次檢討時基於驗證的 OpenCode 版本」方案，與 `opencode-essential-core` 一致。
+> 狀態：`v2.0.12`，**僅支援 OpenCode v2.x.x**（v1 相容已移除）。共 14 個 Pack：Default 1、Recommended 5、Optional 8。版號採「該次檢討時基於驗證的 OpenCode 版本」方案，與 `opencode-essential-core` 一致。
 
 ## 目錄結構
 
@@ -46,9 +46,7 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 | `test-failure-triage` | skill | 分層分析 Python、UART、封包、環境、Timing 與 DUT 造成的測試失敗 |
 | `file-toolkit` | skill | 文件、影音與 Python 工具能力檢查 |
 | `browser-automation` | skill | 瀏覽器自動化的安全起始規則 |
-| `local-llm-dispatch-policy` | skill | 本地算力調用與升級原則（Orchestrator ＋ heavy-Builder、線性 dispatch、3-strike、雲端接手） |
 | `lean-code-review` | skill | 審查目前 Git diff 的過度設計與不必要複雜度 |
-| `pwsh7` | tooling | PowerShell 7.4.6 UTF-8 wrapper（自託管 release） |
 
 ### Optional
 
@@ -56,10 +54,12 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 |---|---|---|
 | `forgejo-integration` | skill | 本地 Git + Forgejo + 可選 Forgejo MCP |
 | `github-integration` | skill | 本地 Git + GitHub CLI/API 基本協作 |
+| `local-llm-dispatch-policy` | skill | 本地算力調用與升級原則（Orchestrator ＋ heavy-Builder、線性 dispatch、3-strike、雲端接手） |
 | PPT Master | external-skill | 簡報生成（含 FII 2026 deck 版模） |
 | Archify | external-skill | 架構圖生成 |
 | Playwright MCP | external-mcp | 瀏覽器自動化 MCP |
 | Codebase Memory MCP | external-mcp | 程式碼記憶與檢索 MCP |
+| `pwsh7` | tooling | PowerShell 7.4.6 UTF-8 wrapper（自託管 release） |
 
 各 Pack 的固定版本與來源見下節；完整清單與版本以 `manifest/packs.json` 為準。
 
@@ -253,8 +253,8 @@ Essential Core
 
 Extension Packs
 ├── Default: grill-me
-├── Recommended: Lean Review / SWQA / Failure Triage / File Toolkit / Browser Automation / Local LLM Dispatch / pwsh7
-├── Optional: Forgejo / GitHub
+├── Recommended: Lean Review / SWQA / Failure Triage / File Toolkit / Browser Automation
+├── Optional: Forgejo / GitHub / Local LLM Dispatch / pwsh7
 └── Optional: PPT Master（含 FII 2026 deck） / Archify / Playwright MCP / Codebase Memory MCP
 ```
 
