@@ -6,8 +6,8 @@
 
 | 項目 | 值 |
 |---|---|
-| 版本 | `2.0.12`（`VERSION` / `manifest/packs.json`；版號 = 該次檢討時所基於驗證的 OpenCode 版本，與 essential-core 同方案） |
-| HEAD | `main`（2.0.12：移除 hybrid-workflow／other-working-flow、新增 `local-llm-dispatch-policy`（optional）、tier 調整、README 首頁重排、`/grill-me` 補強；實際 SHA 以 `git log -1` 為準） |
+| 版本 | `2.0.13-dev`（開發中、未發布；`VERSION` / `manifest/packs.json`。上一版 `2.0.12` 對應 OpenCode v2.0.12） |
+| HEAD | `main`（2.0.13-dev：標明 OpenCode v2 實際 Skill 目錄；前次 2.0.12：移除 hybrid-workflow／other-working-flow、新增 `local-llm-dispatch-policy`（optional）、tier 調整、README 首頁重排、`/grill-me` 補強；實際 SHA 以 `git log -1` 為準） |
 | 相容性 | **僅支援 OpenCode v2.x.x**——v1 慣例（agent `permission` map、`bash`/`task` action、單數 `command/`、`mcp` 直掛 server 名、`enabled` 欄位）已全部移除 |
 | 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`；推送順序固定 origin → forgejo |
 | working tree | clean，無未提交變更（提交後三方 `main` 一致） |
@@ -20,7 +20,7 @@
 
 ## 目錄結構
 
-- `manifest/packs.json` — 套件清單，schemaVersion 1，version 2.0.12
+- `manifest/packs.json` — 套件清單，schemaVersion 1，version 2.0.13-dev
 - `skills/` — OpenCode 原生 Skill：
   `swqa-automation`、`test-failure-triage`、`forgejo-integration`、`github-integration`、`file-toolkit`、`browser-automation`、`lean-code-review`、`local-llm-dispatch-policy`
 - `commands/` — Custom Commands：`grill-me.md`（default）
@@ -29,12 +29,13 @@
 - `docs/PACK-GUIDE.md` — Skill / Command 撰寫最低要求（新增 Pack 時需遵守）
 - `UPSTREAM.md` — 上游來源與刪減原則（lazy-packs、andrej-karpathy-skills、ponytail、mattpocock/skills、obra/superpowers）
 
-## 最近變更（0.2.6 → 2.0.12）
+## 最近變更（0.2.6 → 2.0.13-dev）
 
-1. **2.0.12（9/22）**：改為僅支援 OpenCode v2——移除 `token-usage` pack（上游 TokenScope 僅驗證 v1.17.18、安裝指南用單數 `command/`，不適用 v2 視窗版）；README 安裝路徑單數 `command/` → `commands/`（6 處，符合 PACK-GUIDE 規則 8）；3 個 hybrid-workflow agent 模板改 v2 `permissions` 清單制（`task`→`subagent`、`bash`→`shell`）；playwright-mcp／codebase-memory-mcp 安裝指南改 v2 `mcp.servers` 格式、移除 `enabled`、`/mcp`→`/mcps`；外部 pin 刷新：ppt-master v6.6.0、@playwright/mcp 0.0.82（archify v2.16.0、codebase-memory-mcp 0.11.0 檢視時已最新）；pwsh7 維持 7.4.6（zip／hash／wrapper 綁定，上游 7.6.6 記為待升級）。版號方案改為「版號 = 該次檢討時基於驗證的 OpenCode 版本」（本次 2.0.12）；其後補做 8 個 SKILL.md 與 2 個 command 的 v2 逐條 review（PACK-GUIDE 全條通過），6 個 skill description 補上觸發情境；README 新增「外部整合（External Packs）」總覽表；同日再移除 `hybrid-workflow` Pack 與 `/other-working-flow` command（理由：OpenCode v2 已內建多 agent 分派——`primary`/`subagent`、Task tool、依 description 自動呼叫、`@` 指名、child session、`subagent` 權限、command `subtask`），改以原生機制達成，README 補上原生委派與 `permissions` 取代說明；同日新增 `local-llm-dispatch-policy` Skill（tier optional），把原 hybrid-workflow 的本地算力調用經驗收斂成純原則（Orchestrator＝角色、可為本地 light-weight 或雲端，heavy-Builder＝本地 heavy-duty；一請求一決策、線性 dispatch、3-strike、c1 goal-scoped 雲端接手／c2 直接接手），依賴 v2 原生 subagent/`permissions`、不重造框架；同時把 README 原生委派範例由 v1 `permission` map（`task`）更正為 v2 `permissions` 清單（`subagent`）並改稱 `heavy-builder`；同次再重排 README 首頁為「目錄結構／分層安裝／Pack 清單（Default/Recommended/Optional）／外部整合／安裝／運作說明／Manifest／Core 關係」分層結構，集中安裝與深度說明、消除重複（狀態列更新為 v2-only、14 packs＝1/5/8）。另將 `local-llm-dispatch-policy`（skill）與 `pwsh7`（tooling）由 recommended 改列 optional（前者依賴本地 LLM provider 設定、後者綁定打包的 PowerShell 7.4.6 wrapper）；同次補強 `/grill-me`（納入上游 ungrillable→先原型驗證、使用者擁有範圍並可反駁、以「已無未處理分支」為結束條件；禁寫清單加入 plan 檔），並在 `UPSTREAM.md` 記錄。
-2. **0.2.6（9/18）**：修正 `pwsh7/pwsh-utf8-wrapper.cs` 引號保真問題；重建 5,120-byte `pwsh-utf8-wrapper.exe`（SHA256 `906AA0...`），取代 release 中兩個 deprecated 4,608-byte assets。同步 README、manifest、`packs/pwsh7/README.md`。
-3. **0.2.5（9/16）**：註冊 `archify` external-skill pack，pin `tt-a1i/archify@v2.16.0`。
-4. **0.2.4（9/16）**：註冊 `pwsh7` tooling pack；刷新外部 pin：`ppt-master@v6.4.0`、`playwright-mcp@0.0.81`、`codebase-memory-mcp@0.11.0`。
+1. **2.0.13-dev（9/22，未發布）**：文件標明 OpenCode v2 實際的 Skill discovery 目錄——原生全域 `~/.config/opencode/skills/` 與相容全域 `~/.agents/skills/`（`npx skills add -g -a opencode` 的實際落點）皆會被載入，專案端 `.opencode/skills/` 與 `.agents/skills/` 同理；同步更新 README 安裝段、`packs/ppt-master/decks/README.md`。版號改為 `2.0.13-dev`（開發中，尚未對應已發布的 OpenCode 版本）。
+2. **2.0.12（9/22）**：改為僅支援 OpenCode v2——移除 `token-usage` pack（上游 TokenScope 僅驗證 v1.17.18、安裝指南用單數 `command/`，不適用 v2 視窗版）；README 安裝路徑單數 `command/` → `commands/`（6 處，符合 PACK-GUIDE 規則 8）；3 個 hybrid-workflow agent 模板改 v2 `permissions` 清單制（`task`→`subagent`、`bash`→`shell`）；playwright-mcp／codebase-memory-mcp 安裝指南改 v2 `mcp.servers` 格式、移除 `enabled`、`/mcp`→`/mcps`；外部 pin 刷新：ppt-master v6.6.0、@playwright/mcp 0.0.82（archify v2.16.0、codebase-memory-mcp 0.11.0 檢視時已最新）；pwsh7 維持 7.4.6（zip／hash／wrapper 綁定，上游 7.6.6 記為待升級）。版號方案改為「版號 = 該次檢討時基於驗證的 OpenCode 版本」（本次 2.0.12）；其後補做 8 個 SKILL.md 與 2 個 command 的 v2 逐條 review（PACK-GUIDE 全條通過），6 個 skill description 補上觸發情境；README 新增「外部整合（External Packs）」總覽表；同日再移除 `hybrid-workflow` Pack 與 `/other-working-flow` command（理由：OpenCode v2 已內建多 agent 分派——`primary`/`subagent`、Task tool、依 description 自動呼叫、`@` 指名、child session、`subagent` 權限、command `subtask`），改以原生機制達成，README 補上原生委派與 `permissions` 取代說明；同日新增 `local-llm-dispatch-policy` Skill（tier optional），把原 hybrid-workflow 的本地算力調用經驗收斂成純原則（Orchestrator＝角色、可為本地 light-weight 或雲端，heavy-Builder＝本地 heavy-duty；一請求一決策、線性 dispatch、3-strike、c1 goal-scoped 雲端接手／c2 直接接手），依賴 v2 原生 subagent/`permissions`、不重造框架；同時把 README 原生委派範例由 v1 `permission` map（`task`）更正為 v2 `permissions` 清單（`subagent`）並改稱 `heavy-builder`；同次再重排 README 首頁為「目錄結構／分層安裝／Pack 清單（Default/Recommended/Optional）／外部整合／安裝／運作說明／Manifest／Core 關係」分層結構，集中安裝與深度說明、消除重複（狀態列更新為 v2-only、14 packs＝1/5/8）。另將 `local-llm-dispatch-policy`（skill）與 `pwsh7`（tooling）由 recommended 改列 optional（前者依賴本地 LLM provider 設定、後者綁定打包的 PowerShell 7.4.6 wrapper）；同次補強 `/grill-me`（納入上游 ungrillable→先原型驗證、使用者擁有範圍並可反駁、以「已無未處理分支」為結束條件；禁寫清單加入 plan 檔），並在 `UPSTREAM.md` 記錄。
+3. **0.2.6（9/18）**：修正 `pwsh7/pwsh-utf8-wrapper.cs` 引號保真問題；重建 5,120-byte `pwsh-utf8-wrapper.exe`（SHA256 `906AA0...`），取代 release 中兩個 deprecated 4,608-byte assets。同步 README、manifest、`packs/pwsh7/README.md`。
+4. **0.2.5（9/16）**：註冊 `archify` external-skill pack，pin `tt-a1i/archify@v2.16.0`。
+5. **0.2.4（9/16）**：註冊 `pwsh7` tooling pack；刷新外部 pin：`ppt-master@v6.4.0`、`playwright-mcp@0.0.81`、`codebase-memory-mcp@0.11.0`。
 
 ## 目前 Pin（外部來源）
 

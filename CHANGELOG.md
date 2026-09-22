@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.13-dev - Unreleased
+
+- Documented the actual OpenCode v2 skill discovery directories and marked both as valid: the native global `~/.config/opencode/skills/` and the compatibility global `~/.agents/skills/` (where `npx skills add -g -a opencode` actually installs) are both searched, and the same applies to the project `.opencode/skills/` and `.agents/skills/`. Updated the README install section and the `packs/ppt-master/decks/README.md` import note accordingly.
+- Bumped the version to `2.0.13-dev` (development; not yet validated against a released OpenCode version).
+
 ## 2.0.12 - OpenCode v2-only realignment and token-usage removal
 
 - Adopted the Essential Core versioning scheme: the version now equals the OpenCode release this pack was validated against (2.0.12); a plain OpenCode release does not bump this pack by itself.

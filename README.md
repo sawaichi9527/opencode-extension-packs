@@ -4,7 +4,7 @@
 
 內容以 OpenCode v2 原生 `SKILL.md` 與 Markdown Custom Commands 為主，不要求 Claude Code／Codex Plugin、跨 Agent Hook 或模式狀態管理。外部外掛只記錄來源、固定版本與安裝指導，不 fork、不 vendored 進本 Repository。
 
-> 狀態：`v2.0.12`，**僅支援 OpenCode v2.x.x**（v1 相容已移除）。共 14 個 Pack：Default 1、Recommended 5、Optional 8。版號採「該次檢討時基於驗證的 OpenCode 版本」方案，與 `opencode-essential-core` 一致。
+> 狀態：`v2.0.13-dev`（開發中、未發布），**僅支援 OpenCode v2.x.x**（v1 相容已移除）。共 14 個 Pack：Default 1、Recommended 5、Optional 8。上一版 `v2.0.12` 基於 OpenCode v2.0.12 驗證。
 
 ## 目錄結構
 
@@ -92,12 +92,16 @@ npx skills add `
   -g -a opencode --copy -y
 ```
 
-也可手動複製到全域或專案目錄：
+也可手動複製到全域或專案目錄。OpenCode v2 會自動搜尋下列位置：
 
 ```text
-~/.config/opencode/skills/       # 全域
+~/.config/opencode/skills/       # 全域（原生）
+~/.agents/skills/                # 全域（相容；npx skills add -g 的實際落點）
 <project>/.opencode/skills/      # 單一專案
+<project>/.agents/skills/        # 單一專案（相容）
 ```
+
+`npx skills add -g -a opencode` 實際會安裝到 **`~/.agents/skills/`**（相容目錄），與手動複製到 **`~/.config/opencode/skills/`**（原生目錄）都會被 OpenCode 載入；同名 Skill 以後註冊者為準，請避免兩處同名。
 
 ### 安裝 Command（`/grill-me`）
 

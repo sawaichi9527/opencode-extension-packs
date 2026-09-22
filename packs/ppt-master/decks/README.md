@@ -47,6 +47,10 @@ cp ./decks/decks_index.json "$decks/"
 若已安裝 Skill 的 `templates/decks/decks_index.json` 已有其他 Deck 記錄，請以 JSON
 合併方式加入本 Pack 的 `fii_2026_bright` 與 `fii_2026_dark` 兩筆，不要直接覆蓋。
 
+> 路徑提醒：已安裝的 Skill 可能在原生 `~/.config/opencode/skills/ppt-master/`，或相容
+> `~/.agents/skills/ppt-master/`（`npx skills add -g -a opencode` 的實際落點）。上例使用原生路徑，
+> 若是用 `npx skills add` 安裝，請把 `decks` 變數改為 `"$HOME/.agents/skills/ppt-master/templates/decks"`。
+
 ## 註冊
 
 `decks_index.json` 是本目錄 Deck 的 discovery 來源。新增或修改 Deck 時必須同步更新
