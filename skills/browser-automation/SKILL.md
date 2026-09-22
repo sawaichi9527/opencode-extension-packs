@@ -1,6 +1,6 @@
 ---
 name: browser-automation
-description: 為瀏覽器自動化提供安全起始規則，適用 Web UI 測試與重複性操作；涉及登入、提交、刪除或外部發布時必須先確認。
+description: 為瀏覽器自動化提供安全起始規則，適用 Web UI 測試與重複性操作；涉及登入、提交、刪除或外部發布時必須先確認。當使用者要進行瀏覽器自動化、Web UI 測試或重複性表單／截圖操作時載入。
 ---
 
 # Browser Automation

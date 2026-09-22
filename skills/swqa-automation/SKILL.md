@@ -1,6 +1,6 @@
 ---
 name: swqa-automation
-description: 為 Python、UART／TTY、Console Log、Wireshark／PCAP、API、CLI、Device 或整合測試增加通用專案結構與工作規則；不綁定特定產品或 Web UI 框架。
+description: 為 Python、UART／TTY、Console Log、Wireshark／PCAP、API、CLI、Device 或整合測試增加通用專案結構與工作規則；不綁定特定產品或 Web UI 框架。當使用者要規劃或調整這類自動化測試專案的目錄、Log／PCAP 證據保存、時間基準或 Verdict 可追溯性時載入。
 ---
 
 # SWQA Automation

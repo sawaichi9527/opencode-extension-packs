@@ -31,7 +31,7 @@
 
 ## 最近變更（0.2.6 → 2.0.12）
 
-1. **2.0.12（9/22）**：改為僅支援 OpenCode v2——移除 `token-usage` pack（上游 TokenScope 僅驗證 v1.17.18、安裝指南用單數 `command/`，不適用 v2 視窗版）；README 安裝路徑單數 `command/` → `commands/`（6 處，符合 PACK-GUIDE 規則 8）；3 個 hybrid-workflow agent 模板改 v2 `permissions` 清單制（`task`→`subagent`、`bash`→`shell`）；playwright-mcp／codebase-memory-mcp 安裝指南改 v2 `mcp.servers` 格式、移除 `enabled`、`/mcp`→`/mcps`；外部 pin 刷新：ppt-master v6.6.0、@playwright/mcp 0.0.82（archify v2.16.0、codebase-memory-mcp 0.11.0 檢視時已最新）；pwsh7 維持 7.4.6（zip／hash／wrapper 綁定，上游 7.6.6 記為待升級）。版號方案改為「版號 = 該次檢討時基於驗證的 OpenCode 版本」（本次 2.0.12）。
+1. **2.0.12（9/22）**：改為僅支援 OpenCode v2——移除 `token-usage` pack（上游 TokenScope 僅驗證 v1.17.18、安裝指南用單數 `command/`，不適用 v2 視窗版）；README 安裝路徑單數 `command/` → `commands/`（6 處，符合 PACK-GUIDE 規則 8）；3 個 hybrid-workflow agent 模板改 v2 `permissions` 清單制（`task`→`subagent`、`bash`→`shell`）；playwright-mcp／codebase-memory-mcp 安裝指南改 v2 `mcp.servers` 格式、移除 `enabled`、`/mcp`→`/mcps`；外部 pin 刷新：ppt-master v6.6.0、@playwright/mcp 0.0.82（archify v2.16.0、codebase-memory-mcp 0.11.0 檢視時已最新）；pwsh7 維持 7.4.6（zip／hash／wrapper 綁定，上游 7.6.6 記為待升級）。版號方案改為「版號 = 該次檢討時基於驗證的 OpenCode 版本」（本次 2.0.12）；其後補做 8 個 SKILL.md 與 2 個 command 的 v2 逐條 review（PACK-GUIDE 全條通過），6 個 skill description 補上觸發情境；README 新增「外部整合（External Packs）」總覽表。
 2. **0.2.6（9/18）**：修正 `pwsh7/pwsh-utf8-wrapper.cs` 引號保真問題；重建 5,120-byte `pwsh-utf8-wrapper.exe`（SHA256 `906AA0...`），取代 release 中兩個 deprecated 4,608-byte assets。同步 README、manifest、`packs/pwsh7/README.md`。
 3. **0.2.5（9/16）**：註冊 `archify` external-skill pack，pin `tt-a1i/archify@v2.16.0`。
 4. **0.2.4（9/16）**：註冊 `pwsh7` tooling pack；刷新外部 pin：`ppt-master@v6.4.0`、`playwright-mcp@0.0.81`、`codebase-memory-mcp@0.11.0`。

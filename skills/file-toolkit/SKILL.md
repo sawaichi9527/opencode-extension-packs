@@ -1,6 +1,6 @@
 ---
 name: file-toolkit
-description: 檢查文件、圖片、影音與 Python 工具處理能力；依實際任務選擇安裝，不自動下載外部 Repository 或執行 curl pipe shell。
+description: 檢查文件、圖片、影音與 Python 工具處理能力；依實際任務選擇安裝，不自動下載外部 Repository 或執行 curl pipe shell。當任務需要處理 PDF／Office／圖片／影音，或使用者詢問該安裝哪些工具時載入。
 ---
 
 # File Toolkit

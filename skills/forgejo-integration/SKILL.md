@@ -1,6 +1,6 @@
 ---
 name: forgejo-integration
-description: 說明本地 Git、Forgejo Remote 與可選 Forgejo MCP 的分工，協助小型團隊安全 clone、fetch、commit、push 與建立協作流程。
+description: 說明本地 Git、Forgejo Remote 與可選 Forgejo MCP 的分工，協助小型團隊安全 clone、fetch、commit、push 與建立協作流程。當使用者要對區網 Forgejo 進行遠端操作、設定 remote、處理 Token 或 MCP 權限，或詢問「Forgejo 怎麼設定」時載入。
 ---
 
 # Forgejo Integration

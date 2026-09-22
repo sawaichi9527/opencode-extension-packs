@@ -1,6 +1,6 @@
 ---
 name: hybrid-workflow
-description: Use the optional hybrid-workflow backends in the other category to offer local or low-cost cloud Builder delegation after planning, without changing OpenCode's native routing by default.
+description: Use the optional hybrid-workflow backends in the other category to offer local or low-cost cloud Builder delegation after planning, without changing OpenCode's native routing by default. Load when the user asks to delegate implementation to a local or low-cost cloud backend, or runs /other-working-flow.
 ---
 
 # hybrid-workflow
