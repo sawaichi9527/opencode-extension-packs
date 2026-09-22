@@ -7,7 +7,7 @@
 
 內容以 OpenCode 原生 `SKILL.md` 與 Markdown Custom Commands 為主，不要求 Claude Code/Codex Plugin、跨 Agent Hook 或模式狀態管理。外部 plugin 只提供來源、版本、相容性與安裝指導，不將第三方原始碼 fork 或 vendored 進本 Repository。
 
-> 狀態：v2.0.12，僅支援 OpenCode v2.x.x（v1 相容已移除）。包含 hybrid-workflow 三種 Builder backend profile、FII 2026 ppt-master deck 版模、archify 外部 Skill 與 Optional 外部 MCP 固定版本。版號採「該次檢討時基於驗證的 OpenCode 版本」方案，與 `opencode-essential-core` 一致。
+> 狀態：v2.0.12，僅支援 OpenCode v2.x.x（v1 相容已移除）。包含 FII 2026 ppt-master deck 版模、archify 外部 Skill 與 Optional 外部 MCP 固定版本。版號採「該次檢討時基於驗證的 OpenCode 版本」方案，與 `opencode-essential-core` 一致。
 
 ## 分層安裝
 
@@ -54,26 +54,25 @@ skill / plugin 固定版本比較。若有版本更新，會列出「目前版�
 | Command | 用途 |
 |---|---|
 | `/grill-me` | 使用 Plan Agent 一次一題釐清需求、術語、範圍、Acceptance Criteria 與驗證證據，確認共同理解前不實作 |
-| `/other-working-flow` | 查看 `hybrid-workflow` 可用 backend，並在使用者確認後選擇是否委派 Builder |
 
-## hybrid-workflow
+## 多 Agent 委派（OpenCode v2 原生）
 
-`hybrid-workflow` 是 `other` 分類下的可選 workflow，不會取代 OpenCode 內建的 `Plan`、`Build` 或原生模型指派。
+OpenCode v2 已內建多 Agent 分派框架：可自訂 `primary`／`subagent` agent（`.opencode/agents/*.md` 或 `~/.config/opencode/agents/`），由 primary 依 `description` 自動呼叫或由使用者 `@` 指名，並以 `permission.task` 控制可呼叫對象；Command 也可用 `agent`／`subtask` 直接觸發 subagent。
 
-可同時安裝下列 backend：
+原 `hybrid-workflow` Pack 與 `/other-working-flow` command 已於 2026-09-22 移除（OpenCode v2 原生已涵蓋，見 CHANGELOG），改以原生機制達成「預設原生、確認後才委派」。若要保留「委派前詢問」的行為，在 `opencode.jsonc` 設定：
 
-| Agent ID | 用途 |
-|---|---|
-| `workflow_local_builder` | 泛用本地 AI；導入時選擇本地 provider/model |
-| `workflow_local_builder_aeon` | team 28500 預配 DGX Spark/aeon 本地 AI |
-| `workflow_local_builder_<backend>` | 使用其他本地 AI backend 執行單一 Builder 任務 |
-| `workflow_cloud_cheap_builder` | 導入時選擇低成本雲端 provider/model |
+```json
+{
+  "permission": {
+    "task": {
+      "*": "allow",
+      "builder-*": "ask"
+    }
+  }
+}
+```
 
-安裝後預設仍使用 OpenCode 原生模型指派。只有在 Plan 完成拆解或 Build 即將開始前，workflow 才會在每次請求詢問是否委派；拒絕時由目前的 Plan/Build agent 繼續執行。
-
-一般使用者優先推薦 `workflow_local_builder`，因為它不假設本地硬體。team 28500 可使用已預先配對 `DGX Spark/aeon` 的 `workflow_local_builder_aeon`。`workflow_cloud_cheap_builder` 則在導入時從本機已配置的雲端模型中詢問使用者選擇。
-
-完整規則請參閱 [hybrid-workflow](packs/other/hybrid-workflow/README.md)。
+將 `"ask"` 改為 `"deny"` 即可完全停用自動委派（使用者仍可透過 `@` 指名）。
 
 ## 外部整合（External Packs）
 
@@ -166,23 +165,6 @@ cp ./commands/grill-me.md ~/.config/opencode/commands/grill-me.md
 
 `/grill-me` 固定使用 OpenCode Plan Agent，只做訪談與共同理解摘要，不會自行建立程式碼、`CONTEXT.md`、ADR 或其他規格框架。若本 Session 已讀取且檔案未變更，會沿用既有專案資訊，避免重複載入相同 Context。
 
-## 安裝 `/other-working-flow`
-
-OpenCode Custom Command 不使用 `npx skills add`。將 `commands/other-working-flow.md` 複製到全域 Command 目錄：
-
-```powershell
-New-Item -ItemType Directory -Force "$HOME\.config\opencode\commands" | Out-Null
-Copy-Item ".\commands\other-working-flow.md" "$HOME\.config\opencode\commands\other-working-flow.md" -Force
-```
-
-若只希望某個專案使用，複製到：
-
-```text
-<project>/.opencode/commands/other-working-flow.md
-```
-
-重新啟動 OpenCode 後執行 `/other-working-flow`。全域安裝會讓所有專案都能使用，專案安裝則只在該專案提供 workflow 選擇。
-
 ## `test-failure-triage` 的定位
 
 測試失敗時，先判定問題位於：
@@ -226,7 +208,7 @@ Essential Core
 
 Extension Packs
 ├── Default: grill-me
-├── Recommended: Lean Review / SWQA / Failure Triage / File Toolkit / Browser Automation / hybrid-workflow / pwsh7
+├── Recommended: Lean Review / SWQA / Failure Triage / File Toolkit / Browser Automation / pwsh7
 ├── Optional: Forgejo / GitHub
 └── Optional: PPT Master（含 FII 2026 deck） / Archify / Playwright MCP / Codebase Memory MCP
 ```
