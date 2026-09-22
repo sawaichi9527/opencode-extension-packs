@@ -1,6 +1,6 @@
 ---
 name: github-integration
-description: 提供小型團隊與個人專案的 GitHub 基本協作流程，區分本地 Git、GitHub CLI/API 與 Pull Request 操作。當使用者要操作 GitHub remote、開 PR／Issue、建立 Release、確認可見性，或詢問 gh CLI 與 API 用法時載入。
+description: 提供小型團隊與個人專案的 GitHub 基本協作流程，區分本地 Git、GitHub CLI/API 與 Pull Request 操作。當使用者要操作 GitHub 遠端（clone／fetch／pull／push、remote 設定、建立 Repository、確認可見性）、開 PR／Issue、建立 Release，或詢問 gh CLI／API 與 Token 安全用法時載入。
 ---
 
 # GitHub Integration

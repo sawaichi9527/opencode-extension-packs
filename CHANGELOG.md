@@ -11,7 +11,7 @@
 - Refreshed external pins: `ppt-master` `v6.4.0` → `v6.6.0`, `@playwright/mcp` `0.0.81` → `0.0.82`. `archify` (`v2.16.0`) and `codebase-memory-mcp` (`0.11.0`) were already current at review time.
 - Kept `pwsh7` on PowerShell 7.4.6: the packaged zip, published hashes, and wrapper exe are bound to that release; upstream latest (7.6.6) is recorded in `packs/pwsh7/README.md` as a pending upgrade requiring asset re-packaging.
 - Replaced the v1 tool name `bash` with `shell` in `packs/pwsh7/README.md` prose.
-- Aligned all eight Skill `description` fields with `docs/PACK-GUIDE.md` rule 2: six descriptions only stated purpose and now also state an explicit trigger situation ("當使用者…時載入"); `test-failure-triage` and `lean-code-review` already complied and were left unchanged.
+- Aligned all eight Skill `description` fields with `docs/PACK-GUIDE.md` rule 2: six descriptions only stated purpose and now also state an explicit trigger situation ("當使用者…時載入"); `test-failure-triage` and `lean-code-review` already complied and were left unchanged. The `github-integration` and `forgejo-integration` descriptions were then expanded to name the concrete remote operations (clone／fetch／pull／push, remote setup, repository creation) instead of the generic "operate the remote" wording.
 - Updated `handoff.md` status (HEAD, three-way sync state) and bumped `VERSION` plus manifest version to 2.0.12.
 
 ## 0.2.6 - pwsh-utf8-wrapper quote-preserving fix
