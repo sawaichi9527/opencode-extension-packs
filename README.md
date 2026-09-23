@@ -81,7 +81,7 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 - 兩個 external-mcp 依 v2 `mcp.servers` 格式設定，安裝後以 `/mcps` 驗證（詳見各 Pack 文件）。
 - `browser-automation` Skill 與 Playwright MCP 是配對組合：MCP 提供瀏覽器能力，Skill 提供安全規則（登入、提交、刪除、發布前必須確認）。
 - `pwsh7` 在 Windows 主機上是**強制替代**而非可選便利：Windows 10 內建只有 PowerShell 5.1，必須以本 pack 的 7.4.6 取代；Windows 11 內建同樣只有 5.1，若 `pwsh` 不存在或版本低於 pack 提供版本（7.4.6）也必須取代。全域規則模板見 [`packs/pwsh7/templates/global-AGENTS.md`](packs/pwsh7/templates/global-AGENTS.md)（複製到 `%USERPROFILE%\.config\opencode\AGENTS.md`，對所有 session 與專案生效）。
-- `token-monitor` 是 `external-tool`：第三方桌面應用程式，與 OpenCode 之間**沒有整合介面**（只讀取本機用量資料檔），因此不像已移除的 `token-usage` pack 受 OpenCode v1／v2 差異影響。Windows 10/11 與 Ubuntu desktop 的完整部署流程、安裝路徑與前置條件見 [packs/token-monitor/README.md](packs/token-monitor/README.md)；Ubuntu desktop（x64, X11, glibc）已於 `v0.61.0` 重新驗證，Windows 10 LTSC（無 WSL）亦已於 2026-09-23 透過 App 內建 updater 更新至 `v0.61.0`；詳見該 pack 的 compatibility 文件。**在無 root／FUSE 不可用的受限主機上，AppImage 直跑會失敗，必須走 `--appimage-extract`**——見〈Ubuntu desktop（實測注意事項）〉。
+- `token-monitor` 是 `external-tool`：第三方桌面應用程式，與 OpenCode 之間**沒有整合介面**（只讀取本機用量資料檔），因此不像已移除的 `token-usage` pack 受 OpenCode v1／v2 差異影響。Windows 10/11 與 Ubuntu desktop 的完整部署流程、安裝路徑與前置條件見 [packs/token-monitor/README.md](packs/token-monitor/README.md)；Ubuntu desktop（x64, X11, glibc）已於 `v0.61.0` 重新驗證，Windows 10 LTSC（無 WSL）亦已於 2026-09-23 透過 App 內建 updater 更新至 `v0.61.0`；詳見該 pack 的 compatibility 文件。**在無 root／FUSE 不可用的受限主機上，AppImage 無法直接掛載執行：請用 runtime 內建的 `APPIMAGE_EXTRACT_AND_RUN=1`（免 FUSE，且保留 `APPIMAGE`，內建更新與「自動下載更新」開關才可用），不要用會停用更新器的純解壓樹 `--appimage-extract`**——見〈Ubuntu desktop（實測注意事項）〉與 [packs/token-monitor/compatibility.md](packs/token-monitor/compatibility.md)。
 - Token Monitor（Linux 桌面）：視窗為**無邊框**，調整大小用 GNOME 的 `Alt+F8`（方向鍵調整、`Enter` 確認；移動為 `Alt+F7`）；**字體縮放**為 `Ctrl` + `+`／`-`／`0`（放大／縮小／重設）。Wayland 桌面若視窗行為異常，可用 `--ozone-platform=x11` 強制以 XWayland 執行（X11 工作階段無需此 flag）。
 - `linux-flatpak-deploy` 是**部署 / 除錯 runbook**（非可透過 OpenCode 安裝的能力 Pack）：收錄在本機 Ubuntu 24.04.5 desktop 上「flatpak/flathub 修復 → Gear Lever 安裝 → AppImage／Gear Lever 圖示修正」全鏈經驗，並列 dsh（本機本地 session）與 opencode（遠端）兩種佈署方式對照，見 [packs/linux-flatpak-deploy/README.md](packs/linux-flatpak-deploy/README.md)。
 - Pin 與 `manifest/packs.json` 同步更新；升級流程見各 Pack 的 Update Policy。
@@ -140,10 +140,13 @@ Linux 桌面（x64、X11、glibc）安裝外部 Pack 時的實測經驗。**受�
 
 | 情境 | 症狀 | 處理 |
 |---|---|---|
-| 未安裝 `libfuse2` | AppImage 無法直接執行 | 改用 `--appimage-extract` 後執行 `squashfs-root/AppRun`（官方 compatibility 已驗證同一路徑）。Ubuntu 24.04 的套件名為 **`libfuse2t64`** |
-| `sudo` 不可用 | `sudo: The "no new privileges" flag is set, which prevents sudo from running as root.` | 無法安裝系統套件；改走免 root 的解壓路徑（見 next row） |
-| 自備使用者版 `libfuse.so.2` 仍失敗 | `fusermount: mount failed: Operation not permitted` | `NoNewPrivs: 1` 會使 setuid helper（`fusermount`）失效，FUSE 掛載不可用；此時 `--appimage-extract` 是**唯一可行路徑**，不只是替代選項 |
+| 未安裝 `libfuse2` | AppImage 無法直接執行 | 用 runtime 內建的 **`APPIMAGE_EXTRACT_AND_RUN=1`**（免 FUSE；啟動時解壓到 `/tmp`、退出即清除）。Ubuntu 24.04 的套件名為 **`libfuse2t64`** |
+| `sudo` 不可用 | `sudo: The "no new privileges" flag is set, which prevents sudo from running as root.` | 無法安裝系統套件；改走免 root 的 extract-and-run（見上列） |
+| 自備使用者版 `libfuse.so.2` 仍失敗 | `fusermount: mount failed: Operation not permitted` | `NoNewPrivs: 1` 會使 setuid helper（`fusermount`）失效，FUSE 掛載不可用；這正是 extract-and-run 的適用情境 |
+| 用 `--appimage-extract` 純解壓樹啟動 | 更新檢查失敗（`Update metadata missing or invalid`）、設定頁「自動下載更新」**灰色不可勾** | 純解壓樹讓 app 看不到 `APPIMAGE`，內建更新器被停用；**改用 extract-and-run 即可恢復**（詳見 [packs/token-monitor/compatibility.md](packs/token-monitor/compatibility.md) 的 Linux Notes） |
 | GTK4 應用擷取畫面全黑 | X11 擷取不到 GL surface | 以 `GSK_RENDERER=cairo`（必要時加 `LIBGL_ALWAYS_SOFTWARE=1`）強制軟體渲染後再擷取；Electron 應用（如 Token Monitor）不受影響 |
+
+Flatpak／Gear Lever／AppImage 圖示修正的完整步驟與坑點（含 **dsh（本機本地 session）vs opencode（遠端）** 兩種佈署對照）見 [`packs/linux-flatpak-deploy/`](packs/linux-flatpak-deploy/README.md)。
 
 受限主機的判斷方式：
 
@@ -153,9 +156,9 @@ unshare -U true                     # user namespace 是否可用（bubblewrap �
 ldconfig -p | grep libfuse.so.2     # FUSE 2 函式庫是否存在
 ```
 
-### 主機環境經驗：Flatpak user 模式（非本 Repository 的 Pack）
+### 主機環境經驗：Flatpak user 模式（opencode 場次）
 
-> 以下**不屬於本 Repository 的任何 Pack**，僅記錄 Ubuntu 主機在無 root 情境下建置容器化環境的實測經驗，供同類主機參考。標準安裝（有 root）仍建議 `sudo apt install flatpak` 搭配系統層 remote。
+> 本節是 **opencode（遠端、受限主機 `NoNewPrivs: 1`）** 場次的 user-mode 實測。system mode 的完整 runbook——flathub summary 修復、Gear Lever 安裝、`XDG_DATA_DIRS` 選單、AppImage 圖示 `Icon=`／`StartupWMClass` 修正——見 [`packs/linux-flatpak-deploy/`](packs/linux-flatpak-deploy/README.md)（含 dsh vs opencode 佈署對照）。標準安裝（有 root）建議 `sudo apt install flatpak` 搭配系統層 remote。
 
 | 項目 | 實測結果 |
 |---|---|

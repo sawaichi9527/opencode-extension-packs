@@ -2,7 +2,9 @@
 
 > 收錄 **2026-09-23 透過 dsh（DeepSeek Harness，本機本地 session）** 在 Ubuntu 24.04.5 desktop
 > 上完成「flatpak / flathub 修復 → Gear Lever（Flatpak）安裝 → AppImage / Gear Lever 圖示修正」
-> 整條鏈的經驗。對照 opencode 遠端佈署經驗見 [dsh vs opencode 佈署對照](#dsh-vs-opencode-佈署對照)。
+> 整條鏈的經驗。對照 opencode 遠端佈署經驗見 [dsh vs opencode 佈署對照](#dsh-vs-opencode-佈署對照)；
+> **問題 4（AppImage 免 FUSE 啟動與內建更新器）由 opencode 場次補上**，並回頭修正本 runbook 原本
+> 「受限主機只能 `--appimage-extract`」的說法。
 >
 > 本 pack 是**部署 / 除錯 runbook**，不是可透過 OpenCode 安裝的能力 Pack；它記錄「在 Linux desktop
 > 把 Flatpak／AppImage 應用程式順利跑起來並正確顯示圖示」的可重複步驟與坑點。
@@ -15,7 +17,7 @@
 | 桌面 / 顯示 | GNOME，**X11**（`DISPLAY=:0`、`WAYLAND_DISPLAY` 空白）、`XDG_CURRENT_DESKTOP=ubuntu:GNOME` |
 | 架構 | x64，glibc |
 | Flatpak | 1.14.6 |
-| 涵蓋對象 | flathub summary 修復、Gear Lever（`it.mijorus.gearlever`）安裝與選單圖示、Token Monitor AppImage 的選單 / dock 齒輪圖示 |
+| 涵蓋對象 | flathub summary 修復、Gear Lever（`it.mijorus.gearlever`）安裝與選單圖示、Token Monitor AppImage 的選單 / dock 齒輪圖示、AppImage 免 FUSE 啟動與內建更新器（`APPIMAGE`） |
 
 三件事串成一条典型鏈：**先讓 flathub 能抓 summary → 再裝 Flatpak 應用 → 最後修桌面圖示**。
 每一階段都有明確的「看不到的現象 → 根因 → 修正 → 驗證」，下面逐一拆解。
@@ -199,6 +201,51 @@ grep '^StartupWMClass=' ~/.local/share/applications/token_monitor.desktop   # St
 
 ---
 
+## 問題 4：AppImage 的「自動下載更新」開關灰色不可勾（opencode 場次，受限主機）
+
+> 本節來自 **opencode 場次**（同一台機器、同一版本，但 `sudo` 不可用 → 以純解壓樹啟動）。dsh 場次直接執行 AppImage，未遇到此問題。
+
+### 症狀
+
+Token Monitor 設定頁的「自動下載更新」**灰色、無法勾選**，說明文字為「自動下載需要使用 AppImage 版本。」；手動「檢查更新」同時失敗（log：`App update check failed: Update metadata missing or invalid`）。
+
+### 根因：app 以 `APPIMAGE` 環境變數判斷「這個 build 能否自我更新」
+
+- `src/shared/appUpdater.js:27` `appUpdateInstallSupport()`：Linux 必須有 `env.APPIMAGE`，否則回 `{ supported: false, reason: 'linux-not-appimage' }`
+- `src/electron/renderer/appUpdatePresentation.js:39`：`disabled = !supported`、`checked = supported && preferenceEnabled` → **一定灰色不可勾**，手動改 `settings.json` 也不會顯示為勾選
+- electron-updater 同一道理：`AppImageUpdater.isUpdaterActive()` 在 `APPIMAGE == null && !forceDevUpdateConfig` 時回 false，檢查直接略過並印 `APPIMAGE env is not defined, current application is not an AppImage`
+
+**純解壓樹（`--appimage-extract` + `squashfs-root/AppRun`）不會設定 `APPIMAGE`**，因此更新器被停用。
+
+### 修正：改用免 FUSE 但保留 `APPIMAGE` 的 extract-and-run
+
+```bash
+cd ~/Applications/token-monitor
+APPIMAGE_EXTRACT_AND_RUN=1 ./Token-Monitor-0.61.0.AppImage
+```
+
+`launch.sh` 與 `.desktop` 的 `Exec=` 都要帶這個環境變數；啟動時解壓到 `/tmp/appimage_extracted_<hash>/`，退出即清除（也省下常駐的 384 MB `squashfs-root/`）。
+
+### 驗證（Ubuntu 24.04.5，x64／X11／glibc）
+
+| 啟動方式 | 子程序可見 `APPIMAGE` | 更新檢查 | 自動下載開關 |
+|---|---|---|---|
+| `squashfs-root/AppRun`（純解壓樹） | ✗ | ✗ `Update metadata missing or invalid` | ✗ 灰色不可勾 |
+| 真實 AppImage ＋ `APPIMAGE_EXTRACT_AND_RUN=1` | ✓ | ✓ `Update for version 0.61.0 is not available (latest version: 0.61.0, downgrade is disallowed).` | ✓ 可勾 |
+
+`~/.config/Token Monitor/settings.json` 的 `appUpdate.lastCheckedAt` 由 `null` → `2026-09-23T10:30:18Z`、`lastKnownLatest.tag = v0.61.0`。
+
+> 判讀方法：AppImage runtime 會清掉子程序的環境，`/proc/<pid>/environ` 讀不到（回傳全 NUL），
+> 所以改用「`electron-updater/out/AppUpdater.js:253` 以 `isUpdaterActive()` 閘控檢查，而 app 原始碼
+> 未設定 `forceDevUpdateConfig`」推得 `APPIMAGE` 有值。純解壓樹那次則可直接讀 `/proc` 證實沒有 `APPIMAGE`。
+
+### 附帶影響
+
+- **「登入時自動啟動」**走同一個 `APPIMAGE` 閘控（`src/electron/linuxAutostart.js:15`）；此模式下它產生的 `~/.config/autostart/token-monitor.desktop` 之 `Exec=` 直接指向 AppImage，在無 FUSE 主機需自行補上 `env APPIMAGE_EXTRACT_AND_RUN=1`。
+- 自動下載後的「安裝並重啟」步驟會 `mv` 覆蓋 AppImage 並重新 spawn（繼承環境變數），在此模式下理論上可行，但**尚未實測**（線上目前即最新版）。
+
+---
+
 ## dsh vs opencode 佈署對照
 
 兩次都在 **Ubuntu 24.04.5 desktop** 上完成「flatpak → Gear Lever / AppImage → 圖示」鏈，但**權限模型不同，導致走 system mode 還是 user mode**——這是最關鍵的分野：
@@ -207,7 +254,7 @@ grep '^StartupWMClass=' ~/.local/share/applications/token_monitor.desktop   # St
 |---|---|---|
 | root / sudo | **用戶 terminal 的 sudo 可用**（`sudo flatpak install`、`sudo apt install wmctrl` 皆成功） | **`sudo` 不可用**——主機 `NoNewPrivs: 1`，setuid helper（`fusermount`）也失效 |
 | flatpak 模式 | **system mode**（`/var/lib/flatpak`，`sudo flatpak remote-add / install`） | **user mode**（`--user`，`~/.local/flatpak-env` 自帶 `LD_LIBRARY_PATH`／`XDG_DATA_DIRS`；`/var/lib/flatpak` 不存在） |
-| AppImage 啟動 | 直接執行（系統有 FUSE）＋`--appimage-extract` 皆可用 | **只能 `--appimage-extract`**（自備 `libfuse.so.2` 仍 `fusermount: Operation not permitted`，是唯一可行路徑） |
+| AppImage 啟動 | 直接執行（系統有 FUSE）＋`--appimage-extract` 皆可用 | 無法 FUSE 掛載（自備 `libfuse.so.2` 仍 `fusermount: Operation not permitted`）→ 用 runtime 內建 **`APPIMAGE_EXTRACT_AND_RUN=1`**（免 FUSE；**純解壓樹會停用內建更新與自動下載開關，見問題 4**） |
 | XDG_DATA_DIRS 修正 | 寫入 **`/etc/environment`**（需 sudo），logout/relogin 生效 | 無 system 範圍；改由 flatpak 包裝檔帶入 `XDG_DATA_DIRS` |
 | 圖示修正 | `.desktop` `Icon=` 絕對路徑 + `StartupWMClass`（`wmctrl -lx` 找出 class = `token-monitor`） | 同左（`.desktop` 編輯在 home 下，由用戶執行） |
 | 已知限制 | — | 無 `xdg-desktop-portal` → `org.freedesktop.portal.Flatpak was not provided`；GTK4 擷取需 `GSK_RENDERER=cairo` |
@@ -216,9 +263,9 @@ grep '^StartupWMClass=' ~/.local/share/applications/token_monitor.desktop   # St
 
 **結論**：兩種方式都能把應用程式部署到同一台 Linux desktop，但**能否用 system mode 取決於 sudo 是否可用**。
 - **dsh 本次**：sudo 可用 → system mode + `/etc/environment`；agent 負責診斷（summary 路徑拼法、`wmctrl` 抓 class、`Icon=` 指向），privileged / home 編輯由用戶執行。
-- **opencode 場次**：受限主機（`NoNewPrivs: 1`）→ 被迫 user mode + `--appimage-extract`，已 commit+push 在 [README.md](../../README.md#ubuntu-desktop實測注意事項) 與 [handoff.md](../../handoff.md#ubuntu-desktop實驗經驗）（Token Monitor AppImage 可行性、Gear Lever user-mode 67 秒安裝、無 portal 限制）。
+- **opencode 場次**：受限主機（`NoNewPrivs: 1`）→ user mode ＋ **`APPIMAGE_EXTRACT_AND_RUN=1`**（免 FUSE；純解壓樹會停用內建更新與「自動下載更新」開關，見問題 4），並回頭修正自身文件與本 runbook 原本「只能 `--appimage-extract`」的說法。Token Monitor／Gear Lever 的 user-mode 安裝與驗證見 [packs/token-monitor/compatibility.md](../../packs/token-monitor/compatibility.md) 與 [README.md](../../README.md#ubuntu-desktop實測注意事項)。
 
-本 runbook 補上 opencode 場次未涵蓋的部分：**system mode 下的 flathub summary 修復、Gear Lever 安裝與 `/etc/environment` 選單、以及 AppImage dock 的 `StartupWMClass` 齒輪**。本 runbook 與 [`packs/token-monitor/`](../../packs/token-monitor/) 的 Ubuntu 驗證則為共同基礎。
+本 runbook 補上 opencode 場次未涵蓋的部分：**system mode 下的 flathub summary 修復、Gear Lever 安裝與 `/etc/environment` 選單、AppImage dock 的 `StartupWMClass` 齒輪**；opencode 場次則補上本 runbook 未涵蓋的 **AppImage 免 FUSE 啟動與內建更新器（`APPIMAGE`）** 一節。兩份文件合起來才是完整鏈。
 
 ---
 
@@ -236,6 +283,7 @@ sudo flatpak install flathub it.mijorus.gearlever
 # 3a) Gear Lever 進選單：XDG_DATA_DIRS 加入 flatpak exports（寫 /etc/environment，需 sudo），再 logout/relogin
 # 3b-1) AppImage 選單圖示：絕對路徑 Icon= 指向 ~/.local/share/icons 的複製品 + gtk-update-icon-cache
 # 3b-2) AppImage dock 圖示：wmctrl -lx 找出實際 class，改 StartupWMClass 對上，徹底重開程式
+# 3b-3) 無 root／無 FUSE 主機啟動 AppImage：APPIMAGE_EXTRACT_AND_RUN=1（保留 APPIMAGE，內建更新可用）
 ```
 
 ## 經驗與坑（含 agent sandbox 限制）
@@ -253,6 +301,10 @@ sudo flatpak install flathub it.mijorus.gearlever
    這些動作由**用戶在本機 terminal 執行**最快，agent 負責診斷與給出精確指令。
 6. **不要盲信建議中的參數**：例如 `remote-add --force-toggle` 的 `--force-toggle` 對 `remote-add` 非法；
    執行前先用 `flatpak <cmd> --help` 確認參數、用 curl 端點實測再動。
+7. **AppImage 免 FUSE 不等於要放棄更新器**：`--appimage-extract`（常駐解壓樹）會讓 app 看不到 `APPIMAGE`，
+   內建更新與「自動下載更新」開關直接失效；**`APPIMAGE_EXTRACT_AND_RUN=1` 才是免 FUSE 又保留更新器的方式**。
+   判斷痕跡：設定頁說明文字出現「自動下載需要使用 AppImage 版本。」、log 出現 `APPIMAGE env is not defined`
+   或 `App update check failed`，就代表用錯了啟動方式。
 
 ## 相關文件
 

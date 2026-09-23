@@ -9,7 +9,7 @@
 | 版本 | `2.0.16`（`VERSION` / `manifest/packs.json`；基於 OpenCode v2.0.14 驗證。上一版 `2.0.15`） |
 | HEAD | `main`（2.0.16：`token-monitor` pin 升 `v0.61.0` 並於 Ubuntu 重新驗證、Linux 使用說明；前次 2.0.15：pwsh7 強制替代、全域規則模板、註冊 `token-monitor` 並完成 Ubuntu 驗證；實際 SHA 以 `git log -1` 為準） |
 | 相容性 | **僅支援 OpenCode v2.x.x**——v1 慣例（agent `permission` map、`bash`/`task` action、單數 `command/`、`mcp` 直掛 server 名、`enabled` 欄位）已全部移除 |
-| 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`（`6543738`）；推送順序固定 origin → forgejo。Forgejo remote：`http://192.168.23.167:3000/BBDU28500/opencode-extension-packs.git`（repo 在 Forgejo 上屬 `BBDU28500`） |
+| 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`；推送順序固定 origin → forgejo。Forgejo remote：`http://192.168.23.167:3000/BBDU28500/opencode-extension-packs.git`（repo 在 Forgejo 上屬 `BBDU28500`）。實際 SHA 以 `git log -1` 為準 |
 | working tree | clean，三方 `main` 一致 |
 
 ## 專案定位
@@ -38,7 +38,7 @@
 5. **0.2.6（9/18）**：修正 `pwsh7/pwsh-utf8-wrapper.cs` 引號保真問題；重建 5,120-byte `pwsh-utf8-wrapper.exe`（SHA256 `906AA0...`），取代 release 中兩個 deprecated 4,608-byte assets。同步 README、manifest、`packs/pwsh7/README.md`。
 6. **0.2.5（9/16）**：註冊 `archify` external-skill pack，pin `tt-a1i/archify@v2.16.0`。
 7. **0.2.4（9/16）**：註冊 `pwsh7` tooling pack；刷新外部 pin：`ppt-master@v6.4.0`、`playwright-mcp@0.0.81`、`codebase-memory-mcp@0.11.0`。
-8. **2.0.16-docs（9/23）**：新增 `linux-flatpak-deploy` tooling pack（[packs/linux-flatpak-deploy/](packs/linux-flatpak-deploy/README.md)、[compatibility.md](packs/linux-flatpak-deploy/compatibility.md)）——收錄本機 Ubuntu 24.04.5 desktop（GNOME X11、Flatpak 1.14.6）上「flathub 修復 → Gear Lever 安裝 → AppImage／Gear Lever 圖示修正」全鏈經驗，版號沿用 `2.0.16`（pure docs/runbook 增補，不改變 OpenCode 驗證版本）。三問題根因與解法：(1) flathub `no summary found`＝base URL 決定 summary 路徑，`flathub.org/summary.idx` 回 404、`dl.flathub.org/repo/summary.idx` 回 200，用 `.flatpakrepo` 把 base 固定成 `/repo/`（注意 `remote-add --force-toggle` 的 `--force-toggle` 對 `remote-add` 非法）；(2) Gear Lever（`it.mijorus.gearlever`）裝好後選單看不到＝`XDG_DATA_DIRS` 不含 flatpak exports，寫入 `/etc/environment` 後必須 logout/relogin（PAM 在登入時讀；`Alt+F2:r` 不生效）；(3) Token Monitor AppImage 齒輪分兩層——選單齒輪是 `.desktop` `Icon=` 指向不存在路徑（改絕對路徑至 `~/.local/share/icons`），dock 齒輪是 `StartupWMClass=Token Monitor` 與實際視窗 class `token-monitor` 不匹配（`wmctrl -lx` 破案，對齊後徹底重開程式）。新增 dsh（本機本地 session：agent sandbox 的 `no_new_privs` 擋 sudo、擋 home flatpak 路徑寫入，privileged/home edits 由用戶在本機執行）與 opencode（遠端）佈署對照表；同步更新 README（Pack 數 15→16、Optional 9→10、關係樹與備註段）、manifest（新增 optional tooling pack）、CHANGELOG。
+8. **2.0.16-docs（9/23）**：新增 `linux-flatpak-deploy` tooling pack（[packs/linux-flatpak-deploy/](packs/linux-flatpak-deploy/README.md)、[compatibility.md](packs/linux-flatpak-deploy/compatibility.md)）——收錄本機 Ubuntu 24.04.5 desktop（GNOME X11、Flatpak 1.14.6）上「flathub 修復 → Gear Lever 安裝 → AppImage／Gear Lever 圖示修正」全鏈經驗，版號沿用 `2.0.16`（pure docs/runbook 增補，不改變 OpenCode 驗證版本）。三問題根因與解法：(1) flathub `no summary found`＝base URL 決定 summary 路徑，`flathub.org/summary.idx` 回 404、`dl.flathub.org/repo/summary.idx` 回 200，用 `.flatpakrepo` 把 base 固定成 `/repo/`（注意 `remote-add --force-toggle` 的 `--force-toggle` 對 `remote-add` 非法）；(2) Gear Lever（`it.mijorus.gearlever`）裝好後選單看不到＝`XDG_DATA_DIRS` 不含 flatpak exports，寫入 `/etc/environment` 後必須 logout/relogin（PAM 在登入時讀；`Alt+F2:r` 不生效）；(3) Token Monitor AppImage 齒輪分兩層——選單齒輪是 `.desktop` `Icon=` 指向不存在路徑（改絕對路徑至 `~/.local/share/icons`），dock 齒輪是 `StartupWMClass=Token Monitor` 與實際視窗 class `token-monitor` 不匹配（`wmctrl -lx` 破案，對齊後徹底重開程式）。新增 dsh（本機本地 session：agent sandbox 的 `no_new_privs` 擋 sudo、擋 home flatpak 路徑寫入，privileged/home edits 由用戶在本機執行）與 opencode（遠端）佈署對照表；同步更新 README（Pack 數 15→16、Optional 9→10、關係樹與備註段）、manifest（新增 optional tooling pack）、CHANGELOG。**opencode 場次後續補正（同日）**：本 runbook 原記「受限主機只能 `--appimage-extract`」，經實測更正為 **`APPIMAGE_EXTRACT_AND_RUN=1`**（免 FUSE 且保留 `APPIMAGE`）；新增問題 4 說明純解壓樹會停用內建更新器與設定頁「自動下載更新」開關（`appUpdateInstallSupport`／`appUpdatePresentation.js:39`／`AppImageUpdater.isUpdaterActive()` 三處閘控），並同步修正 README（主機環境經驗段、Ubuntu 注意事項表）、`packs/token-monitor/compatibility.md` Linux Notes、本文件與 compatibility 證據矩陣。
 
 ## 部署經驗（dsh vs opencode）
 
@@ -46,13 +46,14 @@
 
 | 維度 | dsh（本機本地 session） | opencode（受限主機） |
 |---|---|---|
-| root / sudo | **用戶 terminal 的 sudo 可用**（system mode flatpak、`/etc/environment`） | **`sudo` 不可用**——`NoNewPrivs: 1`，被迫 user mode + `--appimage-extract` |
+| root / sudo | **用戶 terminal 的 sudo 可用**（system mode flatpak、`/etc/environment`） | **`sudo` 不可用**——`NoNewPrivs: 1`，被迫 user mode |
 | flatpak 模式 | system mode（`/var/lib/flatpak`） | user mode（`--user`、`~/.local/flatpak-env`；無 `/var/lib/flatpak`） |
+| AppImage 啟動 | 直接執行（系統有 FUSE）＋`--appimage-extract` 皆可用 | **`APPIMAGE_EXTRACT_AND_RUN=1`**（免 FUSE 且保留 `APPIMAGE`）；純解壓樹會停用內建更新與自動下載開關 |
 | 讀取／診斷 | 強：直接讀 `/proc`、`/etc`、repo、跑 `curl`／`wmctrl`／`xwininfo` | 同左（本機執行指令） |
 | agent 寫入 | harness sandbox `no_new_privs` 擋 agent 自行 sudo／寫 home flatpak 路徑 → privileged/home edits 由用戶執行 | 用戶遠端操作（具體連線／權限模型以該 session 為準） |
-| 本次特別貢獻 | flathub summary 修復、Gear Lever system-mode 安裝與 `/etc/environment` 選單、Token Monitor dock `StartupWMClass` 修正（`wmctrl` 找出 class=`token-monitor`） | Token Monitor Ubuntu AppImage 可行性 + Gear Lever user-mode 安裝已 commit+push（`packs/token-monitor/compatibility.md`、README/handoff「Ubuntu desktop 實測經驗」） |
+| 本次特別貢獻 | flathub summary 修復、Gear Lever system-mode 安裝與 `/etc/environment` 選單、Token Monitor dock `StartupWMClass` 修正（`wmctrl` 找出 class=`token-monitor`） | Token Monitor／Gear Lever user-mode 安裝、**AppImage 免 FUSE 啟動與內建更新器（`APPIMAGE`）修正**（問題 4）、`APPIMAGE_EXTRACT_AND_RUN` 取代純解壓樹 |
 
-結論：兩種方式都能把應用程式部署到同一台 Linux desktop，但**能否用 system mode 取決於 sudo 是否可用**。dsh 強在本機直接診斷（summary 路徑拼法、`wmctrl` 抓 class），privileged/home 編輯交由用戶本機 terminal；opencode 場次受 `NoNewPrivs` 限制只能 user mode，已落檔 AppImage 可行性驗證；本 runbook 補上 system mode 下的 flathub summary 修復、Gear Lever 安裝與 `/etc/environment`、AppImage dock `StartupWMClass` 前一場未涵蓋部分。
+結論：兩種方式都能把應用程式部署到同一台 Linux desktop，但**能否用 system mode 取決於 sudo 是否可用**。dsh 強在本機直接診斷（summary 路徑拼法、`wmctrl` 抓 class），privileged/home 編輯交由用戶本機 terminal；opencode 場次受 `NoNewPrivs` 限制只能 user mode，並補上「AppImage 免 FUSE 啟動仍要保留 `APPIMAGE` 才能用內建更新」這個關鍵修正——**兩份文件合起來才是完整鏈**：dsh 提供 system mode 的 flathub summary／`/etc/environment`／dock `StartupWMClass`，opencode 提供 user mode 與 AppImage 更新器（問題 4）。
 
 ## 目前 Pin（外部來源）
 
@@ -85,16 +86,17 @@
 | `sudo` 不可用 → 無法安裝 `libfuse2` | `sudo: The "no new privileges" flag is set, which prevents sudo from running as root.`；Ubuntu 24.04 的套件名為 **`libfuse2t64`** |
 | 系統無 FUSE 2 函式庫 | `ldconfig -p \| grep libfuse.so.2` 無結果（僅有 `libfuse3`） |
 | 自備使用者版 `libfuse.so.2`（deb 解到 `~/.local/lib/fuse2/`）仍無法掛載 | `fusermount: mount failed: Operation not permitted`；`/dev/fuse` 為 `crw-rw-rw-`、`fusermount3` 為 setuid root，但在 `NoNewPrivs` 下均無效 |
-| 改用 `--appimage-extract` + `squashfs-root/AppRun` | 成功：Electron 程序 8 個、`xwininfo` 視窗 `"Token Monitor"` `340x650`、內附 `@tokscale/cli-linux-x64-gnu` 回報 OpenCode `messages: 141`（非零）、`collector-anchor.json` today 5,240,366 tokens／$0.0721（與畫面一致） |
+| 改用 **`APPIMAGE_EXTRACT_AND_RUN=1` + 真實 AppImage**（免 FUSE） | 成功：程序位於 `/tmp/appimage_extracted_*`、`xwininfo` 視窗 `"Token Monitor"` `340x650`、內附 `@tokscale/cli-linux-x64-gnu` 回報 OpenCode `messages: 141`（非零）、`collector-anchor.json` today 5,240,366 tokens／$0.0721（與畫面一致） |
+| 內建更新器與「自動下載更新」開關 | 純解壓樹：`APPIMAGE` 不存在（`/proc/<pid>/environ` 2790 項可讀、0 命中）→ 檢查失敗、開關灰色不可勾；extract-and-run：檢查成功（`Update for version 0.61.0 is not available …`）、`settings.json` `lastCheckedAt` 由 `null` → 有值 |
 | 完整性 | size `155094683`、sha512 `IHy/Qg4O…cg==`，皆與 `latest-linux.yml` 相符 |
 
-結論：在受限主機上，`--appimage-extract` **不是替代選項而是唯一可行路徑**。此經驗已寫入 README 的「Ubuntu desktop（實測注意事項）」。
+結論：在受限主機上無法 FUSE 掛載，正確做法是 runtime 內建的 **`APPIMAGE_EXTRACT_AND_RUN=1`**（免 FUSE 且保留 `APPIMAGE`）；**純解壓樹 `--appimage-extract` 會停用內建更新與自動下載開關**，本節先前「唯一可行路徑」的說法已據此修正。此經驗已寫入 README 的「Ubuntu desktop（實測注意事項）」與 `packs/token-monitor/compatibility.md` 的 Linux Notes。
 
 驗證技巧：GTK4 應用在 X11 下直接擷取會得到全黑畫面，需 `GSK_RENDERER=cairo`（必要時加 `LIBGL_ALWAYS_SOFTWARE=1`）；Electron 應用（如 Token Monitor）不受影響。
 
-### (b) 非本 repo 範圍：Flatpak user 模式與 Gear Lever
+### (b) Flatpak user 模式與 Gear Lever（opencode 場次；system mode 對照見 `linux-flatpak-deploy`）
 
-> 不屬本 Repository 任何 Pack，僅記錄同機環境經驗，供同類主機參考。
+> 本節為 opencode（遠端、受限主機）的 user-mode 實測；system mode 的 flathub summary 修復、`XDG_DATA_DIRS` 選單與 AppImage 圖示修正見 [packs/linux-flatpak-deploy/](packs/linux-flatpak-deploy/README.md)。
 
 - **前提**：`bubblewrap 0.9.0` 已安裝，`unshare -U` 與 `unshare -rm` 均成功；但 `sudo` 因 `NoNewPrivs` 不可用 → 由 deb 解出 `flatpak`／`libostree-1-1` 至 `~/.local/flatpak-env/`，以 `~/.local/bin/flatpak` 包裝檔提供（`LD_LIBRARY_PATH`／`XDG_DATA_DIRS`／`GI_TYPELIB_PATH`）。**僅能 `--user`**，`/var/lib/flatpak` 不存在。
 - **驗證**：`flatpak --version` → `1.14.6`；`remote-add flathub` 成功；`remote-ls`／`remote-info` 正常；`install --no-deps` 完成並出現在 `flatpak --user list`。

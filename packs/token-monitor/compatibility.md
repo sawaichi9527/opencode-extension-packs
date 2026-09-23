@@ -235,20 +235,44 @@ signs the release artifacts, so a tampered update payload fails verification.
 
 ## Linux Notes
 
-### `libfuse2` is not required if you unpack the AppImage
+### `libfuse2` is not required: prefer extract-and-run over a permanent extracted tree
 
 The AppImage runs directly when FUSE 2 is available (`libfuse2` / `libfuse.so.2`). Without it, use
-the standard AppImage escape hatch instead of installing FUSE:
+the AppImage runtime's FUSE-free mode:
 
 ```bash
 chmod +x Token-Monitor-0.61.0.AppImage
-./Token-Monitor-0.61.0.AppImage --appimage-extract
-./squashfs-root/AppRun
+APPIMAGE_EXTRACT_AND_RUN=1 ./Token-Monitor-0.61.0.AppImage   # extracts to /tmp, removed on exit
 ```
 
-Running the extracted `AppRun` prints `APPIMAGE env is not defined` and disables the in-app updater
-check (`App update check failed: Update metadata missing or invalid`). Both are cosmetic; scanning
-and the widget are unaffected.
+Avoid settling for `--appimage-extract` + `./squashfs-root/AppRun` plus a permanent `squashfs-root/`:
+a permanently extracted tree hides the AppImage from the app and disables the in-app updater (below).
+
+### The in-app updater and the "download updates automatically" toggle require `APPIMAGE`
+
+`src/shared/appUpdater.js:27` `appUpdateInstallSupport()` returns
+`{ supported: false, reason: 'linux-not-appimage' }` unless `env.APPIMAGE` is set, and
+`src/electron/renderer/appUpdatePresentation.js:39` derives `disabled = !supported` and
+`checked = supported && preferenceEnabled`. On a purely extracted tree the toggle is therefore
+**greyed out and cannot be enabled** (its note reads `Automatic downloads require the AppImage build.`
+/ `自動下載需要使用 AppImage 版本。`), and editing `settings.json` does not help because `checked` is
+ANDed with `supported`. The same gate disables the manual update check
+(`App update check failed: Update metadata missing or invalid`, since `electron-updater`'s
+`AppImageUpdater.isUpdaterActive()` returns false without `APPIMAGE`).
+
+`APPIMAGE_EXTRACT_AND_RUN=1` keeps the app running FUSE-free **while `APPIMAGE` stays visible**, so
+the check works and the toggle becomes available. Measured on Ubuntu 24.04.5 (x64, X11, glibc):
+
+| Launch mode | `APPIMAGE` visible | Update check | Auto-download toggle |
+|---|---|---|---|
+| `squashfs-root/AppRun` (permanent extract) | no | fails: `Update metadata missing or invalid` | greyed out |
+| real AppImage + `APPIMAGE_EXTRACT_AND_RUN=1` | yes | succeeds: `Update for version 0.61.0 is not available (latest version: 0.61.0, downgrade is disallowed).` | available |
+
+The AppImage runtime scrubs its own environment for the child process, so `/proc/<pid>/environ` of
+the running app cannot be read to confirm `APPIMAGE`; the code + log chain above is the evidence.
+`startAtLogin` uses the same gate (`src/electron/linuxAutostart.js:15`), so an autostart entry it
+writes points straight at the AppImage and needs `env APPIMAGE_EXTRACT_AND_RUN=1` prepended on a
+host where FUSE mounting is unavailable.
 
 ### The `gnu` scan engine supports the full grouping; the `musl` one does not
 

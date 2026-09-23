@@ -33,6 +33,22 @@
 | StartupWMClass 對上 | `grep '^StartupWMClass=' …/token_monitor.desktop` | `StartupWMClass=token-monitor` | ✅ |
 | 最終圖示 | 選單 + dock（重開程式 / relog 後） | Gear Lever、Token Monitor 皆非齒輪 | ✅ |
 
+### AppImage 啟動模式與內建更新器（opencode 場次補測）
+
+受限主機（`NoNewPrivs: 1`，無法 FUSE 掛載、無法 sudo）上的 Launch mode 差異：
+
+| 步驟 | 指令 / 檢查點 | 預期結果 | 實測 |
+|---|---|---|---|
+| 純解壓樹啟動無 `APPIMAGE` | `tr '\0' '\n' < /proc/<app-pid>/environ \| grep -c APPIMAGE` | `0` | ✅ 0（該 pid 的 environ 可讀，共 2790 項） |
+| 純解壓樹更新檢查失敗 | 啟動 log | `App update check failed: Update metadata missing or invalid` | ✅ |
+| 純解壓樹開關不可勾 | 設定頁「自動下載更新」 | 灰色；說明「自動下載需要使用 AppImage 版本。」 | ✅ |
+| 判斷函式輸出 | `appUpdateInstallSupport({isPackaged:true,platform:'linux',env:process.env})` | `{supported:false,reason:'linux-not-appimage'}` | ✅ |
+| extract-and-run 啟動 | `APPIMAGE_EXTRACT_AND_RUN=1 ./Token-Monitor-0.61.0.AppImage` | 免 FUSE 啟動，程序位於 `/tmp/appimage_extracted_*` | ✅ |
+| extract-and-run 無警告 | 啟動 log | 無 `APPIMAGE env is not defined` | ✅ |
+| extract-and-run 檢查成功 | 啟動 log | `Update for version 0.61.0 is not available (latest version: 0.61.0, downgrade is disallowed).` | ✅ |
+| 檢查時間落檔 | `~/.config/Token Monitor/settings.json` → `appUpdate.lastCheckedAt` | 由 `null` → 有值（`2026-09-23T10:30:18Z`） | ✅ |
+| 視窗仍正常 | `xwininfo -root -tree \| grep 'Token Monitor'` | `340x650` | ✅ |
+
 ## 關鍵證據細節
 
 ### summary 路徑拼法（問題 1 根因）
@@ -45,6 +61,14 @@
 
 - **選單（grid）**：取決於 `.desktop` `Icon=` 是否指向**存在**檔案。原指向 `/home/ubuntu/Applications/.icons/token_monitor`（不存在）→ 齒輪；改絕對路徑至 `~/.local/share/icons/hicolor/1024x1024/apps/token-monitor.png`（AppImage 內建 1024×1024 RGBA 複製品）後解析。
 - **dock（開窗）**：取決於 `StartupWMClass` 是否匹配實際視窗 class。`wmctrl -lx` 顯示實際 class = `token-monitor`，原 `.desktop` 為 `Token Monitor`（不匹配）→ 齒輪；對齊後 dock 顯示正確圖示。
+
+### AppImage 內建更新器的 `APPIMAGE` 依賴（問題 4 根因）
+
+- `src/shared/appUpdater.js:27` `appUpdateInstallSupport()`：Linux 需 `env.APPIMAGE`，否則 `{supported:false, reason:'linux-not-appimage'}`。
+- `src/electron/renderer/appUpdatePresentation.js:39`：`disabled = !supported`、`checked = supported && preferenceEnabled` → 純解壓樹必然灰色不可勾，改 `settings.json` 無效。
+- `electron-updater/out/AppUpdater.js:253` 以 `isUpdaterActive()` 閘控；`AppImageUpdater.isUpdaterActive()` 在 `APPIMAGE == null && !forceDevUpdateConfig` 時回 false（app 原始碼未設定 `forceDevUpdateConfig`）。
+- 因此「更新檢查成功」可反推 `APPIMAGE` 有值；`APPIMAGE_EXTRACT_AND_RUN=1` 免 FUSE 且保留該變數，純解壓樹則不會設定。
+- 判讀限制：AppImage runtime 會清掉子程序環境，`/proc/<pid>/environ` 回傳全 NUL，無法直讀（純解壓樹那次可直接讀，故能對照）。
 
 ### XDG_DATA_DIRS（問題 3a）
 
