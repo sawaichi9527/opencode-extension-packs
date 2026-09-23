@@ -4,7 +4,7 @@
 
 內容以 OpenCode v2 原生 `SKILL.md` 與 Markdown Custom Commands 為主，不要求 Claude Code／Codex Plugin、跨 Agent Hook 或模式狀態管理。外部外掛只記錄來源、固定版本與安裝指導，不 fork、不 vendored 進本 Repository。
 
-> 狀態：`v2.0.14`（基於 OpenCode v2.0.14 驗證），**僅支援 OpenCode v2.x.x**（v1 相容已移除）。共 14 個 Pack：Default 1、Recommended 5、Optional 8。
+> 狀態：`v2.0.15-dev`（基於 OpenCode v2.0.14 驗證；正式版目前為 `v2.0.14`），**僅支援 OpenCode v2.x.x**（v1 相容已移除）。共 14 個 Pack：Default 1、Recommended 5、Optional 8。
 
 ## 目錄結構
 
@@ -59,7 +59,7 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 | Archify | external-skill | 架構圖生成 |
 | Playwright MCP | external-mcp | 瀏覽器自動化 MCP |
 | Codebase Memory MCP | external-mcp | 程式碼記憶與檢索 MCP |
-| `pwsh7` | tooling | PowerShell 7.4.6 UTF-8 wrapper（自託管 release） |
+| `pwsh7` | tooling | PowerShell 7.4.6 UTF-8 wrapper（自託管 release；Windows 主機**強制**替代內建 5.1） |
 
 各 Pack 的固定版本與來源見下節；完整清單與版本以 `manifest/packs.json` 為準。
 
@@ -77,6 +77,7 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 
 - 兩個 external-mcp 依 v2 `mcp.servers` 格式設定，安裝後以 `/mcps` 驗證（詳見各 Pack 文件）。
 - `browser-automation` Skill 與 Playwright MCP 是配對組合：MCP 提供瀏覽器能力，Skill 提供安全規則（登入、提交、刪除、發布前必須確認）。
+- `pwsh7` 在 Windows 主機上是**強制替代**而非可選便利：Windows 10 內建只有 PowerShell 5.1，必須以本 pack 的 7.4.6 取代；Windows 11 內建同樣只有 5.1，若 `pwsh` 不存在或版本低於 pack 提供版本（7.4.6）也必須取代。全域規則模板見 [`packs/pwsh7/templates/global-AGENTS.md`](packs/pwsh7/templates/global-AGENTS.md)（複製到 `%USERPROFILE%\.config\opencode\AGENTS.md`，對所有 session 與專案生效）。
 - Pin 與 `manifest/packs.json` 同步更新；升級流程見各 Pack 的 Update Policy。
 
 ## 安裝

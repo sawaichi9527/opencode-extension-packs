@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.15-dev - pwsh7 is mandatory on Windows hosts; global spec shipped as a pack template
+
+- Turned `pwsh7` from an optional convenience into a **mandatory replacement** for the built-in Windows PowerShell 5.1: Windows 10 ships only 5.1 and must use the packaged pwsh7 (7.4.6); Windows 11 also ships only 5.1, so a missing `pwsh` **or** a version lower than the pack version (7.4.6) must likewise be replaced with the pack version. Added the requirement table, the forbidden invocation forms, and the `7.4.6 / utf-8` verification command to `packs/pwsh7/README.md`.
+- Added `packs/pwsh7/templates/global-AGENTS.md`: a ready-to-copy global spec for `%USERPROFILE%\.config\opencode\AGENTS.md` that states the rule applies to every session and every repository on the host, that it wins over conflicting project-level `AGENTS.md` text, and that a 5.1-only module is the only exception (requires explicit user consent). Referenced from the pack README file table, the pack notes, and the README external-packs section.
+- Documented the real-world failure that motivated the rule: Windows PowerShell 5.1 (zh-TW Big5) cannot parse a UTF-8-no-BOM script containing CJK (`ParserError: The string is missing the terminator`), while pwsh7 runs the same script cleanly.
+- Updated the manifest `pwsh7` description to state the mandate (Windows 10/11, including "older than 7.4.6"), and bumped `VERSION` plus manifest version to `2.0.15-dev` (the release this work is prepared against is `v2.0.14`).
+
 ## 2.0.14 - Skill discovery directories documented; version aligned with OpenCode 2.0.14
 
 - Documented the actual OpenCode v2 skill discovery directories and marked both as valid: the native global `~/.config/opencode/skills/` and the compatibility global `~/.agents/skills/` (where `npx skills add -g -a opencode` actually installs) are both searched, and the same applies to the project `.opencode/skills/` and `.agents/skills/`. Updated the README install section and the `packs/ppt-master/decks/README.md` import note accordingly.

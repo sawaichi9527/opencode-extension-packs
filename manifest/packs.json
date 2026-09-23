@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repository": "https://github.com/sawaichi9527/opencode-extension-packs",
-  "version": "2.0.14",
+  "version": "2.0.15-dev",
   "defaultPacks": ["grill-me"],
   "packs": [
     {
@@ -92,7 +92,7 @@
       "sourcePath": "packs/pwsh7",
       "documentation": "packs/pwsh7/README.md",
       "audience": ["windows", "environment"],
-      "description": "Deploy PowerShell 7.4.6 with the pwsh-utf8-wrapper.exe shell for UTF-8-safe opencode on Windows 10/11."
+      "description": "Mandatory on Windows 10/11 opencode hosts: replace built-in PowerShell 5.1 with the packaged PowerShell 7.4.6 + pwsh-utf8-wrapper.exe shell (also when an existing pwsh is older than 7.4.6)."
     },
     {
       "id": "ppt-master",

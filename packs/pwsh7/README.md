@@ -21,6 +21,27 @@ Windows 10 (and 11) `powershell.exe` = 5.1 (.NET Framework 4.5, frozen since 201
 
 Windows 11 still ships only 5.1 built-in — this pack applies to both Windows 10 and 11.
 
+## Mandate — replace built-in Windows PowerShell 5.1 (Windows 10/11)
+
+This pack is **not** an optional convenience on Windows opencode hosts: the built-in `powershell.exe` must not be used for local operations.
+
+| System | Built-in PowerShell | Requirement |
+|---|---|---|
+| Windows 10 | 5.1 only | **MUST** replace it with the pwsh7 (7.4.6) provided by this pack |
+| Windows 11 | 5.1 only | If `pwsh` is **missing or older than the pack version (7.4.6)**, **MUST** replace/upgrade it with the pack version |
+
+- Forbidden invocations: `powershell ...`, `powershell.exe ...`, `%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe ...`
+- Use `pwsh -NoProfile -ExecutionPolicy Bypass -File <script>` instead; documentation and script comments must show `pwsh`, never `powershell`.
+- Verify the replacement:
+
+```powershell
+pwsh -NoProfile -Command '$PSVersionTable.PSVersion.ToString(); [Console]::OutputEncoding.WebName'
+# Expected: 7.4.6 / utf-8
+```
+
+- Make the rule apply to every project on the host by installing the global spec: copy [`templates/global-AGENTS.md`](templates/global-AGENTS.md) into `%USERPROFILE%\.config\opencode\AGENTS.md`. OpenCode loads that file for all sessions and working directories, so a project-level `AGENTS.md` that still shows `powershell ...` examples is overridden by it (fix the project copy as well).
+- Only exception: a genuinely 5.1-only module/behaviour — state the reason and get user consent first; never silently fall back to 5.1.
+
 ## Usage — Any Windows User (portable, no hard-coded paths)
 
 1. Download (option A: via this repo release, recommended; option B: direct from Microsoft):
@@ -77,6 +98,7 @@ Write-Host '測試中文 UTF-8：測試通過'; $PSVersionTable.PSVersion; [Cons
 |---|---|
 | `pwsh-utf8-wrapper.cs` | Wrapper source (chcp 65001 + UTF-8 console → forward to pwsh7; flexible path resolution) |
 | `shell-utf8.cmd` | cmd-entry fallback wrapper for manual/debug invocation (`cmd /c`), not for opencode.jsonc (`shell` must be an `.exe`) |
+| `templates/global-AGENTS.md` | Ready-to-copy global spec for `%USERPROFILE%\.config\opencode\AGENTS.md` — mandates pwsh7 for every session/project on the host |
 | Prebuilt `pwsh-utf8-wrapper.exe` | Release asset — skip compiling |
 
 ## Notes
@@ -84,4 +106,4 @@ Write-Host '測試中文 UTF-8：測試通過'; $PSVersionTable.PSVersion; [Cons
 - `pwsh-utf8-wrapper.exe` in this release is the quote-preserving rebuild (5,120 bytes, SHA256 `906AA0...`); the old 4,608-byte assets from 2026-08-24 dropped embedded double quotes and were replaced in `pwsh7-v7.4.6`.
 - `pwsh7` coexists side-by-side with 5.1 (`powershell.exe` vs `pwsh.exe`, separate `PSModulePath`/`PROFILE`).
 - Optional per-profile UTF-8 hardening: create `%USERPROFILE%\Documents\PowerShell\Microsoft.PowerShell_profile.ps1` containing `[Console]::OutputEncoding = [System.Text.Encoding]::UTF8`.
-- Global agent spec lives at `%USERPROFILE%\.config\opencode\AGENTS.md`: mandates pwsh7 for all PowerShell operations on Windows 10/11 opencode hosts.
+- Global agent spec lives at `%USERPROFILE%\.config\opencode\AGENTS.md`: mandates pwsh7 for all PowerShell operations on Windows 10/11 opencode hosts. Install it from [`templates/global-AGENTS.md`](templates/global-AGENTS.md); the same file also states that a missing or older-than-7.4.6 `pwsh` on Windows 11 must be replaced with this pack's version.
