@@ -52,6 +52,7 @@
 ## 發布與驗證
 
 - `release/pwsh7-v7.4.6` 已更新：單一 fix 版 `pwsh-utf8-wrapper.exe`（5,120 bytes，SHA256 `906AA017CDE4F36DB2BC5D3C38C976E76035E0E40703DB30D81F4F5F7F9FB8F0`，見 `packs/pwsh7/README.md`）。
+- `v2.0.16` 已於 2026-09-23 發布：GitHub 與 Forgejo 皆有 `v2.0.16` release（notes 取自 CHANGELOG 2.0.16），annotated tag `v2.0.16` → `05c8aeb`，三方 tag 一致。
 - `v2.0.15` 已於 2026-09-23 發布：GitHub 與 Forgejo 皆有 `v2.0.15` release（notes 取自 CHANGELOG 2.0.15），annotated tag `v2.0.15` → `b830984`，三方 tag 一致。
 - `v2.0.14` 已於 2026-09-23 發布：GitHub 與 Forgejo 皆有 `v2.0.14` release（notes 取自 CHANGELOG 2.0.14），annotated tag `v2.0.14` → `54e8bd2`，三方 tag 一致。
 - `v2.0.12` 已於 2026-09-22 發布：GitHub 與 Forgejo 皆有 `v2.0.12` release（notes 取自 CHANGELOG 2.0.12），annotated tag `v2.0.12` → `2d39145`，三方 tag 一致。
