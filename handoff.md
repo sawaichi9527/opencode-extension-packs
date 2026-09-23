@@ -9,8 +9,8 @@
 | 版本 | `2.0.16`（`VERSION` / `manifest/packs.json`；基於 OpenCode v2.0.14 驗證。上一版 `2.0.15`） |
 | HEAD | `main`（2.0.16：`token-monitor` pin 升 `v0.61.0` 並於 Ubuntu 重新驗證、Linux 使用說明；前次 2.0.15：pwsh7 強制替代、全域規則模板、註冊 `token-monitor` 並完成 Ubuntu 驗證；實際 SHA 以 `git log -1` 為準） |
 | 相容性 | **僅支援 OpenCode v2.x.x**——v1 慣例（agent `permission` map、`bash`/`task` action、單數 `command/`、`mcp` 直掛 server 名、`enabled` 欄位）已全部移除 |
-| 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`；推送順序固定 origin → forgejo。**本機（Ubuntu 桌面工作機）無 push 憑證，本次文件更新僅本地 commit**（見「Ubuntu desktop 實測經驗」） |
-| working tree | clean；本地 `main` 含 1 個未推送 commit（Ubuntu desktop 實測經驗文件更新）。推送後請更新本列與「三方同步」列 |
+| 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`（`679ba57`）；推送順序固定 origin → forgejo。Forgejo remote：`http://192.168.23.167:3000/BBDU28500/opencode-extension-packs.git`（repo 在 Forgejo 上屬 `BBDU28500`） |
+| working tree | clean，三方 `main` 一致 |
 
 ## 專案定位
 
@@ -57,7 +57,7 @@
 - `v2.0.14` 已於 2026-09-23 發布：GitHub 與 Forgejo 皆有 `v2.0.14` release（notes 取自 CHANGELOG 2.0.14），annotated tag `v2.0.14` → `54e8bd2`，三方 tag 一致。
 - `v2.0.12` 已於 2026-09-22 發布：GitHub 與 Forgejo 皆有 `v2.0.12` release（notes 取自 CHANGELOG 2.0.12），annotated tag `v2.0.12` → `2d39145`，三方 tag 一致。
 - 變更流程慣例：改動時同步更新 `VERSION`、`manifest/packs.json`、`CHANGELOG.md`、相關 README / Pack 文件。
-- 憑證：GitHub 與 Forgejo token 存於本機 `~/.git-credentials`（600），不入 repo、不寫入任何追蹤檔案。
+- 憑證：GitHub 與 Forgejo token 存於 `~/.git-credentials`（600），不入 repo、不寫入任何追蹤檔案；Ubuntu 桌面工作機亦已完成設定並可推送（GitHub `origin`、Forgejo `forgejo`）。
 
 ## Ubuntu desktop 實測經驗（2026-09-23）
 
@@ -92,8 +92,6 @@
 - 本次未動 `VERSION`、`manifest/packs.json`、`CHANGELOG.md`。
 
 ## 待辦 / 注意事項
-
-- **待推送**：Ubuntu desktop 實測經驗的文件更新（`README.md` ＋ 本文件）目前僅為本地 commit；推送順序仍為 origin → forgejo，推送後請更新「目前狀態」的同步與 working tree 兩列。
 
 - **`token-monitor` 已完成 Windows 與 Ubuntu desktop 雙平台驗證**：Windows 10 IoT Enterprise LTSC 2021（無 WSL）通過 portable／NSIS／headless；Ubuntu desktop（x64, X11, glibc）通過 AppImage（`--appimage-extract` 啟動、widget 視窗、OpenCode messages 非零、WSL 回報不存在）。`packs/token-monitor/compatibility.md`（Verification Status 與證據）、`packs/token-monitor/README.md`（Linux 前置條件與安裝段）與本文件 Pin 備註均已更新。macOS 仍為 upstream 支援、未由團隊驗證。
 - 推送到開源 GitHub 前先跑 secret scan（`docs/PACK-GUIDE.md` 規則 6）。
