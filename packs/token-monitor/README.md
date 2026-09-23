@@ -217,6 +217,15 @@ Without `libfuse2`, unpack and run the extracted tree instead (see
 ./squashfs-root/AppRun
 ```
 
+On a Wayland desktop, if the window behaves oddly (for example it cannot be resized with the mouse), force the X11/XWayland backend:
+
+```bash
+./Token-Monitor-0.61.0.AppImage --ozone-platform=x11
+# or: ELECTRON_OZONE_PLATFORM_HINT=x11 ./Token-Monitor-0.61.0.AppImage
+```
+
+An X11 session already uses X11, so the flag is unnecessary there.
+
 ### 3. Verify after install
 
 The widget must appear and show a non-zero token count for `OpenCode`. To compare against the raw

@@ -4,6 +4,7 @@
 
 - Moved the `token-monitor` pin from `v0.60.0` to `v0.61.0` after re-verifying on Ubuntu desktop (x64, X11, glibc): the AppImage `sha512` matches `latest-linux.yml`, it launches directly through FUSE, the widget window renders (`340x650`), and the bundled engine reports 651 OpenCode messages. Windows re-verification for `v0.61.0` is still pending (Windows evidence remains from `v0.60.0`). Updated `packs/token-monitor/README.md` and `compatibility.md`, the README pin table, and `handoff.md`.
 - Bumped the version to `2.0.16-dev`.
+- Documented the Linux desktop behaviour of Token Monitor: the window is frameless, so resizing uses the GNOME `Alt+F8` shortcut (`Ctrl` + `+`/`-`/`0` zooms the UI), and `--ozone-platform=x11` forces XWayland on Wayland desktops. Added to the README external-packs note and the pack's Linux install section.
 
 ## 2.0.15 - pwsh7 is mandatory on Windows hosts; Token Monitor registered as an external-tool pack
 
