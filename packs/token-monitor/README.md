@@ -58,6 +58,16 @@ Test-Path "$env:SystemRoot\System32\VCRUNTIME140.dll"
 
 If either check fails, install Microsoft Visual C++ 2015-2022 Redistributable (x64) first.
 
+### Prerequisites (Linux x64)
+
+| Requirement | GUI (AppImage) | Headless agent |
+|---|---|---|
+| `libfuse2` | Optional — only to run the AppImage directly; otherwise use `--appimage-extract` | Not required |
+| Node.js | Not required | Required, 22.15.0 or newer |
+| Python / WSL / VC++ Redistributable | Not required | Not required |
+
+Linux is published as a single x64 `.AppImage` (no installer). macOS ships a signed, notarized `.dmg`.
+
 ## Installation (Windows 10 / 11)
 
 ### 1. Download
@@ -173,6 +183,60 @@ about 30 s; once the one-hour pricing cache is warm, a `--today` scan takes abou
 Uninstalling removes the program and shortcuts but **leaves** `%APPDATA%\Token Monitor\` and
 `%APPDATA%\tokscale\cache\`. Delete both by hand for a full removal.
 
+## Installation (Linux x64)
+
+### 1. Download and verify
+
+```bash
+v=0.60.0
+d=~/token-monitor; mkdir -p "$d"; cd "$d"
+base="https://github.com/Javis603/token-monitor/releases/download/v$v"
+curl -L --retry 5 --retry-delay 3 -O "$base/latest-linux.yml"
+curl -L --retry 5 --retry-delay 3 -O "$base/Token-Monitor-$v.AppImage"
+
+expected=$(sed -n 's/^sha512:[[:space:]]*//p' latest-linux.yml | head -1)
+actual=$(openssl dgst -sha512 -binary "Token-Monitor-$v.AppImage" | base64 -w0)
+[ "$expected" = "$actual" ] && echo "sha512 match"
+```
+
+`latest-linux.yml` carries the publisher's `sha512` for the AppImage — the same value
+`electron-updater` checks when updating.
+
+### 2. Run
+
+```bash
+chmod +x Token-Monitor-0.60.0.AppImage
+./Token-Monitor-0.60.0.AppImage          # requires libfuse2 (libfuse.so.2)
+```
+
+Without `libfuse2`, unpack and run the extracted tree instead (see
+[compatibility.md](compatibility.md#linux-notes)):
+
+```bash
+./Token-Monitor-0.60.0.AppImage --appimage-extract
+./squashfs-root/AppRun
+```
+
+### 3. Verify after install
+
+The widget must appear and show a non-zero token count for `OpenCode`. To compare against the raw
+scan, run the bundled engine (glibc hosts use the `gnu` build):
+
+```bash
+tok=squashfs-root/resources/app.asar.unpacked/node_modules/@tokscale/cli-linux-x64-gnu/bin/tokscale
+"$tok" clients
+"$tok" --json --client opencode --group-by client,workspace,session,model --today
+```
+
+App data lives in `~/.config/Token Monitor/` (`settings.json`, `collector-anchor.json`,
+`session-usage-archive.sqlite`, …); the engine caches pricing metadata and its index under
+`~/.config/tokscale/`.
+
+### 4. Uninstall
+
+There is no installer: delete the AppImage (or the extracted tree), and for a full removal also
+`~/.config/Token Monitor/` and `~/.config/tokscale/`.
+
 ## Headless agent (optional)
 
 Only needed on a machine without a desktop session. Requires Node.js 22.15.0 or newer (the scan
@@ -204,6 +268,11 @@ release, because it depends on that fork's `client,workspace,session,model` grou
 `sessions`/`workspaces` metadata. Do not substitute an npm tokscale release for the bundled binary:
 older upstream builds read only OpenCode's legacy `storage/message/` layout and report zero usage on
 OpenCode 1.2+.
+
+The Linux AppImage bundles both `gnu` and `musl` builds of the same 4.17.0 engine
+(`@tokscale/cli-linux-x64-gnu` / `-musl`). On glibc distributions the `gnu` build is selected and
+supports the full `client,workspace,session,model` grouping; the `musl` build only accepts the
+shorter groupings. See [compatibility.md](compatibility.md#linux-notes).
 
 ## Update Policy
 

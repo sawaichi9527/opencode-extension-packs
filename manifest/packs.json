@@ -151,7 +151,7 @@
       "kind": "external-tool",
       "sourceRepo": "https://github.com/Javis603/token-monitor",
       "release": "v0.60.0",
-      "audience": ["windows", "opencode", "observability"],
+      "audience": ["windows", "linux", "opencode", "observability"],
       "documentation": "packs/token-monitor/README.md",
       "compatibility": "packs/token-monitor/compatibility.md",
       "description": "Install the upstream local-first desktop widget that tracks token usage, cost, and provider limits for OpenCode and other AI coding tools, without configuring OpenCode."

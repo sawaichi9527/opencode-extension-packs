@@ -17,7 +17,7 @@
 |---|---|---|
 | Windows 10 IoT Enterprise LTSC 2021 (19044 / 21H2), x64, **no WSL installed** | **Verified** 2026-09-23 | Portable, NSIS installer, and headless agent all exercised end to end; evidence below |
 | Windows 11 | Not verified by the team | Supported upstream, same installer and prerequisites |
-| Ubuntu desktop | **Not verified by the team — pending** | The team will install and validate on Ubuntu desktop, then update this section, `packs/token-monitor/README.md`, and `handoff.md` |
+| Ubuntu desktop (x86_64, X11, glibc) | **Verified** 2026-09-23 | AppImage extracted and launched; widget window rendered, OpenCode usage non-zero, WSL correctly reported as absent; evidence below |
 | macOS | Not verified by the team | Supported upstream; out of scope for this pack |
 
 Treat the pack as validated only on rows marked Verified.
@@ -32,6 +32,17 @@ Treat the pack as validated only on rows marked Verified.
 | Node.js | `24.18.0` (headless path only) |
 | OpenCode data | `%USERPROFILE%\.local\share\opencode\opencode.db` (SQLite, V2 schema) plus `-wal`/`-shm`; no `storage\message\` directory |
 | Token Monitor | `v0.60.0` |
+
+### Ubuntu desktop (verified 2026-09-23)
+
+| Item | Value |
+|---|---|
+| OS | Ubuntu, x86_64, glibc; desktop session `x11` (`DISPLAY=:0`) |
+| FUSE | `libfuse2` **not installed** — the AppImage was unpacked with `--appimage-extract` |
+| Node.js | `24.21.0` (present; not required by the GUI path) |
+| OpenCode data | `~/.local/share/opencode/opencode.db` (SQLite, V2 schema) plus `-wal`/`-shm` |
+| Token Monitor | `v0.60.0` (Linux x64 AppImage, extracted) |
+| Bundled engine | `@tokscale/cli-linux-x64-gnu` 4.17.0 |
 
 ## Verification Evidence
 
@@ -143,6 +154,28 @@ GUI shell does not need it, but the bundled scan engine does.
 | First run (pricing fetch times out, falls back to cache) | 30.1 s |
 | After the one-hour pricing cache is warm | 0.2 s |
 
+### Ubuntu desktop (X11) evidence
+
+| Check | Result |
+|---|---|
+| `Token-Monitor-0.60.0.AppImage` size vs `latest-linux.yml` | `154943207` = `154943207` |
+| `Token-Monitor-0.60.0.AppImage` `sha512` vs `latest-linux.yml` | match |
+| Launch | AppImage unpacked with `--appimage-extract` (no `libfuse2`); `squashfs-root/AppRun` launched on X11 |
+| Process tree | Electron main + zygote + GPU + network + renderer + broker |
+| Window | `xwininfo`: `"Token Monitor"` `340x650` (always-on-top) |
+| App data | `~/.config/Token Monitor/` created with `settings.json`, `credentials.json`, `collector-anchor.json`, `daily-history-archive.json`, `exchange-rates.json`, `session-usage-archive.sqlite` |
+| Collector | log `[collector] Watching /home/ubuntu/.local/share/opencode (native events)` |
+| Engine reach | `@tokscale/cli-linux-x64-gnu` `clients` → OpenCode `messages: 615` (non-zero; legacy `storage/message/` absent) |
+| Raw scan | `--group-by client,session,model --today` returned real per-session/per-model rows with `performance.tokenCoverage: 1.0` |
+| Anchor values | `collector-anchor.json`: today `33,493,657` tokens / `$0.5908`; month = allTime `99,162,062` / `$3.705` |
+| WSL status | `wslStatus: null` (no WSL — reported as absent, not an error) |
+| Tracked clients | `settings.json` `clients` includes `opencode` |
+
+Benign messages on the extracted run: `APPIMAGE env is not defined` and
+`App update check failed: Update metadata missing or invalid` (both because the app was started from
+an extracted tree rather than through the AppImage runtime), plus `vaInitialize failed` /
+`MESA-LOADER: failed to open dri` GPU warnings that fall back to software rendering.
+
 ## Installation Checks
 
 1. Confirm the VC++ 2015-2022 x64 Redistributable is installed.
@@ -156,6 +189,15 @@ GUI shell does not need it, but the bundled scan engine does.
    non-zero `messages` count for OpenCode.
 9. On a host without WSL, confirm the widget reports WSL as not installed rather than as an error.
 10. Do not store provider credentials, API keys, or `.env` secrets in the Extension Packs repository.
+
+For Linux x64, the equivalent checks are:
+
+1. The AppImage `sha512` matches `latest-linux.yml`.
+2. The AppImage launches — directly when `libfuse2` is present, otherwise via `--appimage-extract` + `squashfs-root/AppRun`.
+3. `~/.config/Token Monitor/settings.json` is created.
+4. The bundled `@tokscale/cli-linux-x64-gnu` `clients` output reports a non-zero `messages` count for OpenCode.
+5. The widget window appears and shows a non-zero OpenCode token count.
+6. Do not store provider credentials, API keys, or `.env` secrets in the Extension Packs repository.
 
 ## Windows Notes
 
@@ -176,6 +218,36 @@ so check `(Get-Acl $dir).Sddl` rather than grepping `icacls` output.
 
 `electron-updater` is configured with `publisherName: "SignPath Foundation"`, the same identity that
 signs the release artifacts, so a tampered update payload fails verification.
+
+## Linux Notes
+
+### `libfuse2` is not required if you unpack the AppImage
+
+The AppImage runs directly when FUSE 2 is available (`libfuse2` / `libfuse.so.2`). Without it, use
+the standard AppImage escape hatch instead of installing FUSE:
+
+```bash
+chmod +x Token-Monitor-0.60.0.AppImage
+./Token-Monitor-0.60.0.AppImage --appimage-extract
+./squashfs-root/AppRun
+```
+
+Running the extracted `AppRun` prints `APPIMAGE env is not defined` and disables the in-app updater
+check (`App update check failed: Update metadata missing or invalid`). Both are cosmetic; scanning
+and the widget are unaffected.
+
+### The `gnu` scan engine supports the full grouping; the `musl` one does not
+
+The AppImage ships both `@tokscale/cli-linux-x64-gnu` and `@tokscale/cli-linux-x64-musl` (4.17.0).
+On glibc distributions the `gnu` build is used and accepts `--group-by client,workspace,session,model`;
+the `musl` build rejects that value and only accepts the shorter groupings. Verify the `gnu` binary
+on glibc hosts.
+
+### GPU warnings are expected in VMs and some desktops
+
+`vaInitialize failed` / `MESA-LOADER: failed to open dri` messages appear when hardware video
+acceleration or the GBM loader is unavailable; Chromium falls back to software rendering and the
+widget still renders.
 
 ## Security Boundaries
 
