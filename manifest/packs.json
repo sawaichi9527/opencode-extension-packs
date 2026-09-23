@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repository": "https://github.com/sawaichi9527/opencode-extension-packs",
-  "version": "2.0.16-dev",
+  "version": "2.0.16",
   "defaultPacks": ["grill-me"],
   "packs": [
     {

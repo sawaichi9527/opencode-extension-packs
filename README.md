@@ -4,7 +4,7 @@
 
 內容以 OpenCode v2 原生 `SKILL.md` 與 Markdown Custom Commands 為主，不要求 Claude Code／Codex Plugin、跨 Agent Hook 或模式狀態管理。外部外掛只記錄來源、固定版本與安裝指導，不 fork、不 vendored 進本 Repository。
 
-> 狀態：`v2.0.16-dev`（開發中、未發布；上一版 `v2.0.15`），**僅支援 OpenCode v2.x.x**（v1 相容已移除）。共 15 個 Pack：Default 1、Recommended 5、Optional 9。
+> 狀態：`v2.0.16`（基於 OpenCode v2.0.14 驗證），**僅支援 OpenCode v2.x.x**（v1 相容已移除）。共 15 個 Pack：Default 1、Recommended 5、Optional 9。
 
 ## 目錄結構
 
