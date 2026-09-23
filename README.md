@@ -80,7 +80,7 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 - 兩個 external-mcp 依 v2 `mcp.servers` 格式設定，安裝後以 `/mcps` 驗證（詳見各 Pack 文件）。
 - `browser-automation` Skill 與 Playwright MCP 是配對組合：MCP 提供瀏覽器能力，Skill 提供安全規則（登入、提交、刪除、發布前必須確認）。
 - `pwsh7` 在 Windows 主機上是**強制替代**而非可選便利：Windows 10 內建只有 PowerShell 5.1，必須以本 pack 的 7.4.6 取代；Windows 11 內建同樣只有 5.1，若 `pwsh` 不存在或版本低於 pack 提供版本（7.4.6）也必須取代。全域規則模板見 [`packs/pwsh7/templates/global-AGENTS.md`](packs/pwsh7/templates/global-AGENTS.md)（複製到 `%USERPROFILE%\.config\opencode\AGENTS.md`，對所有 session 與專案生效）。
-- `token-monitor` 是 `external-tool`：第三方桌面應用程式，與 OpenCode 之間**沒有整合介面**（只讀取本機用量資料檔），因此不像已移除的 `token-usage` pack 受 OpenCode v1／v2 差異影響。Windows 10/11 與 Ubuntu desktop 的完整部署流程、安裝路徑與前置條件見 [packs/token-monitor/README.md](packs/token-monitor/README.md)；Ubuntu desktop（x64, X11, glibc）已於 `v0.61.0` 重新驗證，Windows 10 LTSC（無 WSL）為 `v0.60.0`（`v0.61.0` 尚未於 Windows 重新驗證）；詳見該 pack 的 compatibility 文件。
+- `token-monitor` 是 `external-tool`：第三方桌面應用程式，與 OpenCode 之間**沒有整合介面**（只讀取本機用量資料檔），因此不像已移除的 `token-usage` pack 受 OpenCode v1／v2 差異影響。Windows 10/11 與 Ubuntu desktop 的完整部署流程、安裝路徑與前置條件見 [packs/token-monitor/README.md](packs/token-monitor/README.md)；Ubuntu desktop（x64, X11, glibc）已於 `v0.61.0` 重新驗證，Windows 10 LTSC（無 WSL）亦已於 2026-09-23 透過 App 內建 updater 更新至 `v0.61.0`；詳見該 pack 的 compatibility 文件。
 - Pin 與 `manifest/packs.json` 同步更新；升級流程見各 Pack 的 Update Policy。
 
 ## 安裝

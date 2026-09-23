@@ -46,7 +46,7 @@
 - `playwright-mcp` → microsoft/playwright-mcp，`@playwright/mcp@0.0.82`
 - `codebase-memory-mcp` → DeusData/codebase-memory-mcp，`codebase-memory-mcp@0.11.0`
 - `pwsh7` → PowerShell 7.4.6（packaged release 綁定；上游最新 7.6.6，升級前需重建 zip／hash／wrapper 驗證）
-- `token-monitor` → `Javis603/token-monitor@v0.61.0`（`external-tool`；Ubuntu desktop（x64, X11, glibc）已驗證 `v0.60.0` 與 `v0.61.0`；Windows 10 IoT Enterprise LTSC 2021（無 WSL）為 `v0.60.0`，`v0.61.0` 待重新驗證）
+- `token-monitor` → `Javis603/token-monitor@v0.61.0`（`external-tool`；Ubuntu desktop（x64, X11, glibc）已驗證 `v0.60.0` 與 `v0.61.0`；Windows 10 IoT Enterprise LTSC 2021（無 WSL）已於 2026-09-23 由 App 內建 updater 更新至 `v0.61.0`）
 - （已移除）`token-usage` → 原 `ramtinJ95/opencode-tokenscope@1.8.1`，2.0.12 移除（僅適用 OpenCode v1）
 
 ## 發布與驗證
