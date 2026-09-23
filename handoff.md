@@ -7,7 +7,7 @@
 | 項目 | 值 |
 |---|---|
 | 版本 | `2.0.16`（`VERSION` / `manifest/packs.json`；基於 OpenCode v2.0.14 驗證。上一版 `2.0.15`） |
-| HEAD | `main`（2.0.16：`token-monitor` pin 升 `v0.61.0` 並於 Ubuntu 重新驗證、Linux 使用說明；前次 2.0.15：pwsh7 強制替代、全域規則模板、註冊 `token-monitor` 並完成 Ubuntu 驗證；實際 SHA 以 `git log -1` 為準） |
+| HEAD | `main`（2.0.16：`token-monitor` pin 升 `v0.61.0` 並於 Ubuntu 重新驗證、Linux 使用說明；`2.0.16-docs-3`：Ubuntu 26.04.1 + Wayland + AppImageLauncher 路線增補；前次 2.0.15：pwsh7 強制替代、全域規則模板、註冊 `token-monitor` 並完成 Ubuntu 驗證；實際 SHA 以 `git log -1` 為準） |
 | 相容性 | **僅支援 OpenCode v2.x.x**——v1 慣例（agent `permission` map、`bash`/`task` action、單數 `command/`、`mcp` 直掛 server 名、`enabled` 欄位）已全部移除 |
 | 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`；推送順序固定 origin → forgejo。Forgejo remote：`http://192.168.23.167:3000/BBDU28500/opencode-extension-packs.git`（repo 在 Forgejo 上屬 `BBDU28500`）。實際 SHA 以 `git log -1` 為準 |
 | working tree | clean，三方 `main` 一致 |
@@ -25,7 +25,7 @@
   `swqa-automation`、`test-failure-triage`、`forgejo-integration`、`github-integration`、`file-toolkit`、`browser-automation`、`lean-code-review`、`local-llm-dispatch-policy`
 - `commands/` — Custom Commands：`grill-me.md`（default）
 - `packs/` — Pack 文件與流程：
-  `ppt-master/decks`（FII 2026 版模）、`pwsh7`、`linux-flatpak-deploy`（Ubuntu flatpak/AppImage 部署 runbook）、`archify`、`playwright-mcp`、`codebase-memory-mcp`、`token-monitor`
+  `ppt-master/decks`（FII 2026 版模）、`pwsh7`、`linux-flatpak-deploy`（Ubuntu flatpak/AppImage 部署 runbook，含 AppImageLauncher／Wayland 補充）、`archify`、`playwright-mcp`、`codebase-memory-mcp`、`token-monitor`
 - `docs/PACK-GUIDE.md` — Skill / Command 撰寫最低要求（新增 Pack 時需遵守）
 - `UPSTREAM.md` — 上游來源與刪減原則（lazy-packs、andrej-karpathy-skills、ponytail、mattpocock/skills、obra/superpowers）
 
@@ -39,6 +39,7 @@
 6. **0.2.5（9/16）**：註冊 `archify` external-skill pack，pin `tt-a1i/archify@v2.16.0`。
 7. **0.2.4（9/16）**：註冊 `pwsh7` tooling pack；刷新外部 pin：`ppt-master@v6.4.0`、`playwright-mcp@0.0.81`、`codebase-memory-mcp@0.11.0`。
 8. **2.0.16-docs（9/23）**：新增 `linux-flatpak-deploy` tooling pack（[packs/linux-flatpak-deploy/](packs/linux-flatpak-deploy/README.md)、[compatibility.md](packs/linux-flatpak-deploy/compatibility.md)）——收錄本機 Ubuntu 24.04.5 desktop（GNOME X11、Flatpak 1.14.6）上「flathub 修復 → Gear Lever 安裝 → AppImage／Gear Lever 圖示修正」全鏈經驗，版號沿用 `2.0.16`（pure docs/runbook 增補，不改變 OpenCode 驗證版本）。三問題根因與解法：(1) flathub `no summary found`＝base URL 決定 summary 路徑，`flathub.org/summary.idx` 回 404、`dl.flathub.org/repo/summary.idx` 回 200，用 `.flatpakrepo` 把 base 固定成 `/repo/`（注意 `remote-add --force-toggle` 的 `--force-toggle` 對 `remote-add` 非法）；(2) Gear Lever（`it.mijorus.gearlever`）裝好後選單看不到＝`XDG_DATA_DIRS` 不含 flatpak exports，寫入 `/etc/environment` 後必須 logout/relogin（PAM 在登入時讀；`Alt+F2:r` 不生效）；(3) Token Monitor AppImage 齒輪分兩層——選單齒輪是 `.desktop` `Icon=` 指向不存在路徑（改絕對路徑至 `~/.local/share/icons`），dock 齒輪是 `StartupWMClass=Token Monitor` 與實際視窗 class `token-monitor` 不匹配（`wmctrl -lx` 破案，對齊後徹底重開程式）。新增 dsh（本機本地 session：agent sandbox 的 `no_new_privs` 擋 sudo、擋 home flatpak 路徑寫入，privileged/home edits 由用戶在本機執行）與 opencode（遠端）佈署對照表；同步更新 README（Pack 數 15→16、Optional 9→10、關係樹與備註段）、manifest（新增 optional tooling pack）、CHANGELOG。**opencode 場次後續補正（同日）**：本 runbook 原記「受限主機只能 `--appimage-extract`」，經實測更正為 **`APPIMAGE_EXTRACT_AND_RUN=1`**（免 FUSE 且保留 `APPIMAGE`）；新增問題 4 說明純解壓樹會停用內建更新器與設定頁「自動下載更新」開關（`appUpdateInstallSupport`／`appUpdatePresentation.js:39`／`AppImageUpdater.isUpdaterActive()` 三處閘控），並同步修正 README（主機環境經驗段、Ubuntu 注意事項表）、`packs/token-monitor/compatibility.md` Linux Notes、本文件與 compatibility 證據矩陣。
+9. **2.0.16-docs-3（9/23）**：新增 **Ubuntu 26.04.1 LTS（Resolute Raccoon、x86_64、GNOME Wayland、glibc 2.43）+ AppImageLauncher 3.0.0-beta-2** 的 Token Monitor 部署路線——AppImage 置於 `~/Applications/`、以「Integrate and run」整合、經 **FUSE** 執行真 AppImage。前置 **`libfuse2t64`**（runtime `dlopen("libfuse.so.2")`、不自動 fallback）；AppImageLauncher 會把檔案改名為 `<name>_<hash>.AppImage` 並在產生的 `Exec=` 加 `--no-sandbox`，該 `.desktop` 受 AppImageLauncher 管理、**重新整合可能覆寫**。關鍵價值：`APPIMAGE` 可見 → 內建更新器可用（`settings.json` `appUpdate.lastCheckedAt` 由 `null` → `2026-09-23T15:18:28Z`）。實測證據：sha512 相符（`155094683`）、FUSE 掛載 `/tmp/.mount_Token-*`、原生 Wayland（`--ozone-platform=wayland`）、內附 `@tokscale/cli-linux-x64-gnu` `clients` → OpenCode `messages: 131`、`collector-anchor.json` today `11,957,528` tokens／`$0.1244`、`session-usage-archive.sqlite` 41 筆。同時把問題 3b（齒輪圖示）補上 Wayland 差異：`wmctrl -lx` 看不到原生視窗但 `StartupWMClass=token-monitor` 仍正確（dock **立即**生效），**grid 圖示需重新登入／重開機**（GNOME Shell 快取、Wayland 無法 `Alt+F2 r`）；並記錄 `APPIMAGELAUNCHER_DISABLE=1` 的 CLI 冒煙測試法。同步更新 `packs/token-monitor/README.md`（2b／2c）、`packs/token-monitor/compatibility.md`（Verification Status、Wayland 證據段、Linux Installation Checks）、`packs/linux-flatpak-deploy/README.md`（問題 3b-3）、README 與本文件；版號沿用 `2.0.16`。
 
 ## 部署經驗（dsh vs opencode）
 
@@ -103,14 +104,34 @@
 - **速度**：flathub CDN 實測約 **25 MB/s**（同機 GitHub Releases 僅 50–90 KB/s）。Gear Lever `it.mijorus.gearlever` `4.6.2`（app 11.6 MB ＋ `org.gnome.Platform//50` 419.7 MB ＋ GL／codecs／theme）**67 秒**完成；`xwininfo` 視窗 `"Gear lever"` `750x750` 正常渲染（zh-TW 介面）。
 - **限制**：無 `xdg-desktop-portal` → `org.freedesktop.portal.Flatpak was not provided by any .service files`（核心功能不受影響）；GTK4 擷取需 `GSK_RENDERER=cairo`。
 
+### (c) Token Monitor 走 AppImageLauncher（Ubuntu 26.04.1 + Wayland 場次，2026-09-23）
+
+> 與 (a) 不同主機：本節是 **Ubuntu 26.04.1 desktop（GNOME Wayland、glibc 2.43、AppImageLauncher 已安裝）**，`sudo` **可用**（用戶自備），走 **AppImageLauncher + `libfuse2t64`** 的 FUSE 路線（非 (a) 的受限主機 extract-and-run）。
+
+| 項目 | 實測結果 |
+|---|---|
+| OS / session | Ubuntu 26.04.1 LTS（Resolute Raccoon）、x86_64、glibc 2.43、`XDG_SESSION_TYPE=wayland` |
+| AppImageLauncher | `3.0.0-beta-2`；`appimagelauncherd` active；`binfmt_misc` `appimage-type2` 已註冊 |
+| 前置 | `sudo apt-get install -y libfuse2t64` → `libfuse.so.2` 就緒（`/usr/bin/fusermount` 已是指向 `fusermount3` 的 symlink） |
+| 下載 | GitHub Releases 直連僅約 **54 KB/s**；改用鏡像 `gh-proxy.com` 續傳約 **1.7–3.3 MB/s**（sha512 以官方 `latest-linux.yml` 驗證） |
+| 完整性 | size `155094683`、sha512 `IHy/Qg4O…cg==` 相符 |
+| 執行 | 經 AppImageLauncher 整合（`~/.local/share/applications/appimagekit_*-Token_Monitor.desktop`）；真 AppImage FUSE 掛載 `/tmp/.mount_Token-*/token-monitor`；**原生 Wayland** |
+| 引擎 | 內附 `@tokscale/cli-linux-x64-gnu` 4.17.0 `clients` → OpenCode `messages: 131`（非零） |
+| 錨值 | `collector-anchor.json` today `11,957,528` tokens／`$0.1244`（全為 `opencode`）；`session-usage-archive.sqlite` 41 筆 |
+| 內建更新器 | **可用**：`settings.json` `appUpdate.lastCheckedAt` 有值（`2026-09-23T15:18:28Z`）→ 證實 `APPIMAGE` 可見（(a) 的純解壓樹做不到） |
+| 圖示 | 問題 3b 兩層修法同樣適用；**dock 立即生效、grid 需重新登入／重開機**（Wayland 無法 `Alt+F2 r`） |
+| 快速 CLI 驗證 | `APPIMAGELAUNCHER_DISABLE=1 ./App.AppImage --appimage-version`（回 runtime 版本 `effcebc`），避免提早跳出整合對話框 |
+
+結論：桌面主機（`sudo` 可用、FUSE 可用）走 AppImageLauncher 是最佳路徑——既是真 AppImage（內建更新可用），又保留桌面選單／dock 整合；與 (a) 的受限主機 extract-and-run 互補。完整證據見 [packs/token-monitor/compatibility.md](packs/token-monitor/compatibility.md#ubuntu-desktop-wayland-appimagelauncher-evidence) 與 [packs/linux-flatpak-deploy/README.md](packs/linux-flatpak-deploy/README.md)〈問題 3b-3〉。
+
 ### 後續建議
 
 - 若團隊 Ubuntu 主機普遍無 root 或 FUSE 掛載受限，可在下一版把「受限主機路徑」正式寫入 `packs/token-monitor/compatibility.md` 的 Verification Status／Linux Notes（本次僅文件層 README／handoff，**不 bump 版號**）。
-- 本次未動 `VERSION`、`manifest/packs.json`、`CHANGELOG.md`。
+- `2.0.16-docs-3` 更新了 `CHANGELOG.md`（新增 docs-3 條目）；仍**未動** `VERSION` 與 `manifest/packs.json`（docs-only，不改變 OpenCode 驗證版本）。
 
 ## 待辦 / 注意事項
 
-- **`token-monitor` 已完成 Windows 與 Ubuntu desktop 雙平台驗證**：Windows 10 IoT Enterprise LTSC 2021（無 WSL）通過 portable／NSIS／headless；Ubuntu desktop（x64, X11, glibc）通過 AppImage（`--appimage-extract` 啟動、widget 視窗、OpenCode messages 非零、WSL 回報不存在）。`packs/token-monitor/compatibility.md`（Verification Status 與證據）、`packs/token-monitor/README.md`（Linux 前置條件與安裝段）與本文件 Pin 備註均已更新。macOS 仍為 upstream 支援、未由團隊驗證。
+- **`token-monitor` 已完成 Windows 與 Ubuntu desktop 雙平台驗證**：Windows 10 IoT Enterprise LTSC 2021（無 WSL）通過 portable／NSIS／headless；Ubuntu desktop（x64, X11, glibc）通過 AppImage（`--appimage-extract` 啟動、widget 視窗、OpenCode messages 非零、WSL 回報不存在）。另於 **Ubuntu 26.04.1（GNOME Wayland）以 AppImageLauncher 3.0.0-beta-2 + `libfuse2t64`** 驗證 FUSE 路線（內建更新器可用；dock 圖示立即、grid 需 relogin）。`packs/token-monitor/compatibility.md`（Verification Status 與證據）、`packs/token-monitor/README.md`（Linux 前置條件與安裝段）與本文件 Pin 備註均已更新。macOS 仍為 upstream 支援、未由團隊驗證。
 - 推送到開源 GitHub 前先跑 secret scan（`docs/PACK-GUIDE.md` 規則 6）。
 - 若新增外部整合，同時更新 manifest pin 與對應 `packs/<id>/compatibility.md`。
 - `/teamwork-update-check`（Essential Core）以本 repo `main` 的 manifest raw 網址作為更新比對來源。

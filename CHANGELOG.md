@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.16-docs-3 — Ubuntu 26.04.1 + Wayland + AppImageLauncher route for Token Monitor
+
+- Documented the app-menu/desktop **AppImageLauncher** route for Token Monitor, verified on **Ubuntu 26.04.1 LTS (Resolute Raccoon), x86_64, GNOME Wayland, glibc 2.43** with **AppImageLauncher 3.0.0-beta-2**: the AppImage stays in `~/Applications/`, is integrated ("Integrate and run"), and runs as the **real AppImage through FUSE**. `libfuse2t64` is a prerequisite — the runtime `dlopen`s `libfuse.so.2` and does not fall back on its own. Because `APPIMAGE` stays visible, the in-app updater is active: `settings.json` `appUpdate.lastCheckedAt` moved from `null` to `2026-09-23T15:18:28Z`, which a permanently extracted tree cannot do.
+- Recorded AppImageLauncher specifics: it renames the integrated file to `<name>_<hash>.AppImage` and appends `--no-sandbox` to the generated `Exec=` (the FUSE image's `chrome-sandbox` cannot be setuid root); that `.desktop` is AppImageLauncher-managed and may be overwritten on re-integration, so the icon fix must be re-applied.
+- Extended the gear-icon runbook (問題 3b) for **Wayland**: `wmctrl -lx` cannot see native Wayland windows (the class `token-monitor` is still the correct `StartupWMClass`), the **dock icon updates immediately** after restarting the app, but the **app-menu (grid) icon only refreshes after a re-login/reboot** because GNOME Shell caches it and Wayland cannot `Alt+F2` → `r`. Also recorded the `APPIMAGELAUNCHER_DISABLE=1` CLI smoke-test bypass (binfmt bypass prints a misleading `launching AppImage directly: /usr/bin/AppImageLauncher` line while still running the AppImage).
+- Evidence: `sha512` match (`155094683`), FUSE mount `/tmp/.mount_Token-*/token-monitor`, native Wayland (`--ozone-platform=wayland`), bundled `@tokscale/cli-linux-x64-gnu` `clients` → OpenCode `messages: 131`, `collector-anchor.json` today `11,957,528` tokens / `$0.1244`, `session-usage-archive.sqlite` 41 rows.
+- Updated `packs/token-monitor/README.md` (new 2b AppImageLauncher section, 2c icon note), `packs/token-monitor/compatibility.md` (Verification Status row, AppImageLauncher evidence section, Linux Installation Checks), `packs/linux-flatpak-deploy/README.md` (問題 3b-3 Wayland supplement), the main `README.md` (external-integration note, Ubuntu desktop table) and `handoff.md`. Version stays `2.0.16` (docs-only; does not change the OpenCode validation version).
+
 ## 2.0.16-docs-2 — AppImage 免 FUSE 啟動路徑修正（extract-and-run vs 純解壓樹）
 
 - Corrected the FUSE-less AppImage guidance after the opencode session measured it on the same Ubuntu 24.04.5 desktop: the right escape hatch is the runtime's **`APPIMAGE_EXTRACT_AND_RUN=1`**, not a permanent `--appimage-extract` + `squashfs-root/AppRun` tree.

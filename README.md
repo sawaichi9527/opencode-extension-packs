@@ -60,7 +60,7 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 | Playwright MCP | external-mcp | 瀏覽器自動化 MCP |
 | Codebase Memory MCP | external-mcp | 程式碼記憶與檢索 MCP |
 | `pwsh7` | tooling | PowerShell 7.4.6 UTF-8 wrapper（自託管 release；Windows 主機**強制**替代內建 5.1） |
-| `linux-flatpak-deploy` | tooling | Ubuntu desktop flatpak/AppImage 部署 runbook：flathub summary 修復、Gear Lever 安裝、選單/dock 圖示修正（XDG_DATA_DIRS／絕對路徑 Icon=／StartupWMClass） |
+| `linux-flatpak-deploy` | tooling | Ubuntu desktop flatpak/AppImage 部署 runbook：flathub summary 修復、Gear Lever 安裝、選單/dock 圖示修正（XDG_DATA_DIRS／絕對路徑 Icon=／StartupWMClass）、AppImageLauncher（FUSE）＋Wayland 補充 |
 | Token Monitor | external-tool | 桌面 widget（Windows／Linux）：追蹤 OpenCode 等 38+ AI coding tool 的 token／成本／額度（不變更 OpenCode 設定） |
 
 各 Pack 的固定版本與來源見下節；完整清單與版本以 `manifest/packs.json` 為準。
@@ -81,9 +81,9 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 - 兩個 external-mcp 依 v2 `mcp.servers` 格式設定，安裝後以 `/mcps` 驗證（詳見各 Pack 文件）。
 - `browser-automation` Skill 與 Playwright MCP 是配對組合：MCP 提供瀏覽器能力，Skill 提供安全規則（登入、提交、刪除、發布前必須確認）。
 - `pwsh7` 在 Windows 主機上是**強制替代**而非可選便利：Windows 10 內建只有 PowerShell 5.1，必須以本 pack 的 7.4.6 取代；Windows 11 內建同樣只有 5.1，若 `pwsh` 不存在或版本低於 pack 提供版本（7.4.6）也必須取代。全域規則模板見 [`packs/pwsh7/templates/global-AGENTS.md`](packs/pwsh7/templates/global-AGENTS.md)（複製到 `%USERPROFILE%\.config\opencode\AGENTS.md`，對所有 session 與專案生效）。
-- `token-monitor` 是 `external-tool`：第三方桌面應用程式，與 OpenCode 之間**沒有整合介面**（只讀取本機用量資料檔），因此不像已移除的 `token-usage` pack 受 OpenCode v1／v2 差異影響。Windows 10/11 與 Ubuntu desktop 的完整部署流程、安裝路徑與前置條件見 [packs/token-monitor/README.md](packs/token-monitor/README.md)；Ubuntu desktop（x64, X11, glibc）已於 `v0.61.0` 重新驗證，Windows 10 LTSC（無 WSL）亦已於 2026-09-23 透過 App 內建 updater 更新至 `v0.61.0`；詳見該 pack 的 compatibility 文件。**在無 root／FUSE 不可用的受限主機上，AppImage 無法直接掛載執行：請用 runtime 內建的 `APPIMAGE_EXTRACT_AND_RUN=1`（免 FUSE，且保留 `APPIMAGE`，內建更新與「自動下載更新」開關才可用），不要用會停用更新器的純解壓樹 `--appimage-extract`**——見〈Ubuntu desktop（實測注意事項）〉與 [packs/token-monitor/compatibility.md](packs/token-monitor/compatibility.md)。
-- Token Monitor（Linux 桌面）：視窗為**無邊框**，調整大小用 GNOME 的 `Alt+F8`（方向鍵調整、`Enter` 確認；移動為 `Alt+F7`）；**字體縮放**為 `Ctrl` + `+`／`-`／`0`（放大／縮小／重設）。Wayland 桌面若視窗行為異常，可用 `--ozone-platform=x11` 強制以 XWayland 執行（X11 工作階段無需此 flag）。
-- `linux-flatpak-deploy` 是**部署 / 除錯 runbook**（非可透過 OpenCode 安裝的能力 Pack）：收錄在本機 Ubuntu 24.04.5 desktop 上「flatpak/flathub 修復 → Gear Lever 安裝 → AppImage／Gear Lever 圖示修正」全鏈經驗，並列 dsh（本機本地 session）與 opencode（遠端）兩種佈署方式對照，見 [packs/linux-flatpak-deploy/README.md](packs/linux-flatpak-deploy/README.md)。
+- `token-monitor` 是 `external-tool`：第三方桌面應用程式，與 OpenCode 之間**沒有整合介面**（只讀取本機用量資料檔），因此不像已移除的 `token-usage` pack 受 OpenCode v1／v2 差異影響。Windows 10/11 與 Ubuntu desktop 的完整部署流程、安裝路徑與前置條件見 [packs/token-monitor/README.md](packs/token-monitor/README.md)；Ubuntu desktop（x64, X11, glibc）已於 `v0.61.0` 重新驗證，Windows 10 LTSC（無 WSL）亦已於 2026-09-23 透過 App 內建 updater 更新至 `v0.61.0`；詳見該 pack 的 compatibility 文件。**在無 root／FUSE 不可用的受限主機上，AppImage 無法直接掛載執行：請用 runtime 內建的 `APPIMAGE_EXTRACT_AND_RUN=1`（免 FUSE，且保留 `APPIMAGE`，內建更新與「自動下載更新」開關才可用），不要用會停用更新器的純解壓樹 `--appimage-extract`**——見〈Ubuntu desktop（實測注意事項）〉與 [packs/token-monitor/compatibility.md](packs/token-monitor/compatibility.md)。**在一般桌面主機則建議走 AppImageLauncher**（AppImage 置於 `~/Applications/`，雙擊「整合並執行」）：它以 FUSE 執行**真** AppImage，`APPIMAGE` 可見、內建更新器可用，前置為 `libfuse2t64`；已於 Ubuntu 26.04.1（GNOME Wayland）驗證。
+- Token Monitor（Linux 桌面）：視窗為**無邊框**，調整大小用 GNOME 的 `Alt+F8`（方向鍵調整、`Enter` 確認；移動為 `Alt+F7`）；**字體縮放**為 `Ctrl` + `+`／`-`／`0`（放大／縮小／重設）。Wayland 桌面若視窗行為異常，可用 `--ozone-platform=x11` 強制以 XWayland 執行（X11 工作階段無需此 flag；Ubuntu 26.04.1 + AppImageLauncher 已實測**原生 Wayland** 下調整大小／dock／浮動泡泡正常，無需此 flag）。
+- `linux-flatpak-deploy` 是**部署 / 除錯 runbook**（非可透過 OpenCode 安裝的能力 Pack）：收錄在 Ubuntu desktop 上「flatpak/flathub 修復 → Gear Lever 安裝 → AppImage／Gear Lever 圖示修正」全鏈經驗，含 AppImageLauncher（FUSE）＋Wayland 補充，並列 dsh（本機本地 session）與 opencode（遠端）兩種佈署方式對照，見 [packs/linux-flatpak-deploy/README.md](packs/linux-flatpak-deploy/README.md)。
 - Pin 與 `manifest/packs.json` 同步更新；升級流程見各 Pack 的 Update Policy。
 
 ## 安裝
@@ -136,7 +136,7 @@ cp ./commands/grill-me.md ~/.config/opencode/commands/grill-me.md
 
 ### Ubuntu desktop（實測注意事項）
 
-Linux 桌面（x64、X11、glibc）安裝外部 Pack 時的實測經驗。**受限主機的權限模型會改變可用的安裝路徑**，先確認再照文件操作：
+Linux 桌面（x64、X11／Wayland、glibc）安裝外部 Pack 時的實測經驗。**受限主機的權限模型會改變可用的安裝路徑**，先確認再照文件操作：
 
 | 情境 | 症狀 | 處理 |
 |---|---|---|
@@ -145,8 +145,10 @@ Linux 桌面（x64、X11、glibc）安裝外部 Pack 時的實測經驗。**受�
 | 自備使用者版 `libfuse.so.2` 仍失敗 | `fusermount: mount failed: Operation not permitted` | `NoNewPrivs: 1` 會使 setuid helper（`fusermount`）失效，FUSE 掛載不可用；這正是 extract-and-run 的適用情境 |
 | 用 `--appimage-extract` 純解壓樹啟動 | 更新檢查失敗（`Update metadata missing or invalid`）、設定頁「自動下載更新」**灰色不可勾** | 純解壓樹讓 app 看不到 `APPIMAGE`，內建更新器被停用；**改用 extract-and-run 即可恢復**（詳見 [packs/token-monitor/compatibility.md](packs/token-monitor/compatibility.md) 的 Linux Notes） |
 | GTK4 應用擷取畫面全黑 | X11 擷取不到 GL surface | 以 `GSK_RENDERER=cairo`（必要時加 `LIBGL_ALWAYS_SOFTWARE=1`）強制軟體渲染後再擷取；Electron 應用（如 Token Monitor）不受影響 |
+| 桌面主機想走 AppImageLauncher（Ubuntu 26.04.1 實測） | 產生的捷徑無法啟動 AppImage | 需先 `sudo apt-get install -y libfuse2t64`：runtime 會 `dlopen("libfuse.so.2")`，**不會自動 fallback**。整合後 AppImage 會被改名為 `<name>_<hash>.AppImage`，`Exec=` 會被加上 `--no-sandbox` |
+| Wayland 下選單 (grid) 圖示仍是齒輪（dock 已正常） | `Icon=` 相對名不解析／`StartupWMClass` 不匹配，且 GNOME Shell 快取 grid 圖示 | 改 `Icon=` **絕對路徑** + `StartupWMClass=token-monitor`；dock **立即**生效，**grid 需重新登入／重開機**（Wayland 無法 `Alt+F2` → `r`）。`wmctrl -lx` 在 Wayland 看不到原生視窗 |
 
-Flatpak／Gear Lever／AppImage 圖示修正的完整步驟與坑點（含 **dsh（本機本地 session）vs opencode（遠端）** 兩種佈署對照）見 [`packs/linux-flatpak-deploy/`](packs/linux-flatpak-deploy/README.md)。
+Flatpak／Gear Lever／AppImage 圖示修正的完整步驟與坑點（含 **dsh（本機本地 session）vs opencode（遠端）** 兩種佈署對照）見 [`packs/linux-flatpak-deploy/`](packs/linux-flatpak-deploy/README.md)；AppImageLauncher（FUSE）＋Wayland 的補充見同文件〈問題 3b-3〉。
 
 受限主機的判斷方式：
 

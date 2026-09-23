@@ -226,6 +226,49 @@ On a Wayland desktop, if the window behaves oddly (for example it cannot be resi
 
 An X11 session already uses X11, so the flag is unnecessary there.
 
+### 2b. Install via AppImageLauncher (Ubuntu desktop, Wayland verified)
+
+On a desktop host the recommended Linux path is AppImageLauncher: keep the AppImage in
+`~/Applications/`, let AppImageLauncher integrate it, and start it from the app menu. Because
+AppImageLauncher runs the **real** AppImage through FUSE, `APPIMAGE` stays visible and the in-app
+updater (and the "download updates automatically" toggle) works — unlike a permanently extracted
+tree (see [compatibility.md](compatibility.md#linux-notes)).
+
+```bash
+sudo apt-get install -y libfuse2t64    # Ubuntu 24.04+/26.04; provides libfuse.so.2
+```
+
+`libfuse2` is required: the AppImage runtime `dlopen`s `libfuse.so.2` and does **not** fall back on
+its own, so without it the launcher AppImageLauncher generates cannot start the app.
+
+1. Download and verify as in step 1, copy to `~/Applications/`, and `chmod +x` it.
+2. In Files, double-click the AppImage and choose **Integrate and run** (not "Run once"); on the CLI
+   this is `ail-cli integrate ~/Applications/Token-Monitor-0.61.0.AppImage`.
+3. AppImageLauncher keeps the file under `~/Applications/` (appending a content hash to the name),
+   writes `~/.local/share/applications/appimagekit_*-Token_Monitor.desktop`, and adds `--no-sandbox`
+   to `Exec=` (the FUSE image's `chrome-sandbox` cannot be setuid root).
+
+Verified on Ubuntu 26.04.1 LTS (x86_64, GNOME Wayland, glibc 2.43) with AppImageLauncher
+3.0.0-beta-2; see
+[compatibility.md](compatibility.md#ubuntu-desktop-wayland-appimagelauncher-evidence).
+
+> The generated `.desktop` is managed by AppImageLauncher and may be overwritten on re-integration
+> (for example after an in-app update); re-apply the icon fix below if that happens.
+
+### 2c. If the app menu / dock shows a gear icon
+
+Two independent causes; full runbook in
+[../linux-flatpak-deploy/README.md](../linux-flatpak-deploy/README.md):
+
+- **App menu (grid):** `.desktop` `Icon=` does not resolve — point it at an absolute path to a copy:
+  `~/.local/share/icons/hicolor/1024x1024/apps/token-monitor.png`.
+- **Dock while running:** `StartupWMClass` does not match the real window class — set
+  `StartupWMClass=token-monitor`.
+
+Restart the app. On **Wayland** the dock icon updates immediately, but the app-menu icon is cached by
+GNOME Shell and only refreshes after a re-login/reboot (on X11 `Alt+F2` → `r` reloads the shell). On
+Wayland `wmctrl -lx` cannot see the native window; `token-monitor` is still the correct value.
+
 ### 3. Verify after install
 
 The widget must appear and show a non-zero token count for `OpenCode`. To compare against the raw

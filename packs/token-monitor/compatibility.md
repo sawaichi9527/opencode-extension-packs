@@ -18,6 +18,7 @@
 | Windows 10 IoT Enterprise LTSC 2021 (19044 / 21H2), x64, **no WSL installed** | **Verified** on `v0.60.0` (2026-09-23) | Portable, NSIS installer, and headless agent all exercised end to end; `v0.61.0` not yet re-verified on Windows |
 | Windows 11 | Not verified by the team | Supported upstream, same installer and prerequisites |
 | Ubuntu desktop (x86_64, X11, glibc) | **Verified** on `v0.60.0` and `v0.61.0` (2026-09-23) | AppImage launched (direct via FUSE and via `--appimage-extract`); widget window rendered, OpenCode usage non-zero, WSL correctly reported as absent; evidence below |
+| Ubuntu 26.04.1 LTS (Resolute Raccoon), x86_64, GNOME **Wayland**, glibc 2.43 | **Verified** on `v0.61.0` (2026-09-23) | Installed via **AppImageLauncher 3.0.0-beta-2** + `libfuse2t64` (real AppImage through FUSE); native Wayland; in-app updater active; evidence below |
 | macOS | Not verified by the team | Supported upstream; out of scope for this pack |
 
 Treat the pack as validated only on rows marked Verified.
@@ -190,6 +191,33 @@ an extracted tree rather than through the AppImage runtime), plus `vaInitialize 
 | WSL status | `wslStatus: null` |
 | Notes | `v0.61.0` adds a Linux Floating Bubble fix (#756) that was not specifically exercised. The bundle still ships tokscale 4.17.0 (`gnu`/`musl`), so the gnu-vs-musl grouping note below is unchanged. |
 
+### Ubuntu desktop (Wayland, AppImageLauncher) evidence
+
+Environment: Ubuntu 26.04.1 LTS (Resolute Raccoon), x86_64, GNOME **Wayland**
+(`XDG_SESSION_TYPE=wayland`, glibc 2.43); AppImageLauncher `3.0.0-beta-2` (daemon
+`appimagelauncherd` active, `binfmt_misc` `appimage-type2` registered); `libfuse2t64` installed.
+Token Monitor `v0.61.0` was placed in `~/Applications/` and detached with AppImageLauncher's
+"Integrate and run".
+
+| Check | Result |
+|---|---|
+| `Token-Monitor-0.61.0.AppImage` size vs `latest-linux.yml` | `155094683` = `155094683` |
+| AppImage `sha512` vs `latest-linux.yml` | match |
+| Runtime | type-2 AppImage; `--appimage-version` → `effcebc` |
+| Launch | real AppImage through FUSE: `/tmp/.mount_Token-*/token-monitor` |
+| Session | native Wayland — Electron renderer/GPU run with `--ozone-platform=wayland` |
+| App data | `~/.config/Token Monitor/` created (`settings.json`, `collector-anchor.json`, `credentials.json`, `session-usage-archive.sqlite`, …) |
+| Engine reach | bundled `@tokscale/cli-linux-x64-gnu` 4.17.0 `clients` → OpenCode `messages: 131` (non-zero) |
+| Anchor values | `collector-anchor.json`: today `11,957,528` tokens / `$0.1244`, attributed to `opencode` |
+| Session archive | `session-usage-archive.sqlite` → `metadata` + `sessions` (41 rows) |
+| In-app updater | **Active** — `settings.json` `appUpdate.lastCheckedAt = 2026-09-23T15:18:28Z` (non-null) with `lastKnownLatest` populated for `v0.61.0`; confirms `APPIMAGE` is visible, which a permanent extracted tree cannot do |
+| Window | widget rendered; native-Wayland resize/dock/bubble behaved normally (no `--ozone-platform=x11` needed) |
+| Gear icon fix | `.desktop` `Icon=` → absolute path + `StartupWMClass=token-monitor`: dock updates immediately, app-menu (grid) icon only after a re-login/reboot (GNOME Shell caches it; Wayland cannot `Alt+F2`→`r`) |
+
+Notes: AppImageLauncher rewrites the integrated file to `Token-Monitor-0.61.0_<hash>.AppImage` and
+adds `--no-sandbox` to the generated `Exec=`; edits to that `.desktop` may be overwritten on
+re-integration. A CLI smoke test can bypass the binfmt handler with `APPIMAGELAUNCHER_DISABLE=1`.
+
 ## Installation Checks
 
 1. Confirm the VC++ 2015-2022 x64 Redistributable is installed.
@@ -207,11 +235,19 @@ an extracted tree rather than through the AppImage runtime), plus `vaInitialize 
 For Linux x64, the equivalent checks are:
 
 1. The AppImage `sha512` matches `latest-linux.yml`.
-2. The AppImage launches — directly when `libfuse2` is present, otherwise via `--appimage-extract` + `squashfs-root/AppRun`.
+2. The AppImage launches — directly when `libfuse2` is present, via AppImageLauncher on a desktop host, or via `--appimage-extract` + `squashfs-root/AppRun` as a last resort.
 3. `~/.config/Token Monitor/settings.json` is created.
 4. The bundled `@tokscale/cli-linux-x64-gnu` `clients` output reports a non-zero `messages` count for OpenCode.
 5. The widget window appears and shows a non-zero OpenCode token count.
 6. Do not store provider credentials, API keys, or `.env` secrets in the Extension Packs repository.
+
+When installing through AppImageLauncher, also check:
+
+7. The launcher `.desktop` exists under `~/.local/share/applications/` and its `StartupWMClass`
+   matches the real window class (`token-monitor`).
+8. The dock shows the Token Monitor icon, not a generic gear; on Wayland the app-menu (grid) icon
+   appears only after a re-login.
+9. `settings.json` `appUpdate.lastCheckedAt` is non-null after launch (the in-app updater is active).
 
 ## Windows Notes
 

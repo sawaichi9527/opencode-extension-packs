@@ -199,6 +199,19 @@ grep '^StartupWMClass=' ~/.local/share/applications/token_monitor.desktop   # St
 > Electron／AppImage 常把 class 設成二進位名（小寫、連字號），與 `.desktop` 的 `Name` 不同，
 > 這是 AppImage「進窗才齒輪」極常見的原因。
 
+### 3b-3：Wayland 場次補充（Ubuntu 26.04.1 + AppImageLauncher，2026-09-23）
+
+同一顆 Token Monitor AppImage 改走 **AppImageLauncher**（`3.0.0-beta-2`）在 Ubuntu 26.04.1 desktop（GNOME **Wayland**、glibc 2.43）驗證：3b 的兩層修法仍成立，但補上以下差異。
+
+- **前置：`libfuse2`。** AppImageLauncher 產生的捷徑會直接執行 AppImage，runtime 會 `dlopen("libfuse.so.2")` 且**不會自動 fallback**，因此主機必須有 `libfuse2`（Ubuntu 24.04+/26.04 套件名 **`libfuse2t64`**）。本機 `/usr/bin/fusermount` 已是指向 `fusermount3` 的 symlink，libfuse2 可正常掛載。
+- **AppImageLauncher 會改寫檔案與捷徑。** 整合後 AppImage 被改名為 `<name>_<content-hash>.AppImage`，並在產生的 `.desktop` `Exec=` 加上 `--no-sandbox`（FUSE 映像上的 `chrome-sandbox` 無法 setuid root）。該 `.desktop` 由 AppImageLauncher 管理，**重新整合時可能被覆寫**，`Icon=`／`StartupWMClass` 的手動修正需重套。
+- **Wayland 的兩點不同：**
+  - `wmctrl -lx` **看不到原生 Wayland 視窗**（只看得到 XWayland 的視窗），但 `StartupWMClass=token-monitor` 仍是正確值——dock 圖示在重啟程式後**立即**生效。
+  - **選單 (grid) 圖示在 Wayland 需重新登入／重開機**才生效：GNOME Shell 在 session 內快取 app 圖示，`gtk-update-icon-cache`／`update-desktop-database` 只更新磁碟狀態；X11 可用 `Alt+F2` → `r` 重載 Shell，Wayland 不行。
+- **免 GUI 的 CLI 冒煙測試（選用）：** 設 `APPIMAGELAUNCHER_DISABLE=1` 可繞過 binfmt 直接執行 AppImage（`--appimage-version` 會回報 runtime 版本如 `effcebc`），避免提早在驗證階段跳出整合對話框。注意 binfmt 繞道會印出誤導訊息 `launching AppImage directly: /usr/bin/AppImageLauncher`，實際執行的仍是 AppImage 本身。
+
+AppImageLauncher 路線的價值：它是**真正的 AppImage 經 FUSE 掛載**，`APPIMAGE` 可見，內建更新器與「自動下載更新」開關可用（見問題 4）；實測 `settings.json` 的 `appUpdate.lastCheckedAt` 由 `null` 變為有值。完整證據見 [packs/token-monitor/compatibility.md](../../packs/token-monitor/compatibility.md#ubuntu-desktop-wayland-appimagelauncher-evidence)。
+
 ---
 
 ## 問題 4：AppImage 的「自動下載更新」開關灰色不可勾（opencode 場次，受限主機）
