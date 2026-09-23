@@ -4,7 +4,7 @@
 
 內容以 OpenCode v2 原生 `SKILL.md` 與 Markdown Custom Commands 為主，不要求 Claude Code／Codex Plugin、跨 Agent Hook 或模式狀態管理。外部外掛只記錄來源、固定版本與安裝指導，不 fork、不 vendored 進本 Repository。
 
-> 狀態：`v2.0.16`（基於 OpenCode v2.0.14 驗證），**僅支援 OpenCode v2.x.x**（v1 相容已移除）。共 15 個 Pack：Default 1、Recommended 5、Optional 9。
+> 狀態：`v2.0.16`（基於 OpenCode v2.0.14 驗證），**僅支援 OpenCode v2.x.x**（v1 相容已移除）。共 16 個 Pack：Default 1、Recommended 5、Optional 10。
 
 ## 目錄結構
 
@@ -60,6 +60,7 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 | Playwright MCP | external-mcp | 瀏覽器自動化 MCP |
 | Codebase Memory MCP | external-mcp | 程式碼記憶與檢索 MCP |
 | `pwsh7` | tooling | PowerShell 7.4.6 UTF-8 wrapper（自託管 release；Windows 主機**強制**替代內建 5.1） |
+| `linux-flatpak-deploy` | tooling | Ubuntu desktop flatpak/AppImage 部署 runbook：flathub summary 修復、Gear Lever 安裝、選單/dock 圖示修正（XDG_DATA_DIRS／絕對路徑 Icon=／StartupWMClass） |
 | Token Monitor | external-tool | 桌面 widget（Windows／Linux）：追蹤 OpenCode 等 38+ AI coding tool 的 token／成本／額度（不變更 OpenCode 設定） |
 
 各 Pack 的固定版本與來源見下節；完整清單與版本以 `manifest/packs.json` 為準。
@@ -82,6 +83,7 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 - `pwsh7` 在 Windows 主機上是**強制替代**而非可選便利：Windows 10 內建只有 PowerShell 5.1，必須以本 pack 的 7.4.6 取代；Windows 11 內建同樣只有 5.1，若 `pwsh` 不存在或版本低於 pack 提供版本（7.4.6）也必須取代。全域規則模板見 [`packs/pwsh7/templates/global-AGENTS.md`](packs/pwsh7/templates/global-AGENTS.md)（複製到 `%USERPROFILE%\.config\opencode\AGENTS.md`，對所有 session 與專案生效）。
 - `token-monitor` 是 `external-tool`：第三方桌面應用程式，與 OpenCode 之間**沒有整合介面**（只讀取本機用量資料檔），因此不像已移除的 `token-usage` pack 受 OpenCode v1／v2 差異影響。Windows 10/11 與 Ubuntu desktop 的完整部署流程、安裝路徑與前置條件見 [packs/token-monitor/README.md](packs/token-monitor/README.md)；Ubuntu desktop（x64, X11, glibc）已於 `v0.61.0` 重新驗證，Windows 10 LTSC（無 WSL）亦已於 2026-09-23 透過 App 內建 updater 更新至 `v0.61.0`；詳見該 pack 的 compatibility 文件。**在無 root／FUSE 不可用的受限主機上，AppImage 直跑會失敗，必須走 `--appimage-extract`**——見〈Ubuntu desktop（實測注意事項）〉。
 - Token Monitor（Linux 桌面）：視窗為**無邊框**，調整大小用 GNOME 的 `Alt+F8`（方向鍵調整、`Enter` 確認；移動為 `Alt+F7`）；**字體縮放**為 `Ctrl` + `+`／`-`／`0`（放大／縮小／重設）。Wayland 桌面若視窗行為異常，可用 `--ozone-platform=x11` 強制以 XWayland 執行（X11 工作階段無需此 flag）。
+- `linux-flatpak-deploy` 是**部署 / 除錯 runbook**（非可透過 OpenCode 安裝的能力 Pack）：收錄在本機 Ubuntu 24.04.5 desktop 上「flatpak/flathub 修復 → Gear Lever 安裝 → AppImage／Gear Lever 圖示修正」全鏈經驗，並列 dsh（本機本地 session）與 opencode（遠端）兩種佈署方式對照，見 [packs/linux-flatpak-deploy/README.md](packs/linux-flatpak-deploy/README.md)。
 - Pin 與 `manifest/packs.json` 同步更新；升級流程見各 Pack 的 Update Policy。
 
 ## 安裝
@@ -295,7 +297,7 @@ Extension Packs
 ├── Default: grill-me
 ├── Recommended: Lean Review / SWQA / Failure Triage / File Toolkit / Browser Automation
 ├── Optional: Forgejo / GitHub / Local LLM Dispatch / pwsh7
-└── Optional: PPT Master（含 FII 2026 deck） / Archify / Playwright MCP / Codebase Memory MCP / Token Monitor
+└── Optional: PPT Master（含 FII 2026 deck） / Archify / Playwright MCP / Codebase Memory MCP / linux-flatpak-deploy / Token Monitor
 ```
 
 ## 授權與來源

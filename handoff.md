@@ -9,7 +9,7 @@
 | 版本 | `2.0.16`（`VERSION` / `manifest/packs.json`；基於 OpenCode v2.0.14 驗證。上一版 `2.0.15`） |
 | HEAD | `main`（2.0.16：`token-monitor` pin 升 `v0.61.0` 並於 Ubuntu 重新驗證、Linux 使用說明；前次 2.0.15：pwsh7 強制替代、全域規則模板、註冊 `token-monitor` 並完成 Ubuntu 驗證；實際 SHA 以 `git log -1` 為準） |
 | 相容性 | **僅支援 OpenCode v2.x.x**——v1 慣例（agent `permission` map、`bash`/`task` action、單數 `command/`、`mcp` 直掛 server 名、`enabled` 欄位）已全部移除 |
-| 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`（`679ba57`）；推送順序固定 origin → forgejo。Forgejo remote：`http://192.168.23.167:3000/BBDU28500/opencode-extension-packs.git`（repo 在 Forgejo 上屬 `BBDU28500`） |
+| 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`（`6543738`）；推送順序固定 origin → forgejo。Forgejo remote：`http://192.168.23.167:3000/BBDU28500/opencode-extension-packs.git`（repo 在 Forgejo 上屬 `BBDU28500`） |
 | working tree | clean，三方 `main` 一致 |
 
 ## 專案定位
@@ -25,7 +25,7 @@
   `swqa-automation`、`test-failure-triage`、`forgejo-integration`、`github-integration`、`file-toolkit`、`browser-automation`、`lean-code-review`、`local-llm-dispatch-policy`
 - `commands/` — Custom Commands：`grill-me.md`（default）
 - `packs/` — Pack 文件與流程：
-  `ppt-master/decks`（FII 2026 版模）、`pwsh7`、`archify`、`playwright-mcp`、`codebase-memory-mcp`、`token-monitor`
+  `ppt-master/decks`（FII 2026 版模）、`pwsh7`、`linux-flatpak-deploy`（Ubuntu flatpak/AppImage 部署 runbook）、`archify`、`playwright-mcp`、`codebase-memory-mcp`、`token-monitor`
 - `docs/PACK-GUIDE.md` — Skill / Command 撰寫最低要求（新增 Pack 時需遵守）
 - `UPSTREAM.md` — 上游來源與刪減原則（lazy-packs、andrej-karpathy-skills、ponytail、mattpocock/skills、obra/superpowers）
 
@@ -38,6 +38,21 @@
 5. **0.2.6（9/18）**：修正 `pwsh7/pwsh-utf8-wrapper.cs` 引號保真問題；重建 5,120-byte `pwsh-utf8-wrapper.exe`（SHA256 `906AA0...`），取代 release 中兩個 deprecated 4,608-byte assets。同步 README、manifest、`packs/pwsh7/README.md`。
 6. **0.2.5（9/16）**：註冊 `archify` external-skill pack，pin `tt-a1i/archify@v2.16.0`。
 7. **0.2.4（9/16）**：註冊 `pwsh7` tooling pack；刷新外部 pin：`ppt-master@v6.4.0`、`playwright-mcp@0.0.81`、`codebase-memory-mcp@0.11.0`。
+8. **2.0.16-docs（9/23）**：新增 `linux-flatpak-deploy` tooling pack（[packs/linux-flatpak-deploy/](packs/linux-flatpak-deploy/README.md)、[compatibility.md](packs/linux-flatpak-deploy/compatibility.md)）——收錄本機 Ubuntu 24.04.5 desktop（GNOME X11、Flatpak 1.14.6）上「flathub 修復 → Gear Lever 安裝 → AppImage／Gear Lever 圖示修正」全鏈經驗，版號沿用 `2.0.16`（pure docs/runbook 增補，不改變 OpenCode 驗證版本）。三問題根因與解法：(1) flathub `no summary found`＝base URL 決定 summary 路徑，`flathub.org/summary.idx` 回 404、`dl.flathub.org/repo/summary.idx` 回 200，用 `.flatpakrepo` 把 base 固定成 `/repo/`（注意 `remote-add --force-toggle` 的 `--force-toggle` 對 `remote-add` 非法）；(2) Gear Lever（`it.mijorus.gearlever`）裝好後選單看不到＝`XDG_DATA_DIRS` 不含 flatpak exports，寫入 `/etc/environment` 後必須 logout/relogin（PAM 在登入時讀；`Alt+F2:r` 不生效）；(3) Token Monitor AppImage 齒輪分兩層——選單齒輪是 `.desktop` `Icon=` 指向不存在路徑（改絕對路徑至 `~/.local/share/icons`），dock 齒輪是 `StartupWMClass=Token Monitor` 與實際視窗 class `token-monitor` 不匹配（`wmctrl -lx` 破案，對齊後徹底重開程式）。新增 dsh（本機本地 session：agent sandbox 的 `no_new_privs` 擋 sudo、擋 home flatpak 路徑寫入，privileged/home edits 由用戶在本機執行）與 opencode（遠端）佈署對照表；同步更新 README（Pack 數 15→16、Optional 9→10、關係樹與備註段）、manifest（新增 optional tooling pack）、CHANGELOG。
+
+## 部署經驗（dsh vs opencode）
+
+兩次都在同一台 Ubuntu 24.04.5 desktop 完成「flatpak → Gear Lever / AppImage → 圖示」鏈，但**權限模型決定 system mode vs user mode**（完整對照見 [packs/linux-flatpak-deploy/README.md](packs/linux-flatpak-deploy/README.md) 的「dsh vs opencode 佈署對照」）：
+
+| 維度 | dsh（本機本地 session） | opencode（受限主機） |
+|---|---|---|
+| root / sudo | **用戶 terminal 的 sudo 可用**（system mode flatpak、`/etc/environment`） | **`sudo` 不可用**——`NoNewPrivs: 1`，被迫 user mode + `--appimage-extract` |
+| flatpak 模式 | system mode（`/var/lib/flatpak`） | user mode（`--user`、`~/.local/flatpak-env`；無 `/var/lib/flatpak`） |
+| 讀取／診斷 | 強：直接讀 `/proc`、`/etc`、repo、跑 `curl`／`wmctrl`／`xwininfo` | 同左（本機執行指令） |
+| agent 寫入 | harness sandbox `no_new_privs` 擋 agent 自行 sudo／寫 home flatpak 路徑 → privileged/home edits 由用戶執行 | 用戶遠端操作（具體連線／權限模型以該 session 為準） |
+| 本次特別貢獻 | flathub summary 修復、Gear Lever system-mode 安裝與 `/etc/environment` 選單、Token Monitor dock `StartupWMClass` 修正（`wmctrl` 找出 class=`token-monitor`） | Token Monitor Ubuntu AppImage 可行性 + Gear Lever user-mode 安裝已 commit+push（`packs/token-monitor/compatibility.md`、README/handoff「Ubuntu desktop 實測經驗」） |
+
+結論：兩種方式都能把應用程式部署到同一台 Linux desktop，但**能否用 system mode 取決於 sudo 是否可用**。dsh 強在本機直接診斷（summary 路徑拼法、`wmctrl` 抓 class），privileged/home 編輯交由用戶本機 terminal；opencode 場次受 `NoNewPrivs` 限制只能 user mode，已落檔 AppImage 可行性驗證；本 runbook 補上 system mode 下的 flathub summary 修復、Gear Lever 安裝與 `/etc/environment`、AppImage dock `StartupWMClass` 前一場未涵蓋部分。
 
 ## 目前 Pin（外部來源）
 

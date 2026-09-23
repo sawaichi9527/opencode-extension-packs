@@ -95,6 +95,17 @@
       "description": "Mandatory on Windows 10/11 opencode hosts: replace built-in PowerShell 5.1 with the packaged PowerShell 7.4.6 + pwsh-utf8-wrapper.exe shell (also when an existing pwsh is older than 7.4.6)."
     },
     {
+      "id": "linux-flatpak-deploy",
+      "name": "Linux Flatpak / AppImage Desktop Deploy Runbook",
+      "tier": "optional",
+      "kind": "tooling",
+      "sourcePath": "packs/linux-flatpak-deploy",
+      "documentation": "packs/linux-flatpak-deploy/README.md",
+      "compatibility": "packs/linux-flatpak-deploy/compatibility.md",
+      "audience": ["linux", "environment", "flatpak", "appimage"],
+      "description": "Deployment and troubleshooting runbook for running Flatpak/AppImage apps on Ubuntu desktop: fix flathub summary, install Gear Lever, and fix menu/dock icons (XDG_DATA_DIRS, absolute-path Icon=, StartupWMClass matching)."
+    },
+    {
       "id": "ppt-master",
       "name": "PPT Master",
       "tier": "optional",
