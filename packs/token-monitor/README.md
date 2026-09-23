@@ -15,7 +15,7 @@ so there is no OpenCode version constraint on this pack. See
 ## Official Source
 
 - Repository: <https://github.com/Javis603/token-monitor>
-- Release: `v0.60.0`
+- Release: `v0.61.0`
 - License: MIT
 - Author: Javis (`@Javis603`)
 - Upstream documentation: <https://github.com/Javis603/token-monitor#readme>
@@ -73,7 +73,7 @@ Linux is published as a single x64 `.AppImage` (no installer). macOS ships a sig
 ### 1. Download
 
 ```powershell
-$v = "0.60.0"
+$v = "0.61.0"
 $d = "$env:TEMP\token-monitor"; New-Item -ItemType Directory -Force $d | Out-Null
 $base = "https://github.com/Javis603/token-monitor/releases/download/v$v"
 curl.exe -L --retry 5 --retry-delay 3 -o "$d\Token-Monitor-Setup-$v.exe" "$base/Token-Monitor-Setup-$v.exe"
@@ -188,7 +188,7 @@ Uninstalling removes the program and shortcuts but **leaves** `%APPDATA%\Token M
 ### 1. Download and verify
 
 ```bash
-v=0.60.0
+v=0.61.0
 d=~/token-monitor; mkdir -p "$d"; cd "$d"
 base="https://github.com/Javis603/token-monitor/releases/download/v$v"
 curl -L --retry 5 --retry-delay 3 -O "$base/latest-linux.yml"
@@ -205,15 +205,15 @@ actual=$(openssl dgst -sha512 -binary "Token-Monitor-$v.AppImage" | base64 -w0)
 ### 2. Run
 
 ```bash
-chmod +x Token-Monitor-0.60.0.AppImage
-./Token-Monitor-0.60.0.AppImage          # requires libfuse2 (libfuse.so.2)
+chmod +x Token-Monitor-0.61.0.AppImage
+./Token-Monitor-0.61.0.AppImage          # requires libfuse2 (libfuse.so.2)
 ```
 
 Without `libfuse2`, unpack and run the extracted tree instead (see
 [compatibility.md](compatibility.md#linux-notes)):
 
 ```bash
-./Token-Monitor-0.60.0.AppImage --appimage-extract
+./Token-Monitor-0.61.0.AppImage --appimage-extract
 ./squashfs-root/AppRun
 ```
 
@@ -278,7 +278,7 @@ shorter groupings. See [compatibility.md](compatibility.md#linux-notes).
 
 - The pinned version lives in the `release` field of `manifest/packs.json` and in this document;
   update both together.
-- Upstream releases very frequently (`v0.57.0` → `v0.60.0` in eight days). Re-read
+- Upstream releases very frequently (`v0.57.0` → `v0.61.0` in nine days). Re-read
   [compatibility.md](compatibility.md) before moving the pin.
 - This pack tracks release tags only, never upstream commits.
 

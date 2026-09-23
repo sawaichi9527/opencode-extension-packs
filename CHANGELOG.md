@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.16-dev - Unreleased
+
+- Moved the `token-monitor` pin from `v0.60.0` to `v0.61.0` after re-verifying on Ubuntu desktop (x64, X11, glibc): the AppImage `sha512` matches `latest-linux.yml`, it launches directly through FUSE, the widget window renders (`340x650`), and the bundled engine reports 651 OpenCode messages. Windows re-verification for `v0.61.0` is still pending (Windows evidence remains from `v0.60.0`). Updated `packs/token-monitor/README.md` and `compatibility.md`, the README pin table, and `handoff.md`.
+- Bumped the version to `2.0.16-dev`.
+
 ## 2.0.15 - pwsh7 is mandatory on Windows hosts; Token Monitor registered as an external-tool pack
 
 - Turned `pwsh7` from an optional convenience into a **mandatory replacement** for the built-in Windows PowerShell 5.1: Windows 10 ships only 5.1 and must use the packaged pwsh7 (7.4.6); Windows 11 also ships only 5.1, so a missing `pwsh` **or** a version lower than the pack version (7.4.6) must likewise be replaced with the pack version. Added the requirement table, the forbidden invocation forms, and the `7.4.6 / utf-8` verification command to `packs/pwsh7/README.md`.

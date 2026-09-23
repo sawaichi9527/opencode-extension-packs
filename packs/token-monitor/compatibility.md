@@ -2,7 +2,7 @@
 
 ## Upstream Contract
 
-- Release: `v0.60.0`
+- Release: `v0.61.0`
 - Repository: `Javis603/token-monitor`
 - License: MIT
 - Author: Javis (`@Javis603`)
@@ -15,9 +15,9 @@
 
 | Platform | Status | Notes |
 |---|---|---|
-| Windows 10 IoT Enterprise LTSC 2021 (19044 / 21H2), x64, **no WSL installed** | **Verified** 2026-09-23 | Portable, NSIS installer, and headless agent all exercised end to end; evidence below |
+| Windows 10 IoT Enterprise LTSC 2021 (19044 / 21H2), x64, **no WSL installed** | **Verified** on `v0.60.0` (2026-09-23) | Portable, NSIS installer, and headless agent all exercised end to end; `v0.61.0` not yet re-verified on Windows |
 | Windows 11 | Not verified by the team | Supported upstream, same installer and prerequisites |
-| Ubuntu desktop (x86_64, X11, glibc) | **Verified** 2026-09-23 | AppImage extracted and launched; widget window rendered, OpenCode usage non-zero, WSL correctly reported as absent; evidence below |
+| Ubuntu desktop (x86_64, X11, glibc) | **Verified** on `v0.60.0` and `v0.61.0` (2026-09-23) | AppImage launched (direct via FUSE and via `--appimage-extract`); widget window rendered, OpenCode usage non-zero, WSL correctly reported as absent; evidence below |
 | macOS | Not verified by the team | Supported upstream; out of scope for this pack |
 
 Treat the pack as validated only on rows marked Verified.
@@ -41,7 +41,7 @@ Treat the pack as validated only on rows marked Verified.
 | FUSE | `libfuse2` **not installed** — the AppImage was unpacked with `--appimage-extract` |
 | Node.js | `24.21.0` (present; not required by the GUI path) |
 | OpenCode data | `~/.local/share/opencode/opencode.db` (SQLite, V2 schema) plus `-wal`/`-shm` |
-| Token Monitor | `v0.60.0` (Linux x64 AppImage, extracted) |
+| Token Monitor | `v0.61.0` (Linux x64 AppImage, direct via FUSE and extracted) |
 | Bundled engine | `@tokscale/cli-linux-x64-gnu` 4.17.0 |
 
 ## Verification Evidence
@@ -154,7 +154,7 @@ GUI shell does not need it, but the bundled scan engine does.
 | First run (pricing fetch times out, falls back to cache) | 30.1 s |
 | After the one-hour pricing cache is warm | 0.2 s |
 
-### Ubuntu desktop (X11) evidence
+### Ubuntu desktop (X11) evidence — `v0.60.0`
 
 | Check | Result |
 |---|---|
@@ -175,6 +175,20 @@ Benign messages on the extracted run: `APPIMAGE env is not defined` and
 `App update check failed: Update metadata missing or invalid` (both because the app was started from
 an extracted tree rather than through the AppImage runtime), plus `vaInitialize failed` /
 `MESA-LOADER: failed to open dri` GPU warnings that fall back to software rendering.
+
+### Ubuntu desktop (X11) evidence — `v0.61.0` re-verification (2026-09-23)
+
+| Check | Result |
+|---|---|
+| `Token-Monitor-0.61.0.AppImage` size vs `latest-linux.yml` | `155094683` = `155094683` |
+| `Token-Monitor-0.61.0.AppImage` `sha512` vs `latest-linux.yml` | match |
+| Launch | Run directly through FUSE (`libfuse2` installed) — process `/tmp/.mount_Token-*/token-monitor` |
+| Window | `xwininfo`: `"Token Monitor"` `340x650` |
+| Engine reach | `@tokscale/cli-linux-x64-gnu` 4.17.0 `clients` → OpenCode `messages: 651` |
+| Raw scan | `--group-by client,session,model --today` → 2 entries |
+| Anchor values | `collector-anchor.json`: today `38,216,954` tokens / `$0.6201`; month = allTime `103,885,359` / `$3.734` |
+| WSL status | `wslStatus: null` |
+| Notes | `v0.61.0` adds a Linux Floating Bubble fix (#756) that was not specifically exercised. The bundle still ships tokscale 4.17.0 (`gnu`/`musl`), so the gnu-vs-musl grouping note below is unchanged. |
 
 ## Installation Checks
 
@@ -227,8 +241,8 @@ The AppImage runs directly when FUSE 2 is available (`libfuse2` / `libfuse.so.2`
 the standard AppImage escape hatch instead of installing FUSE:
 
 ```bash
-chmod +x Token-Monitor-0.60.0.AppImage
-./Token-Monitor-0.60.0.AppImage --appimage-extract
+chmod +x Token-Monitor-0.61.0.AppImage
+./Token-Monitor-0.61.0.AppImage --appimage-extract
 ./squashfs-root/AppRun
 ```
 
