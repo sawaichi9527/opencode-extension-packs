@@ -143,6 +143,18 @@
       "documentation": "packs/codebase-memory-mcp/README.md",
       "compatibility": "packs/codebase-memory-mcp/compatibility.md",
       "description": "Add the upstream Codebase Memory MCP server to OpenCode for code intelligence and knowledge graph analysis."
+    },
+    {
+      "id": "token-monitor",
+      "name": "Token Monitor",
+      "tier": "optional",
+      "kind": "external-tool",
+      "sourceRepo": "https://github.com/Javis603/token-monitor",
+      "release": "v0.60.0",
+      "audience": ["windows", "opencode", "observability"],
+      "documentation": "packs/token-monitor/README.md",
+      "compatibility": "packs/token-monitor/compatibility.md",
+      "description": "Install the upstream local-first desktop widget that tracks token usage, cost, and provider limits for OpenCode and other AI coding tools, without configuring OpenCode."
     }
   ]
 }
