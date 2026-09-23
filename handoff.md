@@ -9,8 +9,8 @@
 | 版本 | `2.0.16`（`VERSION` / `manifest/packs.json`；基於 OpenCode v2.0.14 驗證。上一版 `2.0.15`） |
 | HEAD | `main`（2.0.16：`token-monitor` pin 升 `v0.61.0` 並於 Ubuntu 重新驗證、Linux 使用說明；前次 2.0.15：pwsh7 強制替代、全域規則模板、註冊 `token-monitor` 並完成 Ubuntu 驗證；實際 SHA 以 `git log -1` 為準） |
 | 相容性 | **僅支援 OpenCode v2.x.x**——v1 慣例（agent `permission` map、`bash`/`task` action、單數 `command/`、`mcp` 直掛 server 名、`enabled` 欄位）已全部移除 |
-| 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`；推送順序固定 origin → forgejo |
-| working tree | clean，無未提交變更（提交後三方 `main` 一致） |
+| 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`；推送順序固定 origin → forgejo。**本機（Ubuntu 桌面工作機）無 push 憑證，本次文件更新僅本地 commit**（見「Ubuntu desktop 實測經驗」） |
+| working tree | clean；本地 `main` 含 1 個未推送 commit（Ubuntu desktop 實測經驗文件更新）。推送後請更新本列與「三方同步」列 |
 
 ## 專案定位
 
@@ -59,7 +59,41 @@
 - 變更流程慣例：改動時同步更新 `VERSION`、`manifest/packs.json`、`CHANGELOG.md`、相關 README / Pack 文件。
 - 憑證：GitHub 與 Forgejo token 存於本機 `~/.git-credentials`（600），不入 repo、不寫入任何追蹤檔案。
 
+## Ubuntu desktop 實測經驗（2026-09-23）
+
+於 Ubuntu 24.04.5 LTS（x86_64、glibc 2.39、X11 `DISPLAY=:0`）工作機實測。該主機為**受限主機**：`grep NoNewPrivs /proc/self/status` → `NoNewPrivs: 1`，setuid 提權（含 `sudo`、`fusermount`）失效。
+
+### (a) Packs 範圍：Token Monitor 在此主機的實際安裝路徑
+
+| 觀察 | 證據 |
+|---|---|
+| `sudo` 不可用 → 無法安裝 `libfuse2` | `sudo: The "no new privileges" flag is set, which prevents sudo from running as root.`；Ubuntu 24.04 的套件名為 **`libfuse2t64`** |
+| 系統無 FUSE 2 函式庫 | `ldconfig -p \| grep libfuse.so.2` 無結果（僅有 `libfuse3`） |
+| 自備使用者版 `libfuse.so.2`（deb 解到 `~/.local/lib/fuse2/`）仍無法掛載 | `fusermount: mount failed: Operation not permitted`；`/dev/fuse` 為 `crw-rw-rw-`、`fusermount3` 為 setuid root，但在 `NoNewPrivs` 下均無效 |
+| 改用 `--appimage-extract` + `squashfs-root/AppRun` | 成功：Electron 程序 8 個、`xwininfo` 視窗 `"Token Monitor"` `340x650`、內附 `@tokscale/cli-linux-x64-gnu` 回報 OpenCode `messages: 141`（非零）、`collector-anchor.json` today 5,240,366 tokens／$0.0721（與畫面一致） |
+| 完整性 | size `155094683`、sha512 `IHy/Qg4O…cg==`，皆與 `latest-linux.yml` 相符 |
+
+結論：在受限主機上，`--appimage-extract` **不是替代選項而是唯一可行路徑**。此經驗已寫入 README 的「Ubuntu desktop（實測注意事項）」。
+
+驗證技巧：GTK4 應用在 X11 下直接擷取會得到全黑畫面，需 `GSK_RENDERER=cairo`（必要時加 `LIBGL_ALWAYS_SOFTWARE=1`）；Electron 應用（如 Token Monitor）不受影響。
+
+### (b) 非本 repo 範圍：Flatpak user 模式與 Gear Lever
+
+> 不屬本 Repository 任何 Pack，僅記錄同機環境經驗，供同類主機參考。
+
+- **前提**：`bubblewrap 0.9.0` 已安裝，`unshare -U` 與 `unshare -rm` 均成功；但 `sudo` 因 `NoNewPrivs` 不可用 → 由 deb 解出 `flatpak`／`libostree-1-1` 至 `~/.local/flatpak-env/`，以 `~/.local/bin/flatpak` 包裝檔提供（`LD_LIBRARY_PATH`／`XDG_DATA_DIRS`／`GI_TYPELIB_PATH`）。**僅能 `--user`**，`/var/lib/flatpak` 不存在。
+- **驗證**：`flatpak --version` → `1.14.6`；`remote-add flathub` 成功；`remote-ls`／`remote-info` 正常；`install --no-deps` 完成並出現在 `flatpak --user list`。
+- **速度**：flathub CDN 實測約 **25 MB/s**（同機 GitHub Releases 僅 50–90 KB/s）。Gear Lever `it.mijorus.gearlever` `4.6.2`（app 11.6 MB ＋ `org.gnome.Platform//50` 419.7 MB ＋ GL／codecs／theme）**67 秒**完成；`xwininfo` 視窗 `"Gear lever"` `750x750` 正常渲染（zh-TW 介面）。
+- **限制**：無 `xdg-desktop-portal` → `org.freedesktop.portal.Flatpak was not provided by any .service files`（核心功能不受影響）；GTK4 擷取需 `GSK_RENDERER=cairo`。
+
+### 後續建議
+
+- 若團隊 Ubuntu 主機普遍無 root 或 FUSE 掛載受限，可在下一版把「受限主機路徑」正式寫入 `packs/token-monitor/compatibility.md` 的 Verification Status／Linux Notes（本次僅文件層 README／handoff，**不 bump 版號**）。
+- 本次未動 `VERSION`、`manifest/packs.json`、`CHANGELOG.md`。
+
 ## 待辦 / 注意事項
+
+- **待推送**：Ubuntu desktop 實測經驗的文件更新（`README.md` ＋ 本文件）目前僅為本地 commit；推送順序仍為 origin → forgejo，推送後請更新「目前狀態」的同步與 working tree 兩列。
 
 - **`token-monitor` 已完成 Windows 與 Ubuntu desktop 雙平台驗證**：Windows 10 IoT Enterprise LTSC 2021（無 WSL）通過 portable／NSIS／headless；Ubuntu desktop（x64, X11, glibc）通過 AppImage（`--appimage-extract` 啟動、widget 視窗、OpenCode messages 非零、WSL 回報不存在）。`packs/token-monitor/compatibility.md`（Verification Status 與證據）、`packs/token-monitor/README.md`（Linux 前置條件與安裝段）與本文件 Pin 備註均已更新。macOS 仍為 upstream 支援、未由團隊驗證。
 - 推送到開源 GitHub 前先跑 secret scan（`docs/PACK-GUIDE.md` 規則 6）。
