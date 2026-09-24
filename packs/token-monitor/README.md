@@ -32,6 +32,36 @@ singular `command/` directory and v1 API). Token Monitor has **no integration su
 at all**: it scans data files on disk with its own bundled binary. The OpenCode v1/v2 split
 therefore does not apply, and this pack adds nothing to `opencode.jsonc` or the skills directory.
 
+## Verified Platforms
+
+The team has actually run Token Monitor on the platforms below. Each row states which installation
+route was exercised; the detailed evidence lives in [compatibility.md](compatibility.md).
+
+| Platform | Verified version | Route exercised |
+|---|---|---|
+| Windows 10 Enterprise LTSC 1809 (build `17763.9245`), x64 | team-reported, 2026-09-24 | Portable `.exe` downloaded from GitHub Releases and run **without installing**; launched and behaved normally |
+| Windows 10 IoT Enterprise LTSC 2021 (build `19044` / 21H2), x64, no WSL | `v0.60.0` | Portable, NSIS installer, and headless agent, all end to end |
+| Ubuntu 26.04.1 LTS (x86_64), GNOME Wayland, glibc 2.43 | `v0.61.0` | AppImage integrated with AppImageLauncher — on **two machines**, one of which also serves as an LM Studio inference backend |
+| Ubuntu desktop (x86_64), X11, glibc | `v0.60.0`, `v0.61.0` | AppImage, both directly through FUSE and via `--appimage-extract` |
+
+Windows 11 and macOS are supported upstream but have **not** been verified by the team, and no ARM64
+Windows build has been verified. Treat an unlisted route as unverified.
+
+## Tool-specific prerequisites
+
+A tracked tool is only visible once its own data source exists. The non-obvious one:
+
+### LM Studio needs its own server logging
+
+Token Monitor has no LM Studio API integration — it derives LM Studio usage by parsing LM Studio's
+server logs under `~/.lmstudio/server-logs/**/*.log` (`$LM_STUDIO_HOME` is honoured). If server
+logging is **not enabled in LM Studio**, that directory stays empty and the tool reports no LM Studio
+usage at all. Enable logging in LM Studio, issue a request, then rescan; because the source is a log,
+the history you can query is limited to the period LM Studio actually logged.
+
+Only final-response usage from the Chat Completions and Responses APIs is recorded; prompts and
+responses are not stored, and local inference is priced at `$0`.
+
 ## Prerequisites (Windows 10 / 11)
 
 | Requirement | GUI (portable / installer) | Headless agent |

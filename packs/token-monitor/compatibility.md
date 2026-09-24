@@ -15,10 +15,11 @@
 
 | Platform | Status | Notes |
 |---|---|---|
-| Windows 10 IoT Enterprise LTSC 2021 (19044 / 21H2), x64, **no WSL installed** | **Verified** on `v0.60.0` (2026-09-23) | Portable, NSIS installer, and headless agent all exercised end to end; `v0.61.0` not yet re-verified on Windows |
-| Windows 11 | Not verified by the team | Supported upstream, same installer and prerequisites |
+| Windows 10 Enterprise LTSC 1809 (build `17763.9245`), x64 | **Verified** (team-reported, 2026-09-24) | Portable `.exe` downloaded from GitHub Releases and run **without installing**; launched and behaved normally. Only the portable route was exercised, and no version or evidence capture was taken beyond that report |
+| Windows 10 IoT Enterprise LTSC 2021 (19044 / 21H2), x64, **no WSL installed** | **Verified** on `v0.60.0` (2026-09-23) | Portable, NSIS installer, and headless agent all exercised end to end; evidence below. The installed app then updated itself in place to `v0.61.0`, but no Windows-side evidence was re-collected for that version |
+| Ubuntu 26.04.1 LTS (Resolute Raccoon), x86_64, GNOME **Wayland**, glibc 2.43 | **Verified** on `v0.61.0` (2026-09-23) | Installed via **AppImageLauncher 3.0.0-beta-2** + `libfuse2t64` (real AppImage through FUSE); native Wayland; in-app updater active; evidence below. Confirmed on **two machines**, one of which also runs **LM Studio** as its inference backend — see [LM Studio logging](README.md#lm-studio-needs-its-own-server-logging) |
 | Ubuntu desktop (x86_64, X11, glibc) | **Verified** on `v0.60.0` and `v0.61.0` (2026-09-23) | AppImage launched (direct via FUSE and via `--appimage-extract`); widget window rendered, OpenCode usage non-zero, WSL correctly reported as absent; evidence below |
-| Ubuntu 26.04.1 LTS (Resolute Raccoon), x86_64, GNOME **Wayland**, glibc 2.43 | **Verified** on `v0.61.0` (2026-09-23) | Installed via **AppImageLauncher 3.0.0-beta-2** + `libfuse2t64` (real AppImage through FUSE); native Wayland; in-app updater active; evidence below |
+| Windows 11 | Not verified by the team | Supported upstream, same installer and prerequisites |
 | macOS | Not verified by the team | Supported upstream; out of scope for this pack |
 
 Treat the pack as validated only on rows marked Verified.
@@ -218,6 +219,25 @@ Notes: AppImageLauncher rewrites the integrated file to `Token-Monitor-0.61.0_<h
 adds `--no-sandbox` to the generated `Exec=`; edits to that `.desktop` may be overwritten on
 re-integration. A CLI smoke test can bypass the binfmt handler with `APPIMAGELAUNCHER_DISABLE=1`.
 
+### Additional team-reported confirmations (2026-09-24)
+
+Two further runs were reported by the team without a full evidence capture, so they are recorded here
+as **reports**, not measurements:
+
+| Platform | Route | Reported outcome |
+|---|---|---|
+| Windows 10 Enterprise LTSC 1809 (build `17763.9245`), x64 | Portable `.exe` downloaded from GitHub Releases, run without installing | Launched and behaved normally |
+
+A second **Ubuntu 26.04.1 LTS** machine was also brought up through the same AppImageLauncher route.
+Its environment matches the Wayland session already recorded above, with one addition: it also runs
+**LM Studio** as its inference backend. That surfaced a tracked-client prerequisite worth knowing —
+Token Monitor showed LM Studio usage, and its history was queryable, only after **LM Studio's own
+server logging was enabled**; with logging off there is nothing under `~/.lmstudio/server-logs/` to
+parse. See [LM Studio logging](README.md#lm-studio-needs-its-own-server-logging).
+
+The app version exercised on these two runs was not captured; both were made on 2026-09-24, when
+`v0.61.0` was the current upstream release.
+
 ## Installation Checks
 
 1. Confirm the VC++ 2015-2022 x64 Redistributable is installed.
@@ -353,6 +373,13 @@ the recorded SHA256 before replacing the binary.
 ### The widget window is blank or the app crashes at startup
 
 Check the VC++ Redistributable first, then re-run the installer so the `icacls` grant is applied.
+
+### A tracked tool shows no usage and its source directory is empty
+
+Token Monitor can only count what the tool itself wrote. LM Studio is the clear case: it records
+usage only while its own server logging is enabled, so `~/.lmstudio/server-logs/` stays empty until
+you turn that on. See
+[LM Studio logging](README.md#lm-studio-needs-its-own-server-logging).
 
 ## Update Policy
 
