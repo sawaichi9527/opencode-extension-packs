@@ -55,7 +55,7 @@ placeholders:
 
 以 Windows 內建微軟正黑體為主，Noto Sans TC 為跨平台回退；不依賴額外字型安裝。
 
-字級基準：封面 72 px、目錄 58.67 px、頁標題 32 px、正文 18 px、頁碼 13.33 px、結尾 58.67 px。頁碼採 `{{PAGE_NUM}}/N`，`N` 由作者改為該簡報總頁數。
+字級基準：封面 72 px、目錄 58.67 px、頁標題 32 px、正文 18 px、頁碼 13.33 px、結尾 58.67 px。頁碼由兩部分組成：`{{PAGE_NUM}}` 匯出為 PowerPoint 的 slidenum 欄位，會自動跟隨頁序；總頁數 `/N` 是 Layout 上的靜態文字（`Title and Content` 的 `layout-page-total`）。PowerPoint 沒有自動「總頁數」欄位，新增或刪除頁面後，請在「檢視 > 投影片母片」修改該 Layout 的 `/N` 一次，所有使用此 Layout 的頁面會一起更新。
 
 ## IV. Signature Design Elements
 

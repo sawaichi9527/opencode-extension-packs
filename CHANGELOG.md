@@ -4,7 +4,7 @@
 
 - **TOC rule is now editable.** In all three FII decks the vertical rule under the agenda items changed from a Layout atom to a Slide-local decoration (`data-pptx-role="decoration"`), so it exports as a selectable Freeform shape instead of being baked into the background/layout.
 - **Content type scale corrected.** The content prototype's page title moved from 24 px to **32 px**, keeping body at 18 px; the Design Spec now records the deck scale (cover 72, agenda 58.67, content title 32, body 18, page number 13.33, ending 58.67 px). Exported content titles are 24 pt, not the previous 18 pt.
-- **Page numbering matches the template guidance.** The page-number carrier uses `{{PAGE_NUM}}/N`; generated decks write `3/4` (current/total) instead of a bare number.
+- **Page numbering now uses a real slide-number field.** The current page is exported as a PowerPoint `slidenum` field (`<a:fld type="slidenum">`), so it follows the slide order automatically. The total (`/N`) is static text on the `Title and Content` layout (`layout-page-total`); PowerPoint has no total-pages field, so after adding or removing slides update `/N` once in **View > Slide Master**. The page-number carrier ends at x=1236 and the layout total starts at x=1237, so `3/4` renders as one continuous unit.
 - **English ending matches the source template.** The EN ending prototype uses the source frame (`57.97 310.37 689.6 67.86`) and 48 px type without letter-spacing, so the closing line is `Share · Collaborate · Thrive` rather than `Thank you`.
 - Regenerated all three demo decks; each passes the lockless final checker 4/4 and exports with `status=passed`, `warning_categories=0`.
 

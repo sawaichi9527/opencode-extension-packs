@@ -12,6 +12,8 @@
   <image id="layout-content-logo" x="1040.87" y="37.73" width="185.93" height="30.87"
     href="../images/image2.png" preserveAspectRatio="none"
     data-pptx-layer="layout" data-pptx-editable="false"/>
+  <text id="layout-page-total" x="1237" y="703.23" text-anchor="start" fill="#173367"
+    font-size="13.33" data-pptx-layer="layout" data-pptx-editable="false">/N</text>
   <g id="content-title-slot" data-pptx-placeholder="title"
     data-pptx-bounds="42.33 43.87 1151.62 74.08">
     <text id="content-title-carrier" data-pptx-carrier="true"
@@ -23,8 +25,8 @@
       x="51.93" y="175" fill="#000000" font-size="18">{{CONTENT_AREA}}</text>
   </g>
   <g id="content-page-number-slot" data-pptx-placeholder="slide-number" data-pptx-idx="2"
-    data-pptx-bounds="1176.4 685.1 75 30.73">
+    data-pptx-bounds="1120 685.1 117 30.73">
     <text id="content-page-number-carrier" data-pptx-carrier="true"
-      x="1245" y="703.23" text-anchor="end" fill="#173367" font-size="13.33">{{PAGE_NUM}}/N</text>
+      x="1236" y="703.23" text-anchor="end" fill="#173367" font-size="13.33">{{PAGE_NUM}}</text>
   </g>
 </svg>
