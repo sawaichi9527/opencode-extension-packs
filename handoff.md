@@ -25,6 +25,37 @@
 - `2.3.2-docs-6`：總頁數全自動化。確認 PowerPoint 沒有 total-slides 欄位、upstream ppt-master v6.10.0 也沒有此功能；改由三層維護——(1) 本機 `svg_to_pptx.py` 的 page-total patch 在匯出時把 `layout-page-total` 寫成實際頁數、(2) `packs/ppt-master/tools/sync_page_totals.py`（同步安裝為 `scripts/`）可同步既有 PPTX 或 SVG project、(3) `packs/ppt-master/addins/FII_PageTotals.ppam` 在 PowerPoint 新增頁／儲存／放映前／視窗切換時即時更新。已用 PowerPoint COM 實測：新增頁 `3/4→4/5`、刪除頁儲存後 `4/5→3/4`；頁碼與總頁數 baseline 對齊（目前頁結束 x=1236、`/N` 起 x=1237；slot bounds `1120 689.9 117 20.53` 讓新頁 placeholder 與 `/N` 同高），`sync_page_totals.py` 也會把既有 deck 的 placeholder top/height 對齊到 `/N`。
 - `2.3.2-docs`：外部 pin 再刷新——`@playwright/mcp@0.0.82` → **`0.0.86`**、`codebase-memory-mcp@0.11.0` → **`0.12.1`**；`pwsh7` 由 PowerShell 7.4.6 升到 **7.6.10 LTS**（先經 7.4.22；因 7.4 LTS 已於 2026-11-10 EOL，改採支援至 2028-11-14 的 7.6 LTS，未採用 STS 的 7.7.0），本機驗證 `PowerShell 7.6.10` / `utf-8`。`codebase-memory-mcp` 0.12.1 在 Windows 的 `initialize` 冷啟動實測約 8.2 秒，超過 OpenCode 預設 5000 ms MCP timeout（程序以 255 結束、UI 顯示失敗），已在設定加 `"timeout": 30000` 並於 `packs/codebase-memory-mcp/` 記錄；binary 改以上游 `install.ps1` 安裝到 `%LOCALAPPDATA%\Programs\codebase-memory-mcp`（單純覆蓋檔案會留下不一致的 activation state）。版號仍為 `2.3.2`（OpenCode 版本未變，僅外部 pin 與自託管資產更新）。
 
+## 本次 Session 驗證證據（2026-11-21 00:42 +08:00）
+
+環境：Windows 10 LTSC 2021 桌機、Python 3.14.6、python-pptx 1.0.2、OpenCode 2.3.2、PowerPoint 桌面版（增益集 COM 驗證）。完整日誌：`C:\Users\Sawaichi\AppData\Local\Temp\opencode\session_close_validation.log`。
+
+| 檢查 | 命令 | Exit | Duration | 結果 |
+|---|---|---|---|---|
+| 版模 zh_tw | `svg_quality_checker.py packs/ppt-master/decks/fii_2026_zh_tw/templates --template-mode --canonical-authoring --format ppt169` | 0 | 3.10s | 4/4 passed；0 warning／0 error |
+| 版模 zh_cn | 同上，路徑 `fii_2026_zh_cn` | 0 | 2.95s | 4/4 passed；0 warning／0 error |
+| 版模 en | 同上，路徑 `fii_2026_en` | 0 | 2.91s | 4/4 passed；0 warning／0 error |
+| Demo final zh-tw | `svg_quality_checker.py <project> --quick-generate --canonical-authoring --stage final --json` | 0 | 2.85s | 4/4 passed；report 已寫入 `validation/svg_quality_report.json` |
+| Demo final zh-cn | 同上 | 0 | 2.73s | 4/4 passed |
+| Demo final en | 同上 | 0 | 2.83s | 4/4 passed |
+| 同步腳本 repair | `sync_page_totals.py <copy>.pptx` | 0 | 0.74s | 對 EN demo 副本對齊 1 個 placeholder；總頁數維持 `/4` |
+| 同步腳本 idempotent | `sync_page_totals.py <copy>.pptx --dry-run` | 0 | 0.61s | 0 text update、0 placeholder alignment（第二次無變更） |
+| 三份 PPTX 結構 | python-pptx 檢查 slides 與 layout total | 0 | — | 三份皆 4 slides、`/4` |
+| 本機 vs repo 版模 | `compare_templates.py` 逐檔 SHA-256 | 0 | — | 三份 deck 的 `templates/*`、`design_spec.md`、`images/*` 全部相同；僅 local `exports/*_template_preview.pptx` 未進 repo（刻意排除的生成預覽） |
+| 增益集 | `Get-FileHash` + registry | — | — | repo 與 `%APPDATA%\Microsoft\AddIns` 的 `.ppam` SHA-256 同為 `B37F7500716801E8842851A6F2294D41004F5C65B46C5F98DD499CD70052989A`；`AutoLoad=1`、`LoadBehavior=3` |
+| Git | `git status`、`git rev-parse HEAD`、`git ls-remote` | 0 | — | working tree clean；HEAD = `origin/main` = `forgejo/main` = `b6e4106` |
+
+本次 Session 另外做過、但未在 session-close 重跑的驗證：
+
+- PowerPoint COM：新增頁 `3/4 → 4/5`；刪除頁並儲存 `4/5 → 3/4`；新頁 render `4/5` 與原第 3 頁 `3/4` 同基線。
+- 版模 slot bounds `1120 689.9 117 20.53`，Layout placeholder 與 `/N` 的 top/height 對齊（差異 ≤ 32 EMU，約 0.003 px）。
+- 增益集 v5 事件：`Auto_Open`、`PresentationOpen`、`PresentationNewSlide`、`PresentationBeforeSave`、`SlideShowBegin`（移除 `WindowActivate`，避免與 COM 儲存流程互相卡住）。
+
+尚未驗證／限制：
+
+- PowerPoint COM 的 `Slide.Export` 在部分重複自動化測試中會偶發 RPC timeout／卡住；已用 XML 檢查與先前 1280／2560 render 交叉驗證，沒有再把全部 COM 流程重跑一次。
+- 增益集是 unsigned `.ppam`；若使用者機器的 Trust Center 停用 VBA macro，需允許後才會自動更新。
+- 原始 FII source PPTX 未進 repo；repo 只保留版模 workspace（`templates/` + `images/`），不包含 `exports/*_template_preview.pptx`。
+
 ## 專案定位
 
 選擇性 Skill / Command / 外部整合（Optional Extension Packs），與 `opencode-essential-core` 分離。
