@@ -46,20 +46,20 @@ The string is missing the terminator: ".
 CategoryInfo: ParserError
 ```
 
-pwsh7（7.4.22，.NET 8.0 LTS）提供 UTF-8 主控台與現代語法。
+pwsh7（7.6.10 LTS，.NET 10.0 LTS）提供 UTF-8 主控台與現代語法。
 
 **驗證 pwsh7 生效**：
 
 ```powershell
 pwsh -NoProfile -Command '$PSVersionTable.PSVersion.ToString(); [Console]::OutputEncoding.WebName'
-# 預期：7.4.22 / utf-8
+# 預期：7.6.10 / utf-8
 ```
 
 **例外處理**：若確實需要只有 Windows PowerShell 5.1 才有的模組或行為（例如部分 COM / 舊式 Windows PowerShell 專用模組），**先說明原因與影響並取得使用者同意**，不得默默退回 5.1；能改寫成 pwsh7 相容者（例如改以 `pwsh` 執行同一支腳本、或修正腳本編碼/語法）優先。
 
 ## 安裝來源
 
-- **Windows 版本要求**：Windows 10 內建只有 PowerShell 5.1 → **必須**改用本 pack 提供的 pwsh7（7.4.22）替代；Windows 11 亦僅內建 5.1，若主機上的 `pwsh` **不存在或版本低於 pack 提供版本（7.4.22）**，同樣要**一律以 pack 版本替代**（升級或覆蓋）。
+- **Windows 版本要求**：Windows 10 內建只有 PowerShell 5.1 → **必須**改用本 pack 提供的 pwsh7（7.6.10 LTS）替代；Windows 11 亦僅內建 5.1，若主機上的 `pwsh` **不存在或版本低於 pack 提供版本（7.6.10）**，同樣要**一律以 pack 版本替代**（升級或覆蓋）。
 - Pack 文件：`packs/pwsh7/README.md`（本 repository）
-- 實體：`%USERPROFILE%\.config\opencode\pwsh7\pwsh.exe`（官方 PowerShell 7.4.22 portable ZIP，免 Admin）
+- 實體：`%USERPROFILE%\.config\opencode\pwsh7\pwsh.exe`（官方 PowerShell 7.6.10 portable ZIP，免 Admin）
 - UTF-8 wrapper：`%USERPROFILE%\.config\opencode\pwsh-utf8-wrapper.exe`（`opencode.jsonc` 的 `shell` 指向此檔；路徑解析順序：pack pwsh7 → wrapper 同層 `pwsh7\` → PATH 上的 `pwsh`）

@@ -19,7 +19,7 @@
 - `ppt-master` pin `v6.6.0` → **`v6.10.0`**（`ppt-master-skill-v6.10.0.zip`，SHA-256 `7f62eff…b9d4913`）。文件補上對 Skill-only 安裝有影響的行為變更：6.7.2 起專案建立於工作資料夾（不再落到 `.agents/projects/`）、6.10.0 起個人模板改存 Git-ignored `templates/local/` 並由 `update_repo.py` 遷移、OpenAI 預設 `gpt-image-2.6-sunburst` 與 Volcengine Seedream 5.0／Ark 預設。同步更新 `packs/ppt-master/README.md`、`compatibility.md`、`decks/README.md`。
 - 驗證證據（Windows 桌面主機、OpenCode 2.3.2）：archify `doctor` 25 項全 `[ok]`、`demo` 產出 825,776-byte HTML、`check` `ok: true`（composition 0 errors／0 warnings）、`timeline` 與 `explainer` `validate` 通過；ppt-master `project_manager.py init smoke --format ppt169` 於工作資料夾建立 `projects/smoke_ppt169_<date>`、`scaffold-spec`／`scaffold-lock` 成功、`validate` 正確擋下未填的 `[fill]`、`svg_to_pptx.py` 與 `source_to_md.py` 正常載入（Python 3.14.6、`python-pptx 1.0.2`）。
 - 本機 `.agents/.skill-lock.json` 的 `archify`、`archify-review` 已刷新為 `v3.2.0` 的 GitHub tree SHA（`39069dd1…`、`23ddf7ab…`）；`lean-code-review` 既有的 tree SHA（`a5b042b5…`）與來源 `main` 一致，未變動。
-- `2.3.2-docs`：外部 pin 再刷新——`@playwright/mcp@0.0.82` → **`0.0.86`**、`codebase-memory-mcp@0.11.0` → **`0.12.1`**；`pwsh7` 由 PowerShell 7.4.6 升到 **7.4.22**（7.4 LTS 最新 servicing，非 7.7.0），本機驗證 `PowerShell 7.4.22` / `utf-8`。`codebase-memory-mcp` 0.12.1 在 Windows 的 `initialize` 冷啟動實測約 8.2 秒，超過 OpenCode 預設 5000 ms MCP timeout（程序以 255 結束、UI 顯示失敗），已在設定加 `"timeout": 30000` 並於 `packs/codebase-memory-mcp/` 記錄；binary 改以上游 `install.ps1` 安裝到 `%LOCALAPPDATA%\Programs\codebase-memory-mcp`（單純覆蓋檔案會留下不一致的 activation state）。版號仍為 `2.3.2`（OpenCode 版本未變，僅外部 pin 與自託管資產更新）。
+- `2.3.2-docs`：外部 pin 再刷新——`@playwright/mcp@0.0.82` → **`0.0.86`**、`codebase-memory-mcp@0.11.0` → **`0.12.1`**；`pwsh7` 由 PowerShell 7.4.6 升到 **7.6.10 LTS**（先經 7.4.22；因 7.4 LTS 已於 2026-11-10 EOL，改採支援至 2028-11-14 的 7.6 LTS，未採用 STS 的 7.7.0），本機驗證 `PowerShell 7.6.10` / `utf-8`。`codebase-memory-mcp` 0.12.1 在 Windows 的 `initialize` 冷啟動實測約 8.2 秒，超過 OpenCode 預設 5000 ms MCP timeout（程序以 255 結束、UI 顯示失敗），已在設定加 `"timeout": 30000` 並於 `packs/codebase-memory-mcp/` 記錄；binary 改以上游 `install.ps1` 安裝到 `%LOCALAPPDATA%\Programs\codebase-memory-mcp`（單純覆蓋檔案會留下不一致的 activation state）。版號仍為 `2.3.2`（OpenCode 版本未變，僅外部 pin 與自託管資產更新）。
 
 ## 專案定位
 
@@ -72,7 +72,7 @@
 - `archify` → `tt-a1i/archify@v3.2.0`
 - `playwright-mcp` → microsoft/playwright-mcp，`@playwright/mcp@0.0.86`
 - `codebase-memory-mcp` → DeusData/codebase-memory-mcp，`codebase-memory-mcp@0.12.1`
-- `pwsh7` → PowerShell 7.4.22（packaged release 綁定；上游最新 stable 7.7.0、7.4 LTS 線為 7.4.22）
+- `pwsh7` → PowerShell 7.6.10 LTS（packaged release 綁定；支援至 2028-11-14；下一個 LTS 出現時啟動升級評估）
 - `token-monitor` → `Javis603/token-monitor@v0.61.0`（`external-tool`；Ubuntu desktop（x64, X11, glibc）已驗證 `v0.60.0` 與 `v0.61.0`；Windows 10 IoT Enterprise LTSC 2021（無 WSL）已於 2026-09-23 由 App 內建 updater 更新至 `v0.61.0`）
 - （已移除）`token-usage` → 原 `ramtinJ95/opencode-tokenscope@1.8.1`，2.0.12 移除（僅適用 OpenCode v1）
 
@@ -80,6 +80,7 @@
 
 - `release/pwsh7-v7.4.6` 已更新：單一 fix 版 `pwsh-utf8-wrapper.exe`（5,120 bytes，SHA256 `906AA017CDE4F36DB2BC5D3C38C976E76035E0E40703DB30D81F4F5F7F9FB8F0`，見 `packs/pwsh7/README.md`）。
 - **`release/pwsh7-v7.4.6` 已於 2026-09-24 同步到 Forgejo**：GitHub 與 Forgejo 皆有此 release，name／body 與 5 個資產（`pwsh-utf8-wrapper.exe` 5,120、`pwsh7-7.4.6-win-x64.zip` 111,172,647、`.md5` 59、`.sha256` 91、`.txt` 348 bytes）逐項相同；tag `pwsh7-v7.4.6` → `a39efd6` 兩邊一致。上傳前已驗證來源資產雜湊（zip SHA256 `44D6870B9FBC5376A7E541E4B2268AC97A9C7ABE438B91F5B3102452413A3713`、MD5 `A618D8B18F4B09AA5A317E4CA96B8133`）。此 release 的下載連結在 `packs/pwsh7/README.md` 中仍指 GitHub，Forgejo 為鏡像。同次亦修正該 release 的 body：原文有 **3 處字面 `` `n ``**（原意為換行；GitHub 原文即如此），已於 **GitHub 與 Forgejo 兩邊同時**改為真正的換行（body `823` → `820` bytes，兩邊仍逐字元相同）。
+- `pwsh7-v7.6.10` 已於 2026-11-20 發布：GitHub 與 Forgejo 皆有此 release，tag `pwsh7-v7.6.10`；兩邊各 5 個資產（`pwsh7-7.6.10-win-x64.zip` 109,626,781、`pwsh-utf8-wrapper.exe` 5,120、`.md5` 58、`.sha256` 90、`.txt` 462 bytes）。
 - `pwsh7-v7.4.22` 已於 2026-11-20 發布：GitHub 與 Forgejo 皆有此 release，tag `pwsh7-v7.4.22` → `1c875b0`；兩邊各 5 個資產（`pwsh7-7.4.22-win-x64.zip` 115,207,909、`pwsh-utf8-wrapper.exe` 5,120、`.md5` 58、`.sha256` 90、`.txt` 462 bytes）。
 - `v2.3.2` 已於 2026-11-20 發布：GitHub 與 Forgejo 皆有 `v2.3.2` release（notes 取自本文件同版 CHANGELOG 條目），annotated tag `v2.3.2` → `ab6166e`（tag object `750df64`），兩邊 remote 的 `refs/heads/main` 與 tag 一致。
 - `v2.0.16` 已於 2026-09-23 發布：GitHub 與 Forgejo 皆有 `v2.0.16` release（notes 取自 CHANGELOG 2.0.16），annotated tag `v2.0.16` → `05c8aeb`，三方 tag 一致。
@@ -144,6 +145,8 @@
 - `2.0.16-docs-3` 更新了 `CHANGELOG.md`（新增 docs-3 條目）；仍**未動** `VERSION` 與 `manifest/packs.json`（docs-only，不改變 OpenCode 驗證版本）。
 
 ## 待辦 / 注意事項
+
+- **PowerShell LTS 升級追蹤**：目前 pin 為 **7.6.10 LTS**（支援至 2028-11-14）。下一個 LTS 線發布時啟動升級評估；最遲於 2028-08 中旬（EOL 前 90 天）開始換裝，流程見 `packs/pwsh7/README.md` 的「LTS upgrade policy」。STS（7.7、7.9…）僅在必要修補或功能缺失時採用，並在 CHANGELOG 記錄理由。
 
 - **`token-monitor` 已完成 Windows 與 Ubuntu desktop 雙平台驗證**：Windows 10 IoT Enterprise LTSC 2021（無 WSL）通過 portable／NSIS／headless；Ubuntu desktop（x64, X11, glibc）通過 AppImage（`--appimage-extract` 啟動、widget 視窗、OpenCode messages 非零、WSL 回報不存在）。另於 **Ubuntu 26.04.1（GNOME Wayland）以 AppImageLauncher 3.0.0-beta-2 + `libfuse2t64`** 驗證 FUSE 路線（內建更新器可用；dock 圖示立即、grid 需 relogin）。`packs/token-monitor/compatibility.md`（Verification Status 與證據）、`packs/token-monitor/README.md`（Linux 前置條件與安裝段）與本文件 Pin 備註均已更新。macOS 仍為 upstream 支援、未由團隊驗證。
 - **2026-09-24 追加團隊回報**：另一台 **Windows 10 Enterprise LTSC 1809（build `17763.9245`）** 以 GitHub Releases 的 **portable `.exe` 免安裝**執行，結果正常；另一台 **Ubuntu 26.04.1 LTS** 以相同 AppImageLauncher 路線可下載並執行 AppImage，該機同時是 **LM Studio** 推論後端——**必須在 LM Studio 開啟 server logging**，否則 `~/.lmstudio/server-logs/` 無內容可解析、Token Monitor 看不到該工具用量。此兩筆為團隊回報（未記錄 app 版本、未取完整證據），已寫入 `packs/token-monitor/compatibility.md`（Verification Status 的 LTSC 1809 列、Wayland 列的兩台機器註記、〈Additional team-reported confirmations〉）與 `packs/token-monitor/README.md`（新增〈Verified Platforms〉與〈Tool-specific prerequisites〉）。

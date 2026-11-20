@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.3.2-docs-2 — pwsh7 moved to PowerShell 7.6.10 LTS; LTS upgrade policy recorded
+
+- Moved `pwsh7` from PowerShell **7.4.22** to **7.6.10 LTS** (.NET 10.0 LTS). The 7.4 LTS line reached end-of-support on **2026-11-10**, so staying on 7.4.22 would have left the host without security fixes; 7.6 LTS is supported until **2028-11-14**. The newer `7.7.0` stable (STS, .NET 11) was deliberately **not** adopted: it is not an LTS release, changes `New-Guid` to UUID v7 by default and alters CSV/`Format-*` semantics, and ships without an MSI.
+- Packaged archive is byte-identical to upstream `PowerShell-7.6.10-win-x64.zip`: 109,626,781 bytes, SHA-256 `7d871531806eb1646264e4bbabd9f0c30c23355591bc756bb9909448c29ae166`, MD5 `05a216c2b9b6fcae0b673333485a4dd4`. The UTF-8 wrapper binary is unchanged (5,120 bytes, SHA-256 `906AA017…`).
+- Verified on the Windows 10 LTSC 2021 host: `pwsh --version` → `PowerShell 7.6.10`, `[Console]::OutputEncoding.WebName` → `utf-8`, CJK and emoji output intact through `pwsh-utf8-wrapper.exe`.
+- Updated `manifest/packs.json`, `README.md`, `packs/pwsh7/README.md`, `packs/pwsh7/templates/global-AGENTS.md` and the host's global `AGENTS.md`. Added an **LTS upgrade policy** to `packs/pwsh7/README.md`: stay on LTS, begin evaluating when a new LTS line ships, start concrete work at least 90 days before the current LTS end-of-support, and repeat the full verify/repack/release/test cycle.
+- Published the `pwsh7-v7.6.10` release with the same five assets (zip, `.sha256`, `.md5`, `.txt`, `pwsh-utf8-wrapper.exe`).
+- Version stays `2.3.2` (OpenCode release unchanged; self-hosted tooling/assets refresh only).
+
 ## 2.3.2-docs — MCP pins refreshed; pwsh7 moved to PowerShell 7.4.22
 
 - Refreshed `playwright-mcp` pin from `@playwright/mcp@0.0.82` to **`0.0.86`** (npm `latest`, verified with `npx -y @playwright/mcp@0.0.86 --version` → `Version 0.0.86`). Updated the manifest, the README pin table and both pack documents; the active `opencode.jsonc` pin was updated on the validation host.

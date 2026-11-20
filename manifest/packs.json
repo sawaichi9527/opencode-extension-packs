@@ -86,13 +86,13 @@
     },
     {
       "id": "pwsh7",
-      "name": "PowerShell 7.4.22 (UTF-8) for Windows",
+      "name": "PowerShell 7.6.10 LTS (UTF-8) for Windows",
       "tier": "optional",
       "kind": "tooling",
       "sourcePath": "packs/pwsh7",
       "documentation": "packs/pwsh7/README.md",
       "audience": ["windows", "environment"],
-      "description": "Mandatory on Windows 10/11 opencode hosts: replace built-in PowerShell 5.1 with the packaged PowerShell 7.4.22 + pwsh-utf8-wrapper.exe shell (also when an existing pwsh is older than 7.4.22)."
+      "description": "Mandatory on Windows 10/11 opencode hosts: replace built-in PowerShell 5.1 with the packaged PowerShell 7.6.10 LTS + pwsh-utf8-wrapper.exe shell (also when an existing pwsh is older than 7.6.10)."
     },
     {
       "id": "linux-flatpak-deploy",
