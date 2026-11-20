@@ -144,6 +144,14 @@
 - 若團隊 Ubuntu 主機普遍無 root 或 FUSE 掛載受限，可在下一版把「受限主機路徑」正式寫入 `packs/token-monitor/compatibility.md` 的 Verification Status／Linux Notes（本次僅文件層 README／handoff，**不 bump 版號**）。
 - `2.0.16-docs-3` 更新了 `CHANGELOG.md`（新增 docs-3 條目）；仍**未動** `VERSION` 與 `manifest/packs.json`（docs-only，不改變 OpenCode 驗證版本）。
 
+## 終端機窄窗顯示經驗（2026-11-20）
+
+右側檢閱窗的終端機寬度不足時，PowerShell 的表格格式會**從右側開始丟掉欄位**；`Get-ChildItem` 的預設欄位順序是 `Mode, LastWriteTime, Length, Name`，所以 `dir`／`ls` 會看不到 `Name`。
+
+- 這不是 PowerShell 版本或 `pwsh-utf8-wrapper.exe` 的問題，也不是資料遺失；同一指令在較寬的視窗會正常顯示。
+- 處理方式（未修改 profile／alias，維持標準 `dir` 行為）：拉寬檢閱窗、降低 App 縮放（目前 `zoomLevel: 1.5`），或改用 `Get-ChildItem | Select-Object Name,Mode,LastWriteTime,Length`（把 `Name` 放第一欄）。
+- 決策：不改寫 `dir` alias、不加自訂函式；以視窗寬度處理。
+
 ## 待辦 / 注意事項
 
 - **PowerShell LTS 升級追蹤**：目前 pin 為 **7.6.10 LTS**（支援至 2028-11-14）。下一個 LTS 線發布時啟動升級評估；最遲於 2028-08 中旬（EOL 前 90 天）開始換裝，流程見 `packs/pwsh7/README.md` 的「LTS upgrade policy」。STS（7.7、7.9…）僅在必要修補或功能缺失時採用，並在 CHANGELOG 記錄理由。
