@@ -7,10 +7,10 @@
 | 項目 | 值 |
 |---|---|
 | 版本 | `2.3.2`（`VERSION` / `manifest/packs.json`；基於 OpenCode 2.3.2 驗證。上一版 `2.0.16`） |
-| HEAD | `main`（2.3.2：版號對齊 OpenCode 2.3.2、`archify` pin 升 `v3.2.0`、`ppt-master` pin 升 `v6.10.0`；2.0.16：`token-monitor` pin 升 `v0.61.0` 並於 Ubuntu 重新驗證；實際 SHA 以 `git log -1` 為準） |
+| HEAD | `main`（2.3.2-docs：MCP pin 刷新、pwsh7 升 7.4.22；2.3.2：版號對齊 OpenCode 2.3.2、`archify` `v3.2.0`、`ppt-master` `v6.10.0`；實際 SHA 以 `git log -1` 為準） |
 | 相容性 | **僅支援 OpenCode v2.x.x**——v1 慣例（agent `permission` map、`bash`/`task` action、單數 `command/`、`mcp` 直掛 server 名、`enabled` 欄位）已全部移除 |
 | 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`；推送順序固定 origin → forgejo。Forgejo remote：`http://192.168.23.167:3000/BBDU28500/opencode-extension-packs.git`（repo 在 Forgejo 上屬 `BBDU28500`）。實際 SHA 以 `git log -1` 為準 |
-| working tree | clean；`main` 三方一致（`ab6166e`，`v2.3.2` 已發布；後續僅 handoff 發布紀錄的 docs commit） |
+| working tree | clean；`main` 三方一致；`v2.3.2` 發布於 `ab6166e`，`pwsh7-v7.4.22` 發布於 `1c875b0` |
 
 ## 2.3.2 變更（2026-11-20）
 
@@ -80,6 +80,7 @@
 
 - `release/pwsh7-v7.4.6` 已更新：單一 fix 版 `pwsh-utf8-wrapper.exe`（5,120 bytes，SHA256 `906AA017CDE4F36DB2BC5D3C38C976E76035E0E40703DB30D81F4F5F7F9FB8F0`，見 `packs/pwsh7/README.md`）。
 - **`release/pwsh7-v7.4.6` 已於 2026-09-24 同步到 Forgejo**：GitHub 與 Forgejo 皆有此 release，name／body 與 5 個資產（`pwsh-utf8-wrapper.exe` 5,120、`pwsh7-7.4.6-win-x64.zip` 111,172,647、`.md5` 59、`.sha256` 91、`.txt` 348 bytes）逐項相同；tag `pwsh7-v7.4.6` → `a39efd6` 兩邊一致。上傳前已驗證來源資產雜湊（zip SHA256 `44D6870B9FBC5376A7E541E4B2268AC97A9C7ABE438B91F5B3102452413A3713`、MD5 `A618D8B18F4B09AA5A317E4CA96B8133`）。此 release 的下載連結在 `packs/pwsh7/README.md` 中仍指 GitHub，Forgejo 為鏡像。同次亦修正該 release 的 body：原文有 **3 處字面 `` `n ``**（原意為換行；GitHub 原文即如此），已於 **GitHub 與 Forgejo 兩邊同時**改為真正的換行（body `823` → `820` bytes，兩邊仍逐字元相同）。
+- `pwsh7-v7.4.22` 已於 2026-11-20 發布：GitHub 與 Forgejo 皆有此 release，tag `pwsh7-v7.4.22` → `1c875b0`；兩邊各 5 個資產（`pwsh7-7.4.22-win-x64.zip` 115,207,909、`pwsh-utf8-wrapper.exe` 5,120、`.md5` 58、`.sha256` 90、`.txt` 462 bytes）。
 - `v2.3.2` 已於 2026-11-20 發布：GitHub 與 Forgejo 皆有 `v2.3.2` release（notes 取自本文件同版 CHANGELOG 條目），annotated tag `v2.3.2` → `ab6166e`（tag object `750df64`），兩邊 remote 的 `refs/heads/main` 與 tag 一致。
 - `v2.0.16` 已於 2026-09-23 發布：GitHub 與 Forgejo 皆有 `v2.0.16` release（notes 取自 CHANGELOG 2.0.16），annotated tag `v2.0.16` → `05c8aeb`，三方 tag 一致。
 - `v2.0.15` 已於 2026-09-23 發布：GitHub 與 Forgejo 皆有 `v2.0.15` release（notes 取自 CHANGELOG 2.0.15），annotated tag `v2.0.15` → `b830984`，三方 tag 一致。
