@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.3.2-docs — MCP pins refreshed; pwsh7 moved to PowerShell 7.4.22
+
+- Refreshed `playwright-mcp` pin from `@playwright/mcp@0.0.82` to **`0.0.86`** (npm `latest`, verified with `npx -y @playwright/mcp@0.0.86 --version` → `Version 0.0.86`). Updated the manifest, the README pin table and both pack documents; the active `opencode.jsonc` pin was updated on the validation host.
+- Refreshed `codebase-memory-mcp` pin from `0.11.0` to **`0.12.1`** (upstream release 2026-10-16; `codebase-memory-mcp-windows-amd64.zip` SHA-256 `4e4e0f16b45233af5c757a1fcbe3c3b16e9056375b1fbe2ce020b6de75dedcc0`). The Windows binary was replaced and reports `codebase-memory-mcp 0.12.1`; updated manifest, README and compatibility documents.
+- Moved `pwsh7` from PowerShell **7.4.6** to **7.4.22**, the newest `7.4` LTS servicing release (upstream 2026-10-25), instead of the newer `7.7.0` stable to stay inside the LTS line. The packaged archive is byte-identical to upstream `PowerShell-7.4.22-win-x64.zip`: 115,207,909 bytes, SHA-256 `5f89f51860a1a3b07937945663afd7cbd44387361ff9985f5758939cb9bd6359`, MD5 `3d1e01b6ebd39993ebb4b70e08c3c772`. The UTF-8 wrapper binary is unchanged (5,120 bytes, SHA-256 `906AA017…`) because the wrapper source did not change.
+- Published the `pwsh7-v7.4.22` release with the same five assets as `pwsh7-v7.4.6`: `pwsh7-7.4.22-win-x64.zip`, `.sha256`, `.md5`, `.txt`, and `pwsh-utf8-wrapper.exe`.
+- Documented the local validation: `pwsh --version` → `PowerShell 7.4.22`, `[Console]::OutputEncoding.WebName` → `utf-8`, CJK output intact through the wrapper; `codebase-memory-mcp --version` → `0.12.1`.
+- Version stays `2.3.2` (OpenCode release unchanged; this entry refreshes external pins and self-hosted release assets only).
+
 ## 2.3.2 — Version aligned with OpenCode 2.3.2; Archify 3.2.0 and PPT Master 6.10.0 pins
 
 - Bumped the repository version to `2.3.2`, the OpenCode release this pack was reviewed against; updated `VERSION`, `manifest/packs.json`, the README status line and `handoff.md`.

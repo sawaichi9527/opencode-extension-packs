@@ -86,13 +86,13 @@
     },
     {
       "id": "pwsh7",
-      "name": "PowerShell 7.4.6 (UTF-8) for Windows",
+      "name": "PowerShell 7.4.22 (UTF-8) for Windows",
       "tier": "optional",
       "kind": "tooling",
       "sourcePath": "packs/pwsh7",
       "documentation": "packs/pwsh7/README.md",
       "audience": ["windows", "environment"],
-      "description": "Mandatory on Windows 10/11 opencode hosts: replace built-in PowerShell 5.1 with the packaged PowerShell 7.4.6 + pwsh-utf8-wrapper.exe shell (also when an existing pwsh is older than 7.4.6)."
+      "description": "Mandatory on Windows 10/11 opencode hosts: replace built-in PowerShell 5.1 with the packaged PowerShell 7.4.22 + pwsh-utf8-wrapper.exe shell (also when an existing pwsh is older than 7.4.22)."
     },
     {
       "id": "linux-flatpak-deploy",
@@ -135,7 +135,7 @@
       "tier": "optional",
       "kind": "external-mcp",
       "sourceRepo": "https://github.com/microsoft/playwright-mcp",
-      "package": "@playwright/mcp@0.0.82",
+      "package": "@playwright/mcp@0.0.86",
       "mcpServer": "playwright",
       "audience": ["web", "swqa"],
       "documentation": "packs/playwright-mcp/README.md",
@@ -148,7 +148,7 @@
       "tier": "optional",
       "kind": "external-mcp",
       "sourceRepo": "https://github.com/DeusData/codebase-memory-mcp",
-      "package": "codebase-memory-mcp@0.11.0",
+      "package": "codebase-memory-mcp@0.12.1",
       "mcpServer": "codebase-memory-mcp",
       "audience": ["code-analysis", "architecture"],
       "documentation": "packs/codebase-memory-mcp/README.md",

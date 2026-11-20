@@ -2,8 +2,8 @@
 
 ## Upstream Contract
 
-- Release: `v0.11.0`
-- Package: `codebase-memory-mcp@0.11.0`
+- Release: `v0.12.1`
+- Package: `codebase-memory-mcp@0.12.1`
 - Runtime requirement: Node.js 18 or newer
 - Client: OpenCode local MCP configuration
 - Upstream server: `DeusData/codebase-memory-mcp`

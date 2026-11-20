@@ -7,8 +7,8 @@ Codebase Memory MCP is an upstream MCP server that indexes codebases into a pers
 ## Official Source
 
 - Repository: <https://github.com/DeusData/codebase-memory-mcp>
-- Release: `v0.11.0`
-- npm package: `codebase-memory-mcp@0.11.0`
+- Release: `v0.12.1`
+- npm package: `codebase-memory-mcp@0.12.1`
 - License: MIT
 
 ## Features
@@ -34,7 +34,7 @@ Add the server under `mcp.servers` in `opencode.jsonc` (OpenCode v2 shape) witho
         "command": [
           "npx",
           "-y",
-          "codebase-memory-mcp@0.11.0"
+          "codebase-memory-mcp@0.12.1"
         ]
       }
     }
