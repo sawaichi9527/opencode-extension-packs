@@ -19,6 +19,7 @@
 - `ppt-master` pin `v6.6.0` → **`v6.10.0`**（`ppt-master-skill-v6.10.0.zip`，SHA-256 `7f62eff…b9d4913`）。文件補上對 Skill-only 安裝有影響的行為變更：6.7.2 起專案建立於工作資料夾（不再落到 `.agents/projects/`）、6.10.0 起個人模板改存 Git-ignored `templates/local/` 並由 `update_repo.py` 遷移、OpenAI 預設 `gpt-image-2.6-sunburst` 與 Volcengine Seedream 5.0／Ark 預設。同步更新 `packs/ppt-master/README.md`、`compatibility.md`、`decks/README.md`。
 - 驗證證據（Windows 桌面主機、OpenCode 2.3.2）：archify `doctor` 25 項全 `[ok]`、`demo` 產出 825,776-byte HTML、`check` `ok: true`（composition 0 errors／0 warnings）、`timeline` 與 `explainer` `validate` 通過；ppt-master `project_manager.py init smoke --format ppt169` 於工作資料夾建立 `projects/smoke_ppt169_<date>`、`scaffold-spec`／`scaffold-lock` 成功、`validate` 正確擋下未填的 `[fill]`、`svg_to_pptx.py` 與 `source_to_md.py` 正常載入（Python 3.14.6、`python-pptx 1.0.2`）。
 - 本機 `.agents/.skill-lock.json` 的 `archify`、`archify-review` 已刷新為 `v3.2.0` 的 GitHub tree SHA（`39069dd1…`、`23ddf7ab…`）；`lean-code-review` 既有的 tree SHA（`a5b042b5…`）與來源 `main` 一致，未變動。
+- `2.3.2-docs-3`：`token-monitor` pin 由 `v0.61.0` 更新為 **`v0.94.0`**（上游 2026-11-19 發布）。README、`packs/token-monitor` README／compatibility 與 manifest 同步；compatibility 明確標註 `v0.94.0` **尚未重新驗證**，既有 `v0.60.0`／`v0.61.0` 證據保留。
 - `2.3.2-docs`：外部 pin 再刷新——`@playwright/mcp@0.0.82` → **`0.0.86`**、`codebase-memory-mcp@0.11.0` → **`0.12.1`**；`pwsh7` 由 PowerShell 7.4.6 升到 **7.6.10 LTS**（先經 7.4.22；因 7.4 LTS 已於 2026-11-10 EOL，改採支援至 2028-11-14 的 7.6 LTS，未採用 STS 的 7.7.0），本機驗證 `PowerShell 7.6.10` / `utf-8`。`codebase-memory-mcp` 0.12.1 在 Windows 的 `initialize` 冷啟動實測約 8.2 秒，超過 OpenCode 預設 5000 ms MCP timeout（程序以 255 結束、UI 顯示失敗），已在設定加 `"timeout": 30000` 並於 `packs/codebase-memory-mcp/` 記錄；binary 改以上游 `install.ps1` 安裝到 `%LOCALAPPDATA%\Programs\codebase-memory-mcp`（單純覆蓋檔案會留下不一致的 activation state）。版號仍為 `2.3.2`（OpenCode 版本未變，僅外部 pin 與自託管資產更新）。
 
 ## 專案定位
@@ -73,7 +74,7 @@
 - `playwright-mcp` → microsoft/playwright-mcp，`@playwright/mcp@0.0.86`
 - `codebase-memory-mcp` → DeusData/codebase-memory-mcp，`codebase-memory-mcp@0.12.1`
 - `pwsh7` → PowerShell 7.6.10 LTS（packaged release 綁定；支援至 2028-11-14；下一個 LTS 出現時啟動升級評估）
-- `token-monitor` → `Javis603/token-monitor@v0.61.0`（`external-tool`；Ubuntu desktop（x64, X11, glibc）已驗證 `v0.60.0` 與 `v0.61.0`；Windows 10 IoT Enterprise LTSC 2021（無 WSL）已於 2026-09-23 由 App 內建 updater 更新至 `v0.61.0`）
+- `token-monitor` → `Javis603/token-monitor@v0.94.0`（`external-tool`；pin 於 2026-11-20 更新，尚未重新驗證；既有證據為 `v0.60.0`／`v0.61.0`：Ubuntu desktop（x64, X11, glibc）與 Ubuntu 26.04.1（Wayland, AppImageLauncher）、Windows 10 IoT Enterprise LTSC 2021 已於 2026-09-23 由 App 內建 updater 更新至 `v0.61.0`）
 - （已移除）`token-usage` → 原 `ramtinJ95/opencode-tokenscope@1.8.1`，2.0.12 移除（僅適用 OpenCode v1）
 
 ## 發布與驗證

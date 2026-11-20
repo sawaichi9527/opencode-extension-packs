@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.3.2-docs-3 — Token Monitor pin moved to v0.94.0
+
+- Moved the `token-monitor` pin from `v0.61.0` to **`v0.94.0`** (upstream release 2026-11-19). Updated `manifest/packs.json`, the README pin table and note, `packs/token-monitor/README.md` (release, download commands, update-policy example) and `packs/token-monitor/compatibility.md` (upstream contract).
+- Recorded the verification status honestly: **`v0.94.0` has not been re-verified by the team yet**. The existing evidence remains for `v0.60.0` / `v0.61.0` (Windows 10 LTSC 2021 portable/NSIS/headless, Ubuntu X11 and Ubuntu 26.04.1 Wayland via AppImageLauncher). `packs/token-monitor/compatibility.md` now states this explicitly instead of implying the pin is validated.
+- Upstream 0.94.0 highlights for later verification: multiple quota accounts (25+ providers, including DeepSeek/Kimi/Z.ai/Qoder), cross-device quota accounts, Alibaba Token Plan via Bailian CLI, Home activity trend tooltips, and collector fixes that stop SQLite scans from triggering themselves.
+- No new release artifact is produced by this repository (Token Monitor is downloaded from upstream). Version stays `2.3.2`.
+
 ## 2.3.2-docs-2 — pwsh7 moved to PowerShell 7.6.10 LTS; LTS upgrade policy recorded
 
 - Moved `pwsh7` from PowerShell **7.4.22** to **7.6.10 LTS** (.NET 10.0 LTS). The 7.4 LTS line reached end-of-support on **2026-11-10**, so staying on 7.4.22 would have left the host without security fixes; 7.6 LTS is supported until **2028-11-14**. The newer `7.7.0` stable (STS, .NET 11) was deliberately **not** adopted: it is not an LTS release, changes `New-Guid` to UUID v7 by default and alters CSV/`Format-*` semantics, and ships without an MSI.

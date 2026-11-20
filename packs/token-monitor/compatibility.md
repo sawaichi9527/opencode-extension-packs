@@ -2,7 +2,7 @@
 
 ## Upstream Contract
 
-- Release: `v0.61.0`
+- Release: `v0.94.0`
 - Repository: `Javis603/token-monitor`
 - License: MIT
 - Author: Javis (`@Javis603`)
@@ -23,6 +23,9 @@
 | macOS | Not verified by the team | Supported upstream; out of scope for this pack |
 
 Treat the pack as validated only on rows marked Verified.
+
+> `v0.94.0` was pinned on 2026-11-20; **no re-verification has been performed** for that release
+> yet. The rows above and the evidence below describe earlier versions (`v0.60.0` / `v0.61.0`).
 
 ## Verified Environment
 

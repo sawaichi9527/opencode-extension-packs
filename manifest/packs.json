@@ -161,7 +161,7 @@
       "tier": "optional",
       "kind": "external-tool",
       "sourceRepo": "https://github.com/Javis603/token-monitor",
-      "release": "v0.61.0",
+      "release": "v0.94.0",
       "audience": ["windows", "linux", "opencode", "observability"],
       "documentation": "packs/token-monitor/README.md",
       "compatibility": "packs/token-monitor/compatibility.md",

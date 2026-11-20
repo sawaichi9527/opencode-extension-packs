@@ -15,7 +15,7 @@ so there is no OpenCode version constraint on this pack. See
 ## Official Source
 
 - Repository: <https://github.com/Javis603/token-monitor>
-- Release: `v0.61.0`
+- Release: `v0.94.0`
 - License: MIT
 - Author: Javis (`@Javis603`)
 - Upstream documentation: <https://github.com/Javis603/token-monitor#readme>
@@ -46,6 +46,9 @@ route was exercised; the detailed evidence lives in [compatibility.md](compatibi
 
 Windows 11 and macOS are supported upstream but have **not** been verified by the team, and no ARM64
 Windows build has been verified. Treat an unlisted route as unverified.
+
+> `v0.94.0` (2026-11-19) is the current pin. The team has **not** re-run verification on it yet;
+> the verified versions above remain the evidence baseline.
 
 ## Tool-specific prerequisites
 
@@ -103,7 +106,7 @@ Linux is published as a single x64 `.AppImage` (no installer). macOS ships a sig
 ### 1. Download
 
 ```powershell
-$v = "0.61.0"
+$v = "0.94.0"
 $d = "$env:TEMP\token-monitor"; New-Item -ItemType Directory -Force $d | Out-Null
 $base = "https://github.com/Javis603/token-monitor/releases/download/v$v"
 curl.exe -L --retry 5 --retry-delay 3 -o "$d\Token-Monitor-Setup-$v.exe" "$base/Token-Monitor-Setup-$v.exe"
@@ -218,7 +221,7 @@ Uninstalling removes the program and shortcuts but **leaves** `%APPDATA%\Token M
 ### 1. Download and verify
 
 ```bash
-v=0.61.0
+v=0.94.0
 d=~/token-monitor; mkdir -p "$d"; cd "$d"
 base="https://github.com/Javis603/token-monitor/releases/download/v$v"
 curl -L --retry 5 --retry-delay 3 -O "$base/latest-linux.yml"
@@ -235,23 +238,23 @@ actual=$(openssl dgst -sha512 -binary "Token-Monitor-$v.AppImage" | base64 -w0)
 ### 2. Run
 
 ```bash
-chmod +x Token-Monitor-0.61.0.AppImage
-./Token-Monitor-0.61.0.AppImage          # requires libfuse2 (libfuse.so.2)
+chmod +x Token-Monitor-0.94.0.AppImage
+./Token-Monitor-0.94.0.AppImage          # requires libfuse2 (libfuse.so.2)
 ```
 
 Without `libfuse2`, unpack and run the extracted tree instead (see
 [compatibility.md](compatibility.md#linux-notes)):
 
 ```bash
-./Token-Monitor-0.61.0.AppImage --appimage-extract
+./Token-Monitor-0.94.0.AppImage --appimage-extract
 ./squashfs-root/AppRun
 ```
 
 On a Wayland desktop, if the window behaves oddly (for example it cannot be resized with the mouse), force the X11/XWayland backend:
 
 ```bash
-./Token-Monitor-0.61.0.AppImage --ozone-platform=x11
-# or: ELECTRON_OZONE_PLATFORM_HINT=x11 ./Token-Monitor-0.61.0.AppImage
+./Token-Monitor-0.94.0.AppImage --ozone-platform=x11
+# or: ELECTRON_OZONE_PLATFORM_HINT=x11 ./Token-Monitor-0.94.0.AppImage
 ```
 
 An X11 session already uses X11, so the flag is unnecessary there.
@@ -273,7 +276,7 @@ its own, so without it the launcher AppImageLauncher generates cannot start the 
 
 1. Download and verify as in step 1, copy to `~/Applications/`, and `chmod +x` it.
 2. In Files, double-click the AppImage and choose **Integrate and run** (not "Run once"); on the CLI
-   this is `ail-cli integrate ~/Applications/Token-Monitor-0.61.0.AppImage`.
+   this is `ail-cli integrate ~/Applications/Token-Monitor-0.94.0.AppImage`.
 3. AppImageLauncher keeps the file under `~/Applications/` (appending a content hash to the name),
    writes `~/.local/share/applications/appimagekit_*-Token_Monitor.desktop`, and adds `--no-sandbox`
    to `Exec=` (the FUSE image's `chrome-sandbox` cannot be setuid root).
@@ -360,7 +363,7 @@ shorter groupings. See [compatibility.md](compatibility.md#linux-notes).
 
 - The pinned version lives in the `release` field of `manifest/packs.json` and in this document;
   update both together.
-- Upstream releases very frequently (`v0.57.0` → `v0.61.0` in nine days). Re-read
+- Upstream releases very frequently (for example `v0.61.0` → `v0.94.0` across several weeks). Re-read
   [compatibility.md](compatibility.md) before moving the pin.
 - This pack tracks release tags only, never upstream commits.
 
