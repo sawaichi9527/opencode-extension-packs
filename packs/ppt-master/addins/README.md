@@ -27,7 +27,6 @@ It runs on:
 | `PresentationNewSlide` | update immediately after inserting a slide |
 | `PresentationBeforeSave` | catch deletions and any other edits on save |
 | `SlideShowBegin` | guarantee the total before presenting |
-| `WindowActivate` | catch deletions when returning to the window |
 
 ## Install
 
@@ -63,6 +62,11 @@ Then restart PowerPoint.
   **Macro Settings > Enable VBA macros** or trust
   `%APPDATA%\Microsoft\AddIns` for this add-in.
 - Decks that do not contain a `page-total` shape are left untouched.
+- The add-in updates the total **text** only. Decks exported before the
+  `1120 689.9 117 20.53` slot geometry fix can run
+  `../tools/sync_page_totals.py <deck.pptx>` once; it also aligns the
+  slide-number placeholder to the total's top/height so both numbers share a
+  baseline.
 - The add-in does not install a slide number field; current-page numbering is
   already a real `slidenum` field after `svg_to_pptx` export.
 - For non-PowerPoint pipelines, use

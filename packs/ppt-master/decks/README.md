@@ -36,7 +36,7 @@ PowerPoint 只有「目前頁」`slidenum` 欄位，沒有「總頁數」欄位�
 | 情境 | 機制 |
 |---|---|
 | `svg_to_pptx.py` 匯出 | FII page-total patch 在匯出時把 `/N` 寫成實際頁數 |
-| 既有 PPTX 或原始 upstream 腳本 | `python scripts/sync_page_totals.py <deck.pptx>`（本 Pack 鏡像：`tools/sync_page_totals.py`） |
+| 既有 PPTX 或原始 upstream 腳本 | `python scripts/sync_page_totals.py <deck.pptx>`（本 Pack 鏡像：`tools/sync_page_totals.py`）；同步總頁數並把頁碼 placeholder 對齊到 `/N` 的 top/height |
 | PowerPoint 內新增／刪除頁面 | `addins/FII_PageTotals.ppam` 在新增頁、儲存、放映前、視窗切換時更新 |
 
 安裝增益集（Windows）：

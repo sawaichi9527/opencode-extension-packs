@@ -25,7 +25,7 @@
       x="51.93" y="175" fill="#000000" font-size="18">{{CONTENT_AREA}}</text>
   </g>
   <g id="content-page-number-slot" data-pptx-placeholder="slide-number" data-pptx-idx="2"
-    data-pptx-bounds="1120 685.1 117 30.73">
+    data-pptx-bounds="1120 689.9 117 20.53">
     <text id="content-page-number-carrier" data-pptx-carrier="true"
       x="1236" y="703.23" text-anchor="end" fill="#173367" font-size="13.33">{{PAGE_NUM}}</text>
   </g>

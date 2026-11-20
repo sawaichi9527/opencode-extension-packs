@@ -24,6 +24,10 @@ import sys
 from pathlib import Path
 
 _PAGE_TOTAL_RE = re.compile(r"page[-_ ]?total", re.IGNORECASE)
+
+
+def _is_page_total_name(name: str) -> bool:
+    return bool(name and _PAGE_TOTAL_RE.search(name))
 _PAGE_TOTAL_TEXT_RE = re.compile(
     r'(<text\b(?=[^>]*(?:id="[^"]*page[-_]?total[^"]*"'
     r'|data-pptx-page-total="(?:1|true|yes)"))[^>]*>)'
@@ -68,6 +72,8 @@ def sync_project(project: Path, total: int | None, dry_run: bool) -> int:
 def sync_pptx(pptx_path: Path, total: int | None, dry_run: bool) -> int:
     try:
         from pptx import Presentation
+        from pptx.enum.shapes import PP_PLACEHOLDER
+        from pptx.enum.text import MSO_ANCHOR
     except ImportError as exc:  # pragma: no cover
         raise SystemExit(
             "python-pptx is required: pip install python-pptx"
@@ -80,7 +86,7 @@ def sync_pptx(pptx_path: Path, total: int | None, dry_run: bool) -> int:
     def update_shape(shape) -> bool:
         nonlocal updated
         name = (shape.name or "")
-        if not _PAGE_TOTAL_RE.search(name) or not shape.has_text_frame:
+        if not _is_page_total_name(name) or not shape.has_text_frame:
             return False
         text_frame = shape.text_frame
         if not text_frame.paragraphs:
@@ -98,19 +104,64 @@ def sync_pptx(pptx_path: Path, total: int | None, dry_run: bool) -> int:
         updated += 1
         return True
 
+    def align_placeholder(placeholder, reference) -> bool:
+        changed = False
+        if placeholder.top != reference.top:
+            placeholder.top = reference.top
+            changed = True
+        if placeholder.height != reference.height:
+            placeholder.height = reference.height
+            changed = True
+        if placeholder.text_frame.vertical_anchor != MSO_ANCHOR.TOP:
+            placeholder.text_frame.vertical_anchor = MSO_ANCHOR.TOP
+            changed = True
+        return changed
+
+    def align_layout(layout) -> int:
+        total_shape = next(
+            (sh for sh in layout.shapes if _is_page_total_name(sh.name)),
+            None,
+        )
+        if total_shape is None:
+            return 0
+        count = 0
+        for placeholder in layout.placeholders:
+            if placeholder.placeholder_format.type == PP_PLACEHOLDER.SLIDE_NUMBER:
+                if align_placeholder(placeholder, total_shape):
+                    count += 1
+        return count
+
+    aligned = 0
     for master in prs.slide_masters:
         for layout in master.slide_layouts:
             for shape in layout.shapes:
                 update_shape(shape)
+            aligned += align_layout(layout)
+
     for slide in prs.slides:
         for shape in slide.shapes:
             update_shape(shape)
+        total_shape = next(
+            (
+                sh
+                for sh in slide.slide_layout.shapes
+                if _is_page_total_name(sh.name)
+            ),
+            None,
+        )
+        if total_shape is None:
+            continue
+        for placeholder in slide.placeholders:
+            if placeholder.placeholder_format.type == PP_PLACEHOLDER.SLIDE_NUMBER:
+                if align_placeholder(placeholder, total_shape):
+                    aligned += 1
 
-    if updated and not dry_run:
+    if (updated or aligned) and not dry_run:
         prs.save(str(pptx_path))
     print(
         f"{'would update' if dry_run else 'updated'} {updated} page-total "
-        f"shape(s) in {pptx_path} to /{effective_total}"
+        f"shape(s) and aligned {aligned} slide-number placeholder(s) in "
+        f"{pptx_path} to /{effective_total}"
     )
     return 0
 
