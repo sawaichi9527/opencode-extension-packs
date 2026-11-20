@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repository": "https://github.com/sawaichi9527/opencode-extension-packs",
-  "version": "2.0.16",
+  "version": "2.3.2",
   "defaultPacks": ["grill-me"],
   "packs": [
     {
@@ -111,7 +111,7 @@
       "tier": "optional",
       "kind": "external-skill",
       "sourceRepo": "https://github.com/hugohe3/ppt-master",
-      "release": "v6.6.0",
+      "release": "v6.10.0",
       "audience": ["documents", "presentations", "python"],
       "documentation": "packs/ppt-master/README.md",
       "compatibility": "packs/ppt-master/compatibility.md",
@@ -123,11 +123,11 @@
       "tier": "optional",
       "kind": "external-skill",
       "sourceRepo": "https://github.com/tt-a1i/archify",
-      "release": "v2.16.0",
+      "release": "v3.2.0",
       "audience": ["architecture", "documents", "presentations"],
       "documentation": "packs/archify/README.md",
       "compatibility": "packs/archify/compatibility.md",
-      "description": "Install the upstream architecture diagram Skill and its Node.js dependencies from the official source."
+      "description": "Install the upstream architecture diagram Skill (10 diagram types plus one-page explainers) and its Node.js dependencies from the official source."
     },
     {
       "id": "playwright-mcp",

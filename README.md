@@ -4,7 +4,7 @@
 
 內容以 OpenCode v2 原生 `SKILL.md` 與 Markdown Custom Commands 為主，不要求 Claude Code／Codex Plugin、跨 Agent Hook 或模式狀態管理。外部外掛只記錄來源、固定版本與安裝指導，不 fork、不 vendored 進本 Repository。
 
-> 狀態：`v2.0.16`（基於 OpenCode v2.0.14 驗證），**僅支援 OpenCode v2.x.x**（v1 相容已移除）。共 16 個 Pack：Default 1、Recommended 5、Optional 10。
+> 狀態：`v2.3.2`（基於 OpenCode 2.3.2 驗證），**僅支援 OpenCode v2.x.x**（v1 相容已移除）。共 16 個 Pack：Default 1、Recommended 5、Optional 10。
 
 ## 目錄結構
 
@@ -56,7 +56,7 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 | `github-integration` | skill | 本地 Git + GitHub CLI/API 基本協作 |
 | `local-llm-dispatch-policy` | skill | 本地算力調用與升級原則（Orchestrator ＋ heavy-Builder、線性 dispatch、3-strike、雲端接手） |
 | PPT Master | external-skill | 簡報生成（含 FII 2026 deck 版模） |
-| Archify | external-skill | 架構圖生成 |
+| Archify | external-skill | 架構／流程／時序／資料流／狀態／ERD／Class／Tree／Timeline／Waterfall 圖生成，以及一頁式 explainer（3.x） |
 | Playwright MCP | external-mcp | 瀏覽器自動化 MCP |
 | Codebase Memory MCP | external-mcp | 程式碼記憶與檢索 MCP |
 | `pwsh7` | tooling | PowerShell 7.4.6 UTF-8 wrapper（自託管 release；Windows 主機**強制**替代內建 5.1） |
@@ -71,8 +71,8 @@ Extension Packs 不採全部默認安裝，套件由 `manifest/packs.json` 分�
 
 | Pack | 類型 | 來源 | Pin | 文件 |
 |---|---|---|---|---|
-| PPT Master | external-skill | [hugohe3/ppt-master](https://github.com/hugohe3/ppt-master) | `v6.6.0` | [packs/ppt-master/](packs/ppt-master/README.md) |
-| Archify | external-skill | [tt-a1i/archify](https://github.com/tt-a1i/archify) | `v2.16.0` | [packs/archify/](packs/archify/README.md) |
+| PPT Master | external-skill | [hugohe3/ppt-master](https://github.com/hugohe3/ppt-master) | `v6.10.0` | [packs/ppt-master/](packs/ppt-master/README.md) |
+| Archify | external-skill | [tt-a1i/archify](https://github.com/tt-a1i/archify) | `v3.2.0` | [packs/archify/](packs/archify/README.md) |
 | Playwright MCP | external-mcp | [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) | `@playwright/mcp@0.0.82` | [packs/playwright-mcp/](packs/playwright-mcp/README.md) |
 | Codebase Memory MCP | external-mcp | [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | `codebase-memory-mcp@0.11.0` | [packs/codebase-memory-mcp/](packs/codebase-memory-mcp/README.md) |
 | pwsh7 | tooling（自託管） | [PowerShell/PowerShell](https://github.com/PowerShell/PowerShell) + 本 repo release | `7.4.6` | [packs/pwsh7/](packs/pwsh7/README.md) |

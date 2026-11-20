@@ -7,8 +7,9 @@ PPT Master is an upstream presentation workflow Skill, not source code maintaine
 ## Official Source
 
 - Repository: <https://github.com/hugohe3/ppt-master>
-- Release: `v6.6.0`
+- Release: `v6.10.0`
 - License: MIT
+- Runtime: Python 3.10–3.14 (upstream supports up to 3.14)
 - Upstream documentation: <https://github.com/hugohe3/ppt-master#quick-start>
 
 This repository does not fork or vendor PPT Master. Install the Skill and its dependencies from the official source after selecting this Pack.
@@ -38,6 +39,21 @@ pip install -r requirements.txt
 ```
 
 On Windows, follow the upstream Windows installation guide and use `python` when `python3` is unavailable.
+
+From 6.7.2 onward, Skill-only installations create new projects in the current working folder
+(`projects/<name>_<format>_<YYYYMMDD>`) instead of inside the installed Skill directory. From
+6.10.0, templates registered through Create Template go to the Git-ignored
+`templates/local/<kind>/` layer, and `update_repo.py` migrates older personal entries out of the
+tracked `*_index.json` files.
+
+Verify the installation from any working folder:
+
+```bash
+python scripts/project_manager.py init smoke --format ppt169
+python scripts/svg_to_pptx.py --help
+```
+
+`init` must create the project under the current working folder, not inside the Skill directory.
 
 Restart OpenCode after the Skill is installed. Use it only when the task requires presentation generation, template filling, or PPTX enhancement.
 

@@ -1,16 +1,24 @@
 # handoff.md — OpenCode Extension Packs
 
-> 供接手 Session 閱讀的現況摘要。更新時間：2026-09-23
+> 供接手 Session 閱讀的現況摘要。更新時間：2026-11-20
 
 ## 目前狀態
 
 | 項目 | 值 |
 |---|---|
-| 版本 | `2.0.16`（`VERSION` / `manifest/packs.json`；基於 OpenCode v2.0.14 驗證。上一版 `2.0.15`） |
-| HEAD | `main`（2.0.16：`token-monitor` pin 升 `v0.61.0` 並於 Ubuntu 重新驗證、Linux 使用說明；`2.0.16-docs-3`：Ubuntu 26.04.1 + Wayland + AppImageLauncher 路線增補；前次 2.0.15：pwsh7 強制替代、全域規則模板、註冊 `token-monitor` 並完成 Ubuntu 驗證；實際 SHA 以 `git log -1` 為準） |
+| 版本 | `2.3.2`（`VERSION` / `manifest/packs.json`；基於 OpenCode 2.3.2 驗證。上一版 `2.0.16`） |
+| HEAD | `main`（2.3.2：版號對齊 OpenCode 2.3.2、`archify` pin 升 `v3.2.0`、`ppt-master` pin 升 `v6.10.0`；2.0.16：`token-monitor` pin 升 `v0.61.0` 並於 Ubuntu 重新驗證；實際 SHA 以 `git log -1` 為準） |
 | 相容性 | **僅支援 OpenCode v2.x.x**——v1 慣例（agent `permission` map、`bash`/`task` action、單數 `command/`、`mcp` 直掛 server 名、`enabled` 欄位）已全部移除 |
 | 三方同步 | 本地 `main` = GitHub `origin/main` = Forgejo `forgejo/main`；推送順序固定 origin → forgejo。Forgejo remote：`http://192.168.23.167:3000/BBDU28500/opencode-extension-packs.git`（repo 在 Forgejo 上屬 `BBDU28500`）。實際 SHA 以 `git log -1` 為準 |
-| working tree | clean，三方 `main` 一致 |
+| working tree | 2.3.2 變更已寫入、尚未 commit；commit/push 後才可宣稱三方一致 |
+
+## 2.3.2 變更（2026-11-20）
+
+- 版號 `2.0.16` → **`2.3.2`**：依「版號 = 該次檢討時基於驗證的 OpenCode 版本」規則，對齊目前主機的 OpenCode 桌面版 2.3.2（CLI `2.3.2-x64`）。同步更新 `VERSION`、`manifest/packs.json`、README 狀態列、本文件。
+- `archify` pin `v2.16.0` → **`v3.2.0`**（`archify.zip`，SHA-256 `70e2102…384f5`）。跨 major：3.0 重做 viewer、加入 Lifecycle v2 與交付前驗證，**移除 guided/story 視圖與一般分享卡匯出**（schema-v1 輸入仍支援）；3.1 新增 ERD／Class／Tree／Timeline／Waterfall（合計 10 種）並預設開啟 Live motion；3.2 新增一頁式 explainer。`packs/archify/README.md` 已補「Upgrading From 2.x」與 `doctor`／`demo`／`check` 驗證流程，`compatibility.md` 補升級注意與檢查項。
+- `ppt-master` pin `v6.6.0` → **`v6.10.0`**（`ppt-master-skill-v6.10.0.zip`，SHA-256 `7f62eff…b9d4913`）。文件補上對 Skill-only 安裝有影響的行為變更：6.7.2 起專案建立於工作資料夾（不再落到 `.agents/projects/`）、6.10.0 起個人模板改存 Git-ignored `templates/local/` 並由 `update_repo.py` 遷移、OpenAI 預設 `gpt-image-2.6-sunburst` 與 Volcengine Seedream 5.0／Ark 預設。同步更新 `packs/ppt-master/README.md`、`compatibility.md`、`decks/README.md`。
+- 驗證證據（Windows 桌面主機、OpenCode 2.3.2）：archify `doctor` 25 項全 `[ok]`、`demo` 產出 825,776-byte HTML、`check` `ok: true`（composition 0 errors／0 warnings）、`timeline` 與 `explainer` `validate` 通過；ppt-master `project_manager.py init smoke --format ppt169` 於工作資料夾建立 `projects/smoke_ppt169_<date>`、`scaffold-spec`／`scaffold-lock` 成功、`validate` 正確擋下未填的 `[fill]`、`svg_to_pptx.py` 與 `source_to_md.py` 正常載入（Python 3.14.6、`python-pptx 1.0.2`）。
+- 本機 `.agents/.skill-lock.json` 的 `archify`、`archify-review` 已刷新為 `v3.2.0` 的 GitHub tree SHA（`39069dd1…`、`23ddf7ab…`）；`lean-code-review` 既有的 tree SHA（`a5b042b5…`）與來源 `main` 一致，未變動。
 
 ## 專案定位
 
@@ -20,7 +28,7 @@
 
 ## 目錄結構
 
-- `manifest/packs.json` — 套件清單，schemaVersion 1，version 2.0.16
+- `manifest/packs.json` — 套件清單，schemaVersion 1，version 2.3.2
 - `skills/` — OpenCode 原生 Skill：
   `swqa-automation`、`test-failure-triage`、`forgejo-integration`、`github-integration`、`file-toolkit`、`browser-automation`、`lean-code-review`、`local-llm-dispatch-policy`
 - `commands/` — Custom Commands：`grill-me.md`（default）
@@ -29,7 +37,7 @@
 - `docs/PACK-GUIDE.md` — Skill / Command 撰寫最低要求（新增 Pack 時需遵守）
 - `UPSTREAM.md` — 上游來源與刪減原則（lazy-packs、andrej-karpathy-skills、ponytail、mattpocock/skills、obra/superpowers）
 
-## 最近變更（0.2.6 → 2.0.16）
+## 最近變更（0.2.6 → 2.0.16；2.3.2 見上節）
 
 1. **2.0.16（9/23）**：`token-monitor` pin 由 `v0.60.0` 升為 **`v0.61.0`**（依 Update Policy 於 Ubuntu desktop 重新驗證：AppImage sha512 相符、FUSE 直接啟動、視窗 `340x650`、引擎 OpenCode messages 651、anchor today 38.2M／$0.6201；Windows 端 `v0.61.0` 尚未重新驗證，仍沿用 `v0.60.0` 證據）。同步更新 `packs/token-monitor/README.md`（Release 與下載版本）、`compatibility.md`（Release、Verification Status、Ubuntu `v0.61.0` 證據段、Linux Notes 檔名）、README pin 表與本文件。版號 `2.0.15` → `2.0.16`。
 2. **2.0.15（9/23）**：`pwsh7` 由「可選便利」改為 Windows 主機的**強制替代**——Windows 10 內建只有 5.1，必須以 pack 的 7.4.6 取代；Windows 11 內建同樣只有 5.1，若 `pwsh` 不存在或版本低於 pack 提供版本（7.4.6）亦必須取代（`packs/pwsh7/README.md` 新增 Mandate 段：需求表、禁止寫法、`7.4.6 / utf-8` 驗證指令、例外須先取得同意）。新增 `packs/pwsh7/templates/global-AGENTS.md`：可直接複製到 `%USERPROFILE%\.config\opencode\AGENTS.md` 的全域規則（明訂適用所有 session 與 repo、與專案層衝突時以全域為準），並在 pack README 檔案表、Notes 與 README 外部整合段引用。manifest `pwsh7` description 同步改為強制語意；版號 `2.0.14` → `2.0.15`。動機實例：Windows PowerShell 5.1（zh-TW Big5）無法解析「UTF-8 無 BOM + 中文」的 `.ps1`（`ParserError: The string is missing the terminator`），pwsh7 執行同檔正常。同次亦註冊 `token-monitor` 為新的 `external-tool` pack（pin `Javis603/token-monitor@v0.60.0`）：Token Monitor 是第三方 Electron 桌面 widget，只讀取本機用量資料檔、不設定 OpenCode，因此與已移除的 `token-usage`（TokenScope，僅 OpenCode v1）不同，不受 v1／v2 差異影響；`packs/token-monitor/README.md` 收錄 Windows 10/11 完整部署流程（前置條件、安裝路徑、驗證、解除安裝），`packs/token-monitor/compatibility.md` 收錄實測矩陣與原始證據。實測平台為 Windows 10 IoT Enterprise LTSC 2021（19044 / 21H2，**無 WSL**），portable、NSIS 安裝版與 headless agent 三條路徑皆通過；**Ubuntu desktop（x64, X11, glibc）亦已完成驗證**（AppImage 以 `--appimage-extract` 啟動、widget 視窗 `340x650`、OpenCode messages 非零、WSL 正確回報不存在），`packs/token-monitor/compatibility.md`、`packs/token-monitor/README.md`（新增 Linux 前置條件與安裝段）與本文件已同步。README 的 Pack 表同步改為 15 個（Default 1／Recommended 5／Optional 9）。
@@ -59,8 +67,8 @@
 
 ## 目前 Pin（外部來源）
 
-- `ppt-master` → `hugohe3/ppt-master@v6.6.0`
-- `archify` → `tt-a1i/archify@v2.16.0`
+- `ppt-master` → `hugohe3/ppt-master@v6.10.0`
+- `archify` → `tt-a1i/archify@v3.2.0`
 - `playwright-mcp` → microsoft/playwright-mcp，`@playwright/mcp@0.0.82`
 - `codebase-memory-mcp` → DeusData/codebase-memory-mcp，`codebase-memory-mcp@0.11.0`
 - `pwsh7` → PowerShell 7.4.6（packaged release 綁定；上游最新 7.6.6，升級前需重建 zip／hash／wrapper 驗證）
@@ -71,6 +79,7 @@
 
 - `release/pwsh7-v7.4.6` 已更新：單一 fix 版 `pwsh-utf8-wrapper.exe`（5,120 bytes，SHA256 `906AA017CDE4F36DB2BC5D3C38C976E76035E0E40703DB30D81F4F5F7F9FB8F0`，見 `packs/pwsh7/README.md`）。
 - **`release/pwsh7-v7.4.6` 已於 2026-09-24 同步到 Forgejo**：GitHub 與 Forgejo 皆有此 release，name／body 與 5 個資產（`pwsh-utf8-wrapper.exe` 5,120、`pwsh7-7.4.6-win-x64.zip` 111,172,647、`.md5` 59、`.sha256` 91、`.txt` 348 bytes）逐項相同；tag `pwsh7-v7.4.6` → `a39efd6` 兩邊一致。上傳前已驗證來源資產雜湊（zip SHA256 `44D6870B9FBC5376A7E541E4B2268AC97A9C7ABE438B91F5B3102452413A3713`、MD5 `A618D8B18F4B09AA5A317E4CA96B8133`）。此 release 的下載連結在 `packs/pwsh7/README.md` 中仍指 GitHub，Forgejo 為鏡像。同次亦修正該 release 的 body：原文有 **3 處字面 `` `n ``**（原意為換行；GitHub 原文即如此），已於 **GitHub 與 Forgejo 兩邊同時**改為真正的換行（body `823` → `820` bytes，兩邊仍逐字元相同）。
+- `v2.3.2` 尚未發布：本地變更已寫入 `VERSION`、manifest、CHANGELOG、README 與 Pack 文件，尚未 commit／tag／推送；發布前需完成 secret scan 並確認 `git ls-remote` 的 origin 與 forgejo 狀態。
 - `v2.0.16` 已於 2026-09-23 發布：GitHub 與 Forgejo 皆有 `v2.0.16` release（notes 取自 CHANGELOG 2.0.16），annotated tag `v2.0.16` → `05c8aeb`，三方 tag 一致。
 - `v2.0.15` 已於 2026-09-23 發布：GitHub 與 Forgejo 皆有 `v2.0.15` release（notes 取自 CHANGELOG 2.0.15），annotated tag `v2.0.15` → `b830984`，三方 tag 一致。
 - `v2.0.14` 已於 2026-09-23 發布：GitHub 與 Forgejo 皆有 `v2.0.14` release（notes 取自 CHANGELOG 2.0.14），annotated tag `v2.0.14` → `54e8bd2`，三方 tag 一致。
