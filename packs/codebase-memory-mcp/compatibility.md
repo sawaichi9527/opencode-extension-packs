@@ -19,9 +19,10 @@
 1. Confirm Node.js 18 or newer and npm/npx are available.
 2. Confirm the active `opencode.jsonc` contains a `codebase-memory-mcp` entry under `mcp.servers`.
 3. Confirm the package version matches the upstream release.
-4. Restart OpenCode completely.
-5. Verify the server starts and the 15 tools are visible via `/mcps`.
-6. For UI variant, confirm `localhost:9749` is accessible.
+4. On 0.12.1, set `"timeout": 30000` on the server entry: the Windows cold start measured ~8.2 s to answer `initialize`, and the OpenCode default (5000 ms) kills the process with exit code 255.
+5. Restart OpenCode completely.
+6. Verify the server starts and the 17 tools are visible via `/mcps`.
+7. For UI variant, confirm `localhost:9749` is accessible.
 
 ## Security Boundaries
 

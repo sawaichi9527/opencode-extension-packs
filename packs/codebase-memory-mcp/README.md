@@ -35,12 +35,15 @@ Add the server under `mcp.servers` in `opencode.jsonc` (OpenCode v2 shape) witho
           "npx",
           "-y",
           "codebase-memory-mcp@0.12.1"
-        ]
+        ],
+        "timeout": 30000
       }
     }
   }
 }
 ```
+
+> **Windows 0.12.1 cold start:** the server needs about 8 seconds to answer `initialize` (allocator + activation). OpenCode's default MCP timeout is 5000 ms, so it kills the process (exit code 255) and shows the server as failed. Set `"timeout": 30000` on this entry — the value is milliseconds.
 
 Servers connect automatically in v2; to keep one configured but disconnected, set `"disabled": true` (v2 does not use an `enabled` field).
 
