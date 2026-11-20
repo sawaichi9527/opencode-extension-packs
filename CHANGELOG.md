@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.3.2-docs-6 — Automatic total page numbers for the FII decks
+
+- **Root cause confirmed.** PowerPoint exposes only a current-page `slidenum` field; it has no total-slides field (unlike Word's `NUMPAGES`). Upstream PPT Master `v6.10.0` has no total-page feature either, so `/N` was previously a literal that never changed after a slide was added.
+- **Export now writes the real total.** The team `svg_to_pptx.py` carries a page-total patch: after layout construction it rewrites every shape named `*page-total*` (the FII `layout-page-total` shape) to `/` + the exported page count. A `/N` placeholder therefore becomes `/4` (or `/6`, `/12`, …) without author input.
+- **Portable CLI sync.** Added `packs/ppt-master/tools/sync_page_totals.py` (also installed as `scripts/sync_page_totals.py`). It accepts an SVG project directory or an existing `.pptx`, with `--total` and `--dry-run`. AI workflows can run it after any post-edit export, including when the upstream unpatched exporter is used.
+- **PowerPoint add-in.** Added `packs/ppt-master/addins/FII_PageTotals.ppam` plus `install_page_totals.ps1`. The `.ppam` hooks `Auto_Open`, `PresentationOpen`, `PresentationNewSlide`, `PresentationBeforeSave`, `SlideShowBegin`, and `WindowActivate`; adding a slide changes `3/4` to `4/5` immediately, and deleting one is caught on save/activate. Installed and verified on this host with PowerPoint COM (add slide → `/5`; delete + save → `/4`).
+- **Footer alignment.** The current page ends at x=1236 and the layout total starts at x=1237, so the two exported shapes render as one continuous `3/4` with matching 10 pt baseline. Verified by rendering slides through PowerPoint, not only by XML inspection.
+- **Templates.** All three decks now mark the total with `data-pptx-page-total="true"` and document the export-patch / sync-script / add-in paths in `design_spec.md`, `decks/README.md`, and the Pack README. Template checker remains 4/4 for each language.
+
 ## 2.3.2-docs-5 — FII deck fixes from review feedback
 
 - **TOC rule is now editable.** In all three FII decks the vertical rule under the agenda items changed from a Layout atom to a Slide-local decoration (`data-pptx-role="decoration"`), so it exports as a selectable Freeform shape instead of being baked into the background/layout.

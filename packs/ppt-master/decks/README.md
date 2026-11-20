@@ -27,6 +27,28 @@ Plugin，因此直接收錄在本 Repository，方便所有成員取得一致的
 - `templates/01_cover.svg`、`02_toc.svg`、`03_content.svg`、`04_ending.svg`：完整 SVG 原型與 slot 定義
 - `images/`：背景圖與 FII 標誌
 
+## 頁碼自動化（總頁數）
+
+PowerPoint 只有「目前頁」`slidenum` 欄位，沒有「總頁數」欄位。本模板因此把目前頁匯出成
+真正的 `slidenum` 欄位，總頁數 `/N` 則放在 `Title and Content` Layout 的
+`layout-page-total`（`data-pptx-page-total="true"`）。三個地方會自動維護它：
+
+| 情境 | 機制 |
+|---|---|
+| `svg_to_pptx.py` 匯出 | FII page-total patch 在匯出時把 `/N` 寫成實際頁數 |
+| 既有 PPTX 或原始 upstream 腳本 | `python scripts/sync_page_totals.py <deck.pptx>`（本 Pack 鏡像：`tools/sync_page_totals.py`） |
+| PowerPoint 內新增／刪除頁面 | `addins/FII_PageTotals.ppam` 在新增頁、儲存、放映前、視窗切換時更新 |
+
+安裝增益集（Windows）：
+
+```powershell
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\addins\install_page_totals.ps1
+```
+
+安裝後重啟 PowerPoint，新增一頁就會看到 `3/4` 變成 `4/5`，不需要進母片手改。
+細節與移除方式見 [`addins/README.md`](../addins/README.md)；同步腳本用法見
+[`tools/sync_page_totals.py`](../tools/sync_page_totals.py)。
+
 ## 導入方式
 
 安裝 PPT Master Skill 後，將需要的語系 Deck 複製到已安裝 Skill 的 `templates/decks/`

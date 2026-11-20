@@ -26,6 +26,24 @@ the copy commands and index merge notes. The retired `fii_2026_bright` and
 `fii_2026_dark` workspaces are kept under `decks/_Archive/` and are no longer
 registered.
 
+### Page totals (current/total footer)
+
+PowerPoint has no total-slides field. The FII decks keep `/N` on the
+`Title and Content` layout and keep it in sync with three helpers:
+
+- [addins/FII_PageTotals.ppam](addins/FII_PageTotals.ppam) — PowerPoint add-in
+  that updates the footer when a slide is added, saved, or presented. Install
+  with [addins/install_page_totals.ps1](addins/install_page_totals.ps1); see
+  [addins/README.md](addins/README.md).
+- [tools/sync_page_totals.py](tools/sync_page_totals.py) — CLI sync for an SVG
+  project or an existing `.pptx`; use it after export when running the upstream
+  (unpatched) `svg_to_pptx.py`.
+- The installed `svg_to_pptx.py` used by this team carries the page-total
+  export patch, so generated decks already contain the real page count.
+
+AI workflows that reference this Pack should run the sync helper after a
+post-edit export, or rely on the add-in for interactive PowerPoint edits.
+
 ## Installation
 
 The upstream documentation supports the Skills CLI path:

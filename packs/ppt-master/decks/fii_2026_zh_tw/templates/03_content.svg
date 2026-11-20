@@ -13,7 +13,7 @@
     href="../images/image2.png" preserveAspectRatio="none"
     data-pptx-layer="layout" data-pptx-editable="false"/>
   <text id="layout-page-total" x="1237" y="703.23" text-anchor="start" fill="#173367"
-    font-size="13.33" data-pptx-layer="layout" data-pptx-editable="false">/N</text>
+    font-size="13.33" data-pptx-layer="layout" data-pptx-editable="false" data-pptx-page-total="true">/N</text>
   <g id="content-title-slot" data-pptx-placeholder="title"
     data-pptx-bounds="42.33 43.87 1151.62 74.08">
     <text id="content-title-carrier" data-pptx-carrier="true"
