@@ -19,7 +19,7 @@ The team must validate the selected PPT Master release on the supported Windows,
 5. Run `python scripts/project_manager.py init smoke --format ppt169` from a scratch folder and confirm the project is created under that folder (not inside the Skill directory).
 6. Run `python scripts/project_manager.py scaffold-spec|scaffold-lock` on the new project, then `python scripts/svg_to_pptx.py --help` and `python scripts/source_to_md.py --help` to confirm the main entry points load.
 7. Run a small non-sensitive PPTX smoke test or inspect the upstream deterministic example workflow. A scaffolded project fails `validate` until its `[fill]` placeholders are replaced; that is expected.
-8. If using the bundled FII 2026 decks, copy `packs/ppt-master/decks/*` into the installed Skill's `templates/decks/` and confirm both `fii_2026_bright` and `fii_2026_dark` appear in the merged `decks_index.json`.
+8. If using the bundled FII 2026 decks, copy the required language workspace (`fii_2026_zh_tw`, `fii_2026_zh_cn`, or `fii_2026_en`) from `packs/ppt-master/decks/` into the installed Skill's `templates/decks/` or `templates/local/decks/`, then confirm the copied IDs appear in the merged `decks_index.json`. `decks/_Archive/` holds the retired bright/dark workspaces and is not registered.
 9. Do not store provider API keys or `.env` secrets in the Extension Packs repository.
 
 ## Behaviour Changes Since 6.6.0

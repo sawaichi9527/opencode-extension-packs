@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+  width="1280" height="720" viewBox="0 0 1280 720"
+  font-family='"Microsoft YaHei", "Noto Sans SC", Arial, sans-serif'
+  data-pptx-master="fii_2026_master" data-pptx-master-name="FII 2026"
+  data-pptx-layout="ending" data-pptx-layout-name="Section / Closing">
+  <image id="layout-ending-background" x="0" y="0" width="1280" height="720"
+    href="../images/image4.png" preserveAspectRatio="none"
+    data-pptx-layer="layout" data-pptx-editable="false"/>
+  <text id="master-footer" x="51.93" y="705.59" fill="#173367" font-size="12"
+    data-pptx-layer="layout" data-pptx-editable="false">© 2026 FII. Confidential. All rights reserved.</text>
+  <image id="layout-ending-logo" x="66.2" y="45.3" width="185.93" height="30.87"
+    href="../images/image2.png" preserveAspectRatio="none"
+    data-pptx-layer="layout" data-pptx-editable="false"/>
+  <g id="ending-title-slot" data-pptx-placeholder="title"
+    data-pptx-bounds="139.7 301.24 700 80.78">
+    <text id="ending-title-carrier" data-pptx-carrier="true"
+      x="149.3" y="362.04" fill="#173367" letter-spacing="10.67" font-size="58.67">{{CLOSING_MESSAGE}}</text>
+  </g>
+</svg>

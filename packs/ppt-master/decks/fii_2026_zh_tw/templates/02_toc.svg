@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+  width="1280" height="720" viewBox="0 0 1280 720"
+  font-family='"Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif'
+  data-pptx-master="fii_2026_master" data-pptx-master-name="FII 2026"
+  data-pptx-layout="toc" data-pptx-layout-name="Agenda">
+  <image id="layout-toc-background" x="0" y="0" width="1280" height="720"
+    href="../images/image3.png" preserveAspectRatio="none"
+    data-pptx-layer="layout" data-pptx-editable="false"/>
+  <text id="master-footer" x="51.93" y="705.59" fill="#173367" font-size="12"
+    data-pptx-layer="layout" data-pptx-editable="false">© 2026 FII. Confidential. All rights reserved.</text>
+  <image id="layout-toc-logo" x="1040.87" y="37.73" width="185.93" height="30.87"
+    href="../images/image2.png" preserveAspectRatio="none"
+    data-pptx-layer="layout" data-pptx-editable="false"/>
+  <line id="layout-toc-rule" x1="167.62" y1="221.26" x2="167.62" y2="458.59"
+    stroke="#173367" stroke-width="1.33"
+    data-pptx-layer="layout" data-pptx-editable="false"/>
+  <g id="toc-title-slot" data-pptx-placeholder="title"
+    data-pptx-bounds="42.33 68.6 300 80.78">
+    <text id="toc-title-carrier" data-pptx-carrier="true"
+      x="51.93" y="129.4" fill="#173367" font-size="58.67">{{TITLE}}</text>
+  </g>
+  <g id="toc-item-1-slot" data-pptx-placeholder="body" data-pptx-idx="1"
+    data-pptx-bounds="187.76 216.42 800 42.01">
+    <text id="toc-item-1-carrier" data-pptx-carrier="true"
+      x="197.36" y="246.56" fill="#173367" font-size="26.67">{{TOC_ITEM_1_TITLE}}</text>
+  </g>
+  <g id="toc-item-2-slot" data-pptx-placeholder="body" data-pptx-idx="2"
+    data-pptx-bounds="187.76 285.39 800 42.01">
+    <text id="toc-item-2-carrier" data-pptx-carrier="true"
+      x="197.36" y="315.52" fill="#173367" font-size="26.67">{{TOC_ITEM_2_TITLE}}</text>
+  </g>
+  <g id="toc-item-3-slot" data-pptx-placeholder="body" data-pptx-idx="3"
+    data-pptx-bounds="187.76 354.36 800 42.01">
+    <text id="toc-item-3-carrier" data-pptx-carrier="true"
+      x="197.36" y="384.49" fill="#173367" font-size="26.67">{{TOC_ITEM_3_TITLE}}</text>
+  </g>
+  <g id="toc-item-4-slot" data-pptx-placeholder="body" data-pptx-idx="4"
+    data-pptx-bounds="187.76 423.33 800 42.01">
+    <text id="toc-item-4-carrier" data-pptx-carrier="true"
+      x="197.36" y="453.46" fill="#173367" font-size="26.67">{{TOC_ITEM_4_TITLE}}</text>
+  </g>
+</svg>

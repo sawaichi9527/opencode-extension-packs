@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.3.2-docs-4 — FII 2026 deck templates rebuilt as three language variants
+
+- Rebuilt the team FII deck templates from the official `FII_PPT_Template_繁體中文.pptx`, `FII_PPT_Template_简体中文.pptx`, and `FII_PPT_Template_English.pptx` sources (each: 5 slides, 1 Master, 4 Layouts, 1280×720).
+- Replaced `fii_2026_bright` / `fii_2026_dark` with **`fii_2026_zh_tw`**, **`fii_2026_zh_cn`**, and **`fii_2026_en`**. Each workspace is a `fidelity` Deck with four prototypes — cover, agenda, content, ending — authored from the new visual system (white ground, navy `#173367`, FII red `#D00034`, full-bleed AI illustration on cover/ending) and canonical `{{...}}` placeholders. Reused assets: `image1.png` (cover), `image2.png` (FII logo), `image3.png` (agenda/content background), `image4.png` (ending); the PowerPoint usage-screenshot assets `image5`–`image7` were excluded as sample-only.
+- Moved the retired `fii_2026_bright` and `fii_2026_dark` workspaces to `packs/ppt-master/decks/_Archive/` with a retirement README; removed both from `decks_index.json` and added the three language IDs. Updated the pack README, deck import guide, compatibility checklist and root README.
+- Validation: `svg_quality_checker.py --template-mode --canonical-authoring --format ppt169` reports 4/4 fully passed for each of the three workspaces; each deck was registered into the local `templates/local/decks/decks_index.json`. No review PPTX was generated (single Master, not requested).
+- Version stays `2.3.2`.
+
 ## 2.3.2-docs-3 — Token Monitor pin moved to v0.94.0
 
 - Moved the `token-monitor` pin from `v0.61.0` to **`v0.94.0`** (upstream release 2026-11-19). Updated `manifest/packs.json`, the README pin table and note, `packs/token-monitor/README.md` (release, download commands, update-policy example) and `packs/token-monitor/compatibility.md` (upstream contract).

@@ -20,6 +20,7 @@
 - 驗證證據（Windows 桌面主機、OpenCode 2.3.2）：archify `doctor` 25 項全 `[ok]`、`demo` 產出 825,776-byte HTML、`check` `ok: true`（composition 0 errors／0 warnings）、`timeline` 與 `explainer` `validate` 通過；ppt-master `project_manager.py init smoke --format ppt169` 於工作資料夾建立 `projects/smoke_ppt169_<date>`、`scaffold-spec`／`scaffold-lock` 成功、`validate` 正確擋下未填的 `[fill]`、`svg_to_pptx.py` 與 `source_to_md.py` 正常載入（Python 3.14.6、`python-pptx 1.0.2`）。
 - 本機 `.agents/.skill-lock.json` 的 `archify`、`archify-review` 已刷新為 `v3.2.0` 的 GitHub tree SHA（`39069dd1…`、`23ddf7ab…`）；`lean-code-review` 既有的 tree SHA（`a5b042b5…`）與來源 `main` 一致，未變動。
 - `2.3.2-docs-3`：`token-monitor` pin 由 `v0.61.0` 更新為 **`v0.94.0`**（上游 2026-11-19 發布）。README、`packs/token-monitor` README／compatibility 與 manifest 同步；compatibility 標註 `v0.94.0` 已由維護者於 2026-11-20 手動驗證（maintainer-reported，未留存雜湊／截圖），既有 `v0.60.0`／`v0.61.0` 詳細證據保留。
+- `2.3.2-docs-4`：FII 2026 Deck 版模改為三語系（`fii_2026_zh_tw`／`fii_2026_zh_cn`／`fii_2026_en`），以官方新版 template 重繪為 4 原型（cover／toc／content／ending），主色 `#173367`；舊 `fii_2026_bright`／`fii_2026_dark` 移至 `packs/ppt-master/decks/_Archive/` 並退出 `decks_index.json`。三份 workspace 均通過 `svg_quality_checker.py --template-mode --canonical-authoring`（4/4）。
 - `2.3.2-docs`：外部 pin 再刷新——`@playwright/mcp@0.0.82` → **`0.0.86`**、`codebase-memory-mcp@0.11.0` → **`0.12.1`**；`pwsh7` 由 PowerShell 7.4.6 升到 **7.6.10 LTS**（先經 7.4.22；因 7.4 LTS 已於 2026-11-10 EOL，改採支援至 2028-11-14 的 7.6 LTS，未採用 STS 的 7.7.0），本機驗證 `PowerShell 7.6.10` / `utf-8`。`codebase-memory-mcp` 0.12.1 在 Windows 的 `initialize` 冷啟動實測約 8.2 秒，超過 OpenCode 預設 5000 ms MCP timeout（程序以 255 結束、UI 顯示失敗），已在設定加 `"timeout": 30000` 並於 `packs/codebase-memory-mcp/` 記錄；binary 改以上游 `install.ps1` 安裝到 `%LOCALAPPDATA%\Programs\codebase-memory-mcp`（單純覆蓋檔案會留下不一致的 activation state）。版號仍為 `2.3.2`（OpenCode 版本未變，僅外部 pin 與自託管資產更新）。
 
 ## 專案定位
@@ -35,7 +36,7 @@
   `swqa-automation`、`test-failure-triage`、`forgejo-integration`、`github-integration`、`file-toolkit`、`browser-automation`、`lean-code-review`、`local-llm-dispatch-policy`
 - `commands/` — Custom Commands：`grill-me.md`（default）
 - `packs/` — Pack 文件與流程：
-  `ppt-master/decks`（FII 2026 版模）、`pwsh7`、`linux-flatpak-deploy`（Ubuntu flatpak/AppImage 部署 runbook，含 AppImageLauncher／Wayland 補充）、`archify`、`playwright-mcp`、`codebase-memory-mcp`、`token-monitor`
+  `ppt-master/decks`（FII 2026 三語系版模：`fii_2026_zh_tw`／`zh_cn`／`en`；舊版在 `_Archive/`）、`pwsh7`、`linux-flatpak-deploy`（Ubuntu flatpak/AppImage 部署 runbook，含 AppImageLauncher／Wayland 補充）、`archify`、`playwright-mcp`、`codebase-memory-mcp`、`token-monitor`
 - `docs/PACK-GUIDE.md` — Skill / Command 撰寫最低要求（新增 Pack 時需遵守）
 - `UPSTREAM.md` — 上游來源與刪減原則（lazy-packs、andrej-karpathy-skills、ponytail、mattpocock/skills、obra/superpowers）
 

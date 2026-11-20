@@ -271,14 +271,17 @@ Review current diff for unnecessary complexity
 
 ### FII 2026 ppt-master 版模
 
-`ppt-master` Pack 隨附團隊自有的 FII 2026 Deck 版模，安裝 PPT Master Skill 後可直接導入：
+`ppt-master` Pack 隨附團隊自有的 FII 2026 Deck 版模（三語系），安裝 PPT Master Skill 後可直接導入：
 
-| Deck | 主題 | 用途 |
+| Deck | 語言 | 用途 |
 |---|---|---|
-| `fii_2026_bright` | FII 2026 亮色版 | 企業內部報告、客戶簡報、專案提案、年度總結 |
-| `fii_2026_dark` | FII 2026 暗色版 | 企業內部報告、客戶提案、專案匯報、教學說明 |
+| `fii_2026_zh_tw` | 繁體中文 | 企業內部報告、客戶簡報、專案提案、年度總結 |
+| `fii_2026_zh_cn` | 简体中文 | 企业内部报告、客户提案、项目汇报、年度总结 |
+| `fii_2026_en` | English | Internal reports, client proposals, project updates, annual summaries |
 
-導入指令與索引合併說明見 [packs/ppt-master/decks/](packs/ppt-master/decks/README.md)。
+三個版本共用同一套視覺與四頁原型（封面、目錄、內容、結尾），主色 `#173367`。舊版
+`fii_2026_bright` 與 `fii_2026_dark` 已退役，移至 [`packs/ppt-master/decks/_Archive/`](packs/ppt-master/decks/_Archive/)
+且不再註冊。導入指令與索引合併說明見 [packs/ppt-master/decks/](packs/ppt-master/decks/README.md)。
 
 ## Manifest 與版本
 

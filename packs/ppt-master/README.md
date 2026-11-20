@@ -16,11 +16,15 @@ This repository does not fork or vendor PPT Master. Install the Skill and its de
 
 ## FII 2026 Deck Templates
 
-This Pack bundles team-owned FII 2026 deck templates (`fii_2026_bright` and
-`fii_2026_dark`) under [decks/](decks/). After installing the PPT Master Skill,
-copy these decks into the installed Skill's `templates/decks/` directory so every
-team member uses the same brand templates. See [decks/README.md](decks/README.md)
-for the copy commands and index merge notes.
+This Pack bundles three team-owned FII 2026 deck templates — `fii_2026_zh_tw`,
+`fii_2026_zh_cn`, and `fii_2026_en` — under [decks/](decks/). They share one visual
+system (1280×720, primary `#173367`) and differ only in language and font stack.
+After installing the PPT Master Skill, copy the decks you need into the installed
+Skill's `templates/decks/` or `templates/local/decks/` directory so every team
+member uses the same brand templates. See [decks/README.md](decks/README.md) for
+the copy commands and index merge notes. The retired `fii_2026_bright` and
+`fii_2026_dark` workspaces are kept under `decks/_Archive/` and are no longer
+registered.
 
 ## Installation
 

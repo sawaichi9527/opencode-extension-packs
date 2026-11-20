@@ -1,14 +1,20 @@
 {
-  "fii_2026_bright": {
-    "summary": "FII 品牌簡報模板，適用於企業內部報告、客戶簡報與專案提案",
+  "fii_2026_zh_tw": {
+    "summary": "FII 品牌簡報版模，適用企業內部報告、客戶提案與專案匯報；白底、深藍字與 AI 科技插畫構成正式一致的視覺。",
     "canvas_format": "ppt169",
-    "page_count": 5,
-    "primary_color": "#002F75"
+    "page_count": 4,
+    "primary_color": "#173367"
   },
-  "fii_2026_dark": {
-    "summary": "FII 品牌暗色簡報模板，適用於企業內部報告、客戶提案、專案匯報與教學說明",
+  "fii_2026_zh_cn": {
+    "summary": "FII 品牌演示模板，适用于企业内部报告、客户提案与项目汇报；白底、深蓝字与 AI 科技插画构成正式统一的视觉。",
     "canvas_format": "ppt169",
-    "page_count": 5,
-    "primary_color": "#002F75"
+    "page_count": 4,
+    "primary_color": "#173367"
+  },
+  "fii_2026_en": {
+    "summary": "FII branded presentation template for internal reports, client proposals, and project updates; formal visuals with white ground, navy type, and AI technology illustration.",
+    "canvas_format": "ppt169",
+    "page_count": 4,
+    "primary_color": "#173367"
   }
 }

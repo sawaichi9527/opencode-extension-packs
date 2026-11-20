@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+  width="1280" height="720" viewBox="0 0 1280 720"
+  font-family='"Microsoft YaHei", "Noto Sans SC", Arial, sans-serif'
+  data-pptx-master="fii_2026_master" data-pptx-master-name="FII 2026"
+  data-pptx-layout="content" data-pptx-layout-name="Title and Content">
+  <image id="layout-content-background" x="0" y="0" width="1280" height="720"
+    href="../images/image3.png" preserveAspectRatio="none"
+    data-pptx-layer="layout" data-pptx-editable="false"/>
+  <text id="master-footer" x="51.93" y="705.59" fill="#173367" font-size="12"
+    data-pptx-layer="layout" data-pptx-editable="false">© 2026 FII. Confidential. All rights reserved.</text>
+  <image id="layout-content-logo" x="1040.87" y="37.73" width="185.93" height="30.87"
+    href="../images/image2.png" preserveAspectRatio="none"
+    data-pptx-layer="layout" data-pptx-editable="false"/>
+  <g id="content-title-slot" data-pptx-placeholder="title"
+    data-pptx-bounds="42.33 43.87 1151.62 74.08">
+    <text id="content-title-carrier" data-pptx-carrier="true"
+      x="51.78" y="89.18" fill="#173367" font-size="24">{{PAGE_TITLE}}</text>
+  </g>
+  <g id="content-body-slot" data-pptx-placeholder="body" data-pptx-idx="1"
+    data-pptx-bounds="42.33 140 1195 520">
+    <text id="content-body-carrier" data-pptx-carrier="true"
+      x="51.93" y="175" fill="#000000" font-size="18">{{CONTENT_AREA}}</text>
+  </g>
+  <g id="content-page-number-slot" data-pptx-placeholder="slide-number" data-pptx-idx="2"
+    data-pptx-bounds="1176.4 685.1 75 30.73">
+    <text id="content-page-number-carrier" data-pptx-carrier="true"
+      x="1245" y="703.23" text-anchor="end" fill="#173367" font-size="13.33">{{PAGE_NUM}}</text>
+  </g>
+</svg>
