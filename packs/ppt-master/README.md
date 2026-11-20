@@ -38,8 +38,9 @@ PowerPoint has no total-slides field. The FII decks keep `/N` on the
 - [tools/sync_page_totals.py](tools/sync_page_totals.py) — CLI sync for an SVG
   project or an existing `.pptx`; use it after export when running the upstream
   (unpatched) `svg_to_pptx.py`.
-- The installed `svg_to_pptx.py` used by this team carries the page-total
-  export patch, so generated decks already contain the real page count.
+- [patches/page-total-export.md](patches/page-total-export.md) — the team-local
+  export patch that makes `svg_to_pptx.py` write the real page count directly.
+  After a PPT Master update, reapply it or use the CLI sync helper.
 
 AI workflows that reference this Pack should run the sync helper after a
 post-edit export, or rely on the add-in for interactive PowerPoint edits.
