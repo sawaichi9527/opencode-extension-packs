@@ -43,12 +43,14 @@ route was exercised; the detailed evidence lives in [compatibility.md](compatibi
 | Windows 10 IoT Enterprise LTSC 2021 (build `19044` / 21H2), x64, no WSL | `v0.60.0` | Portable, NSIS installer, and headless agent, all end to end |
 | Ubuntu 26.04.1 LTS (x86_64), GNOME Wayland, glibc 2.43 | `v0.61.0` | AppImage integrated with AppImageLauncher — on **two machines**, one of which also serves as an LM Studio inference backend |
 | Ubuntu desktop (x86_64), X11, glibc | `v0.60.0`, `v0.61.0` | AppImage, both directly through FUSE and via `--appimage-extract` |
+| Windows 10 IoT Enterprise LTSC 2021 (build `19044` / 21H2), x64 | `v0.94.0` (maintainer-reported, 2026-11-20) | Manually verified by the maintainer after the pin update; no evidence captured |
 
 Windows 11 and macOS are supported upstream but have **not** been verified by the team, and no ARM64
 Windows build has been verified. Treat an unlisted route as unverified.
 
-> `v0.94.0` (2026-11-19) is the current pin. The team has **not** re-run verification on it yet;
-> the verified versions above remain the evidence baseline.
+> `v0.94.0` (2026-11-19) is the current pin and was **manually verified by the maintainer** on
+> 2026-11-20 (maintainer-reported; no artifact hashes or screenshots captured). The rows above
+> remain the detailed evidence baseline for earlier versions.
 
 ## Tool-specific prerequisites
 

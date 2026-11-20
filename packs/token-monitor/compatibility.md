@@ -19,13 +19,15 @@
 | Windows 10 IoT Enterprise LTSC 2021 (19044 / 21H2), x64, **no WSL installed** | **Verified** on `v0.60.0` (2026-09-23) | Portable, NSIS installer, and headless agent all exercised end to end; evidence below. The installed app then updated itself in place to `v0.61.0`, but no Windows-side evidence was re-collected for that version |
 | Ubuntu 26.04.1 LTS (Resolute Raccoon), x86_64, GNOME **Wayland**, glibc 2.43 | **Verified** on `v0.61.0` (2026-09-23) | Installed via **AppImageLauncher 3.0.0-beta-2** + `libfuse2t64` (real AppImage through FUSE); native Wayland; in-app updater active; evidence below. Confirmed on **two machines**, one of which also runs **LM Studio** as its inference backend — see [LM Studio logging](README.md#lm-studio-needs-its-own-server-logging) |
 | Ubuntu desktop (x86_64, X11, glibc) | **Verified** on `v0.60.0` and `v0.61.0` (2026-09-23) | AppImage launched (direct via FUSE and via `--appimage-extract`); widget window rendered, OpenCode usage non-zero, WSL correctly reported as absent; evidence below |
+| Windows 10 IoT Enterprise LTSC 2021 (19044 / 21H2), x64 | **Verified** on `v0.94.0` (maintainer-reported, 2026-11-20) | Manually verified by the maintainer on the Windows host after the pin update; no artifact hashes, screenshots, or route detail captured |
 | Windows 11 | Not verified by the team | Supported upstream, same installer and prerequisites |
 | macOS | Not verified by the team | Supported upstream; out of scope for this pack |
 
 Treat the pack as validated only on rows marked Verified.
 
-> `v0.94.0` was pinned on 2026-11-20; **no re-verification has been performed** for that release
-> yet. The rows above and the evidence below describe earlier versions (`v0.60.0` / `v0.61.0`).
+> `v0.94.0` was pinned on 2026-11-20 and **manually verified by the maintainer** on the Windows
+> host. That verification is maintainer-reported: no artifact hashes, screenshots, or route detail
+> were captured, so the detailed evidence below still describes `v0.60.0` / `v0.61.0`.
 
 ## Verified Environment
 
