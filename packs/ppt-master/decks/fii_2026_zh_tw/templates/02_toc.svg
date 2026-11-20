@@ -13,8 +13,7 @@
     href="../images/image2.png" preserveAspectRatio="none"
     data-pptx-layer="layout" data-pptx-editable="false"/>
   <line id="layout-toc-rule" x1="167.62" y1="221.26" x2="167.62" y2="458.59"
-    stroke="#173367" stroke-width="1.33"
-    data-pptx-layer="layout" data-pptx-editable="false"/>
+    stroke="#173367" stroke-width="1.33" data-pptx-role="decoration"/>
   <g id="toc-title-slot" data-pptx-placeholder="title"
     data-pptx-bounds="42.33 68.6 300 80.78">
     <text id="toc-title-carrier" data-pptx-carrier="true"

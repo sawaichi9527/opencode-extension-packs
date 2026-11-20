@@ -55,6 +55,8 @@ placeholders:
 
 以 Windows 内建微软雅黑为主，Noto Sans SC 为跨平台回退；不依赖额外字体安装。
 
+字級基準：封面 72 px、目錄 58.67 px、頁標題 32 px、正文 18 px、頁碼 13.33 px、結尾 58.67 px。頁碼採 `{{PAGE_NUM}}/N`，`N` 由作者改為該簡報總頁數。
+
 ## IV. Signature Design Elements
 
 - 封面与结尾使用满版 AI 科技插画（灯塔、云、机器人与数据中心），插画集中于画面右侧或中央，左侧保留标题区。

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.3.2-docs-5 — FII deck fixes from review feedback
+
+- **TOC rule is now editable.** In all three FII decks the vertical rule under the agenda items changed from a Layout atom to a Slide-local decoration (`data-pptx-role="decoration"`), so it exports as a selectable Freeform shape instead of being baked into the background/layout.
+- **Content type scale corrected.** The content prototype's page title moved from 24 px to **32 px**, keeping body at 18 px; the Design Spec now records the deck scale (cover 72, agenda 58.67, content title 32, body 18, page number 13.33, ending 58.67 px). Exported content titles are 24 pt, not the previous 18 pt.
+- **Page numbering matches the template guidance.** The page-number carrier uses `{{PAGE_NUM}}/N`; generated decks write `3/4` (current/total) instead of a bare number.
+- **English ending matches the source template.** The EN ending prototype uses the source frame (`57.97 310.37 689.6 67.86`) and 48 px type without letter-spacing, so the closing line is `Share · Collaborate · Thrive` rather than `Thank you`.
+- Regenerated all three demo decks; each passes the lockless final checker 4/4 and exports with `status=passed`, `warning_categories=0`.
+
 ## 2.3.2-docs-4 — FII 2026 deck templates rebuilt as three language variants
 
 - Rebuilt the team FII deck templates from the official `FII_PPT_Template_繁體中文.pptx`, `FII_PPT_Template_简体中文.pptx`, and `FII_PPT_Template_English.pptx` sources (each: 5 slides, 1 Master, 4 Layouts, 1280×720).

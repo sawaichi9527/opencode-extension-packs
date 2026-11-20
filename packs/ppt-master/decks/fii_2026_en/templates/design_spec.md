@@ -55,6 +55,8 @@ placeholders:
 
 Uses Arial, which ships with Windows and macOS; no extra font installation is required.
 
+字級基準：封面 72 px、目錄 58.67 px、頁標題 32 px、正文 18 px、頁碼 13.33 px、結尾 48 px。頁碼採 `{{PAGE_NUM}}/N`，`N` 由作者改為該簡報總頁數。
+
 ## IV. Signature Design Elements
 
 - Cover and closing use a full-bleed AI technology illustration (lighthouse, cloud, robot, data center) anchored right or center, leaving the left side for the title.

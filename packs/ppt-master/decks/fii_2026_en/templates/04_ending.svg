@@ -13,8 +13,8 @@
     href="../images/image2.png" preserveAspectRatio="none"
     data-pptx-layer="layout" data-pptx-editable="false"/>
   <g id="ending-title-slot" data-pptx-placeholder="title"
-    data-pptx-bounds="139.7 301.24 700 80.78">
+    data-pptx-bounds="57.97 310.37 689.6 67.86">
     <text id="ending-title-carrier" data-pptx-carrier="true"
-      x="149.3" y="362.04" fill="#173367" letter-spacing="10.67" font-size="58.67">{{CLOSING_MESSAGE}}</text>
+      x="67.57" y="361.84" fill="#173367" font-size="48">{{CLOSING_MESSAGE}}</text>
   </g>
 </svg>
